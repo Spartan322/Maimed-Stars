@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Source/Script/UI/Game/Segement/MusicPanel.cs" type="Script" id=1]
+
+[node name="MusicPanel" type="PanelContainer"]
+margin_right = 74.0
+margin_bottom = 34.0
+size_flags_horizontal = 9
+size_flags_vertical = 9
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MusicArrowHBox" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 67.0
+margin_bottom = 27.0
+
+[node name="MusicHContainer" type="HBoxContainer" parent="MusicArrowHBox"]
+visible = false
+margin_right = 60.0
+margin_bottom = 20.0
+mouse_filter = 2
+
+[node name="MusicReplayButton" type="Button" parent="MusicArrowHBox/MusicHContainer"]
+margin_right = 12.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="MusicToggleButton" type="Button" parent="MusicArrowHBox/MusicHContainer"]
+margin_left = 16.0
+margin_right = 28.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="MusicSkipButton" type="Button" parent="MusicArrowHBox/MusicHContainer"]
+margin_left = 32.0
+margin_right = 44.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="MusicMenuButton" type="Button" parent="MusicArrowHBox/MusicHContainer"]
+margin_left = 48.0
+margin_right = 60.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="ArrowButton" type="Button" parent="MusicArrowHBox"]
+margin_right = 20.0
+margin_bottom = 20.0
+focus_mode = 0
+toggle_mode = true
+pressed = true
+enabled_focus_mode = 0
+text = "<"
+flat = true
+[connection signal="toggled" from="MusicArrowHBox/ArrowButton" to="." method="OnArrowButtonToggled"]

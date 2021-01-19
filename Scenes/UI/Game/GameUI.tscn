@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Source/Script/UI/Game/InterfaceCore.cs" type="Script" id=1]
+[ext_resource path="res://Source/Script/UI/Game/ControlGroupButtonList.cs" type="Script" id=2]
+[ext_resource path="res://Scenes/UI/Game/Menu/ShipTemplateMenu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/UI/Game/Segments/InfoBar-T.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/UI/Game/Segments/GameMenuSegment-TL.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/UI/Game/Segments/MusicBar-TR.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/UI/Game/Segments/MenuSegment-BR.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/UI/Game/Menu/SelectionMenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/UI/Game/Segments/Outliner.tscn" type="PackedScene" id=9]
+
+[node name="GameUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomVContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopVContainer" type="VBoxContainer" parent="BottomVContainer"]
+margin_right = 1024.0
+margin_bottom = 562.0
+mouse_filter = 2
+size_flags_vertical = 3
+custom_constants/separation = -2
+
+[node name="InfoBar" parent="BottomVContainer/TopVContainer" instance=ExtResource( 4 )]
+
+[node name="LeftHContainer" type="HBoxContainer" parent="BottomVContainer/TopVContainer"]
+margin_top = 32.0
+margin_right = 1024.0
+margin_bottom = 162.0
+mouse_filter = 2
+
+[node name="GameMenu" parent="BottomVContainer/TopVContainer/LeftHContainer" instance=ExtResource( 5 )]
+
+[node name="MusicBar" parent="BottomVContainer/TopVContainer/LeftHContainer" instance=ExtResource( 6 )]
+margin_left = 990.0
+margin_right = 1024.0
+size_flags_horizontal = 10
+size_flags_vertical = 0
+
+[node name="Outliner" parent="BottomVContainer/TopVContainer" instance=ExtResource( 9 )]
+margin_left = 1004.0
+margin_top = 160.0
+margin_right = 1024.0
+margin_bottom = 562.0
+Toggle = false
+
+[node name="BottomHContainer" type="HBoxContainer" parent="BottomVContainer"]
+margin_top = 566.0
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+
+[node name="BottomLeftMargin" type="MarginContainer" parent="BottomVContainer/BottomHContainer"]
+margin_right = 945.0
+margin_bottom = 34.0
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_constants/margin_top = 7
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 7
+
+[node name="ControlGroupButtonList" type="HBoxContainer" parent="BottomVContainer/BottomHContainer/BottomLeftMargin"]
+margin_left = 5.0
+margin_top = 7.0
+margin_right = 945.0
+margin_bottom = 27.0
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuSegment" parent="BottomVContainer/BottomHContainer" instance=ExtResource( 7 )]
+
+[node name="GameMenuList" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectionMenu" parent="GameMenuList" instance=ExtResource( 8 )]
+visible = false
+margin_left = -320.0
+
+[node name="ShipTemplateMenu" parent="GameMenuList" instance=ExtResource( 3 )]
+visible = false
+margin_left = 172.0
+margin_top = 45.0
+margin_right = -172.0
+margin_bottom = -45.0
+ShipClassLabelPath = NodePath("../../../GameUI/GameMenuList/ShipTemplateMenu/VBoxContainer/ContentHBox/RightColumn/ShipClassLabel")
+SpecificationVBoxPath = NodePath("../../../GameUI/GameMenuList/ShipTemplateMenu/VBoxContainer/ContentHBox/RightColumn/SpecPanel/VBoxContainer/ScrollContainer/SpecList")
+ShipClassEditPath = NodePath("../../../GameUI/GameMenuList/ShipTemplateMenu/VBoxContainer/ContentHBox/RightColumn/MarginContainer/DesignSettingVBox/PanelContainer/VBoxContainer/NameEdit")
+ClassListVBoxPath = NodePath("../../../GameUI/GameMenuList/ShipTemplateMenu/VBoxContainer/ContentHBox/LeftColumn/ClassListScroll/ClassList")
+TopWindowDecorationPath = NodePath("../../../GameUI/GameMenuList/ShipTemplateMenu/VBoxContainer/TopWindowDecoration")

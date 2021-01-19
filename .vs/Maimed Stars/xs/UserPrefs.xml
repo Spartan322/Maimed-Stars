@@ -1,0 +1,47 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Script/Ship.cs">
+    <Files>
+      <File FileName="Source/Script/Ship.cs" Line="79" Column="51" />
+      <File FileName="Source/Unit/ShipInstance.cs" Line="175" Column="6" />
+      <File FileName="Source/Unit/GroupInstance.cs" Line="103" Column="85" />
+      <File FileName="Source/Script/SelectableGroup.cs" Line="44" Column="30" />
+      <File FileName="Source/Script/SelectionMenu.cs" Line="210" Column="7" />
+      <File FileName="Source/Global/SelectionHandler.cs" Line="8" Column="1" />
+      <File FileName="Source/Unit/UnitInstanceImpl.cs" Line="54" Column="42" />
+      <File FileName="Source/Utility/Utils.cs" Line="25" Column="1" />
+      <File FileName="Source/Unit/Property.cs" Line="40" Column="20" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Maimed Stars" expanded="True">
+            <Node name="Maimed Stars" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Source" expanded="True">
+                <Node name="Global" expanded="True" />
+                <Node name="MCollections" expanded="True" />
+                <Node name="Script" expanded="True">
+                  <Node name="Resource" expanded="True" />
+                  <Node name="Ship.cs" selected="True" />
+                </Node>
+                <Node name="Unit" expanded="True">
+                  <Node name="Interface" expanded="True" />
+                </Node>
+                <Node name="Utility" expanded="True">
+                  <Node name="Attribute" expanded="True" />
+                  <Node name="Extension" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

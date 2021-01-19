@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bb4d3a5f-db58-402d-b524-37980f528bbc" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/SpartansLib/Source/Xml/Parser.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/66/OpCodes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/2B/GenericInstanceMethod.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/a6/feb7cb9e/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/37/MethodSpecification.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/85B2AFF0-A8DC-426A-9933-640E03BF917F/f5/5ee1ab97/0200010Cpdb.il" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/12/MethodReference.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/62/ILProcessor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/8a/49dab0f0/Logger.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/13/ModuleDefinition.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/22/CustomAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/11/MethodDefinition.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/3EA/MethodBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/1a/915bc167/Script.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/7C/InvalidCastException.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/65EAD0CE-844A-4BD9-91B1-72402E0C0E60/b8/8ed89745/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/85B2AFF0-A8DC-426A-9933-640E03BF917F/97/0556aa14/IMemberDefinition.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/e0/9ffe7a36/IList`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/D32DBEDA-FDF3-41FD-B6E6-8B825C2B3237/9/TypeDefinitionRocks.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/4d/e23dc639/CSharpScript.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/3F5/PropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/8d/df762854/Task.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/CC/Type.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/03/4bfbe2b0/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/28/dc43f22a/Label.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/3E3/FieldInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8BB8D73E-F63E-4977-9468-A25AC0907979/4e/94b29d43/LoggerVerbosity.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/36/7351cfe1/BindingFlags.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/128/RuntimeFieldHandle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/20/3bdb2598/TaskLoggingHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/50E/List.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <changedPaths>
+      <option value="$PROJECT_DIR$/Source/Utility/CallbackList.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/Camera.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/SingletonAttribute.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/ILHelper.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/InjectionTask.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/GodotInjector.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Class1.cs" />
+      <option value="$PROJECT_DIR$/Maimed_Stars.csproj" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/ParentNodeAttribute.cs" />
+      <option value="$PROJECT_DIR$/Source/Global/GlobalScript.cs" />
+      <option value="$PROJECT_DIR$/Source/InterfaceMarkup/MarkupReader.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/SL.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/SpartansLibAttribute.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/GlobalAttribute.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/Game.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/UI/Game/Segement/SpeedContainer.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Internal/VariableMemberInfo.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/UI/Base/BasePauseMenuPanel.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/UI/Settings/SettingsMenu.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/NodeAttribute.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/ConnectAttribute.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/UI/Game/PauseMenu.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/ILHelper.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/Control/Select/ISelectionList.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/Control/Group/IGroup.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/BaseUnitGroup.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/Control/Select/SelectionList.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/BaseUnit.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/UI/Game/SelectionMenu.cs" />
+      <option value="$PROJECT_DIR$/Source/Global/InputHandler.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/Agent/IScriptUnit.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/Agent/SelectableGroup.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/UI/Game/SelectionBox.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/IUnit.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitBaseModule.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitGroupModule.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Nation.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/GameNationController.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/GameWorld.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitMoveModule.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitAimModule.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitDebugModule.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/IUnitController.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitSelectModule.cs" />
+      <option value="$PROJECT_DIR$/Source/Script/Agent/Ship.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitNationModule.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/UnitManager.cs" />
+      <option value="$PROJECT_DIR$/Source/Game/GameNation.cs" />
+    </changedPaths>
+  </component>
+  <component name="ProjectId" id="1k7DroRbqRufF6p3tRq6Vu2yc4W" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bb4d3a5f-db58-402d-b524-37980f528bbc" name="Default Changelist" comment="" />
+      <created>1605042939415</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605042939415</updated>
+      <workItem from="1605042953396" duration="2870000" />
+      <workItem from="1605052852476" duration="10813000" />
+      <workItem from="1605204200667" duration="2906000" />
+      <workItem from="1605281521954" duration="13077000" />
+      <workItem from="1605396046679" duration="9512000" />
+      <workItem from="1605472319990" duration="10770000" />
+      <workItem from="1605551252567" duration="7282000" />
+      <workItem from="1605643513900" duration="8240000" />
+      <workItem from="1605731482416" duration="8401000" />
+      <workItem from="1605831685585" duration="10151000" />
+      <workItem from="1606001305716" duration="6587000" />
+      <workItem from="1606552230422" duration="2459000" />
+      <workItem from="1607316213487" duration="9162000" />
+      <workItem from="1607753077829" duration="5235000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

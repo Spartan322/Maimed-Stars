@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Source/Script/UI/Base/TopWindowDecoration.cs" type="Script" id=1]
+
+[node name="TopWindowDecoration" type="HBoxContainer"]
+margin_right = 1022.0
+margin_bottom = 20.0
+size_flags_vertical = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+WindowName = "Temp"
+CanExit = true
+
+[node name="Control" type="Control" parent="."]
+margin_right = 5.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 5, 0 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 9.0
+margin_top = 3.0
+margin_right = 45.0
+margin_bottom = 17.0
+text = "Temp"
+
+[node name="ButtonList" type="HBoxContainer" parent="."]
+margin_left = 1002.0
+margin_right = 1022.0
+margin_bottom = 20.0
+size_flags_horizontal = 10
+
+[node name="MinimizeButton" type="Button" parent="ButtonList"]
+visible = false
+margin_right = 17.0
+margin_bottom = 20.0
+text = "-"
+
+[node name="MaximizeButton" type="Button" parent="ButtonList"]
+visible = false
+margin_right = 20.0
+margin_bottom = 20.0
+text = "+"
+
+[node name="ExitButton" type="Button" parent="ButtonList"]
+margin_right = 20.0
+margin_bottom = 20.0
+grow_horizontal = 0
+focus_mode = 0
+size_flags_horizontal = 10
+enabled_focus_mode = 0
+text = "X"

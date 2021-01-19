@@ -1,0 +1,37 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="SpartansLib/Source/Common/ChildExtensions.cs">
+    <Files>
+      <File FileName="SpartansLib/Source/Common/ChildExtensions.cs" Line="50" Column="32" />
+      <File FileName="SpartansLib/Source/Common/AncestorExtensions.cs" Line="23" Column="31" />
+      <File FileName="SpartansLib/Source/Common/Extensions.cs" Line="3" Column="1" />
+      <File FileName="SpartansLib/Source/Attributes/NodeAttribute.cs" Line="80" Column="7" />
+      <File FileName="SpartansLib/Source/Attributes/SingletonAttribute.cs" Line="17" Column="31" />
+      <File FileName="SpartansLib/Source/Attributes/ServiceAttribute.cs" Line="4" Column="54" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Maimed_Stars" expanded="True">
+            <Node name="SpartansLib" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Attributes" expanded="True" />
+              <Node name="Common" expanded="True">
+                <Node name="ChildExtensions.cs" selected="True" />
+              </Node>
+              <Node name="Extensions" expanded="True">
+                <Node name="Linq" expanded="True" />
+              </Node>
+              <Node name="Internal" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

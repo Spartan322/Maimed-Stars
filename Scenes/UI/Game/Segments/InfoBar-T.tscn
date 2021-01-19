@@ -1,0 +1,139 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Source/Script/UI/Game/Segement/TopBar.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/UI/Game/Segments/SpeedContainer.tscn" type="PackedScene" id=2]
+
+[node name="TopBarBackground" type="PanelContainer"]
+margin_right = 1024.0
+margin_bottom = 34.0
+size_flags_vertical = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopBarHContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 27.0
+mouse_filter = 2
+custom_constants/separation = 7
+
+[node name="TopBarLeftHContainer" type="HBoxContainer" parent="TopBarHContainer"]
+margin_right = 875.0
+margin_bottom = 20.0
+mouse_filter = 2
+size_flags_horizontal = 3
+custom_constants/separation = 0
+
+[node name="LeftButtonList" type="HBoxContainer" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_right = 92.0
+margin_bottom = 20.0
+mouse_filter = 2
+custom_constants/separation = 4
+
+[node name="Button" type="Button" parent="TopBarHContainer/TopBarLeftHContainer/LeftButtonList"]
+margin_right = 12.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Button2" type="Button" parent="TopBarHContainer/TopBarLeftHContainer/LeftButtonList"]
+margin_left = 16.0
+margin_right = 28.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Button3" type="Button" parent="TopBarHContainer/TopBarLeftHContainer/LeftButtonList"]
+margin_left = 32.0
+margin_right = 44.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Button4" type="Button" parent="TopBarHContainer/TopBarLeftHContainer/LeftButtonList"]
+margin_left = 48.0
+margin_right = 60.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Button5" type="Button" parent="TopBarHContainer/TopBarLeftHContainer/LeftButtonList"]
+margin_left = 64.0
+margin_right = 76.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Button6" type="Button" parent="TopBarHContainer/TopBarLeftHContainer/LeftButtonList"]
+margin_left = 80.0
+margin_right = 92.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Control" type="Control" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 92.0
+margin_right = 96.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 4, 0 )
+
+[node name="Color1" type="ColorRect" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 96.0
+margin_right = 97.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 1, 0 )
+
+[node name="Label" type="Button" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 97.0
+margin_right = 145.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Temp"
+flat = true
+
+[node name="Color2" type="ColorRect" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 145.0
+margin_right = 146.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 1, 0 )
+
+[node name="Label2" type="Button" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 146.0
+margin_right = 194.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Temp"
+flat = true
+
+[node name="Color3" type="ColorRect" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 194.0
+margin_right = 195.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 1, 0 )
+
+[node name="Label3" type="Button" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 195.0
+margin_right = 243.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Temp"
+flat = true
+
+[node name="Color4" type="ColorRect" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 243.0
+margin_right = 244.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 1, 0 )
+
+[node name="Label4" type="Button" parent="TopBarHContainer/TopBarLeftHContainer"]
+margin_left = 244.0
+margin_right = 292.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Temp"
+flat = true
+
+[node name="SpeedContainer" parent="TopBarHContainer" instance=ExtResource( 2 )]
+margin_left = 882.0
+margin_right = 1010.0
