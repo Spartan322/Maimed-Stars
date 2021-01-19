@@ -1,0 +1,3 @@
+[submodule "SpartansLib"]
+	path = SpartansLib
+	url = https://github.com/Spartan322/SpartansLib
