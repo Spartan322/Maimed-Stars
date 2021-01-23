@@ -1,6 +1,5 @@
 ﻿using Godot;
 using MSG.Game.Unit;
-using MSG.Game.Unit.Control.Select;
 using MSG.Global.Attribute;
 using MSG.Script.Agent;
 using MSG.Script.UI.Game;
@@ -90,10 +89,13 @@ namespace MSG.Global
             var addControlPressed = AddControlKeyPressed;
 
             if (e.SelectAllShipsKeyIsJustPressed())
-                SelectionHandler.SelectMultiple(UnitShipAgent.AllShipUnits, !addControlPressed);
+            {
+                // TODO: replace SelectionHandler with SelectionMenu's UnitSelectList
+                //SelectionHandler.SelectMultiple(UnitShipAgent.AllShipUnits, !addControlPressed);
+            }
 
             if (e.RightMouseIsPressed() || !addControlPressed && RightMousePressed)
-                _selectionMenu.SelectionList.Move(MouseWatcher.MouseOriginGlobal, addControlPressed);
+                _selectionMenu.SelectionList.QueueMoveForSelection(MouseWatcher.MouseOriginGlobal, addControlPressed);
             //SelectionHandler.MoveSelectionTo(MouseWatcher.MouseOriginGlobal, addControlPressed);
 
             if (!e.LeftMouseIsJustReleased()) return;
@@ -102,7 +104,7 @@ namespace MSG.Global
             if (SelectionHandled) return;
             var ship = Ship.MouseOverShip;
             if (ship != null)
-                _selectionMenu.Add(ship.Unit);
+                _selectionMenu.Add(ship);
             // ship.Select(!addControlPressed);
             else if (!addControlPressed) _selectionMenu.Clear();
         }
@@ -146,8 +148,8 @@ namespace MSG.Global
                 {
                     var selectionMenu = NodeRegistry.Get<SelectionMenu>();
                     GameData.SetControlGroup(controlGroupNum,
-                        (ISelectionList) selectionMenu.SelectedGroup
-                        ?? selectionMenu.SelectionList);
+                        /* (ISelectionList) selectionMenu.SelectedGroup
+                        ??  */selectionMenu.SelectionList);
                     StopTimer();
                 }
                 else if (!pressed)
@@ -195,7 +197,7 @@ namespace MSG.Global
             switch (speed)
             {
                 case GameSpeedInteraction.Up:
-                    domain.PlusActionSpeed();
+                    domain.AddActionSpeed();
                     break;
                 case GameSpeedInteraction.Down:
                     domain.SubActionSpeed();

@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using MSG.Game.Unit;
+using MSG.Script.Agent;
 
 namespace MSG.Game
 {
-    public class UnitManager : IReadOnlyList<UnitNationModule>
+    public class UnitManager : IReadOnlyList<GameUnit>
     {
-        private readonly List<UnitNationModule> _units = new List<UnitNationModule>();
+        private readonly List<GameUnit> _units = new List<GameUnit>();
 
         public readonly GameNation Nation;
 
@@ -15,26 +16,30 @@ namespace MSG.Game
             Nation = gameNation;
         }
 
-        public void RegisterUnit(IUnitController unitController)
+        public void RegisterUnit(GameUnit unit)
         {
-            var module = unitController.GetModule<UnitNationModule>(ModuleIndex.Nation);
-            module.Manager._DeregisterUnit(unitController, this);
-            _units.Add(module);
+            unit.Manager._DeregisterUnit(unit, this);
+            _units.Add(unit);
         }
 
-        public void DeregisterUnit(IUnitController unitController) => _DeregisterUnit(unitController, null);
-
-        private void _DeregisterUnit(IUnitController unitController, UnitManager nextManager)
+        public void DeregisterUnit(GameUnit unit)
         {
-            var module = unitController.GetModule<UnitNationModule>(ModuleIndex.Nation);
-            module.OnPreRegister(nextManager);
-            _units.Remove(module);
-            module.Manager = nextManager;
+            if(unit.Group != null)
+            {
+                // TODO: remove from group
+            }
+            _DeregisterUnit(unit, null);
         }
 
-        public IEnumerator<UnitNationModule> GetEnumerator() => _units.GetEnumerator();
+        private void _DeregisterUnit(GameUnit unit, UnitManager nextManager)
+        {
+            _units.Remove(unit);
+            unit.Manager = nextManager;
+        }
+
+        public IEnumerator<GameUnit> GetEnumerator() => _units.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         public int Count => _units.Count;
-        public UnitNationModule this[int index] => _units[index];
+        public GameUnit this[int index] => _units[index];
     }
 }

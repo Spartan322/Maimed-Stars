@@ -1,68 +1,84 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
+using MSG.Game.Unit;
 
 namespace MSG.Game.Unit
 {
-    public sealed class UnitSelectList : UnitSelectModule.InternalUnitSelectList
+    public sealed class UnitSelectList : Script.Agent.GameUnit.InternalUnitSelectList
     {
+        public UnitSelectList() : base() {}
+        public UnitSelectList(int capacity) : base(capacity) {}
     }
+}
 
-    public class UnitSelectModule : UnitBaseModule
+namespace MSG.Script.Agent
+{
+    public partial class GameUnit
     {
         private InternalUnitSelectList _selector;
         public UnitSelectList Selector => (UnitSelectList)_selector;
 
-        public UnitSelectModule(IUnitController unitController)
-            : base(unitController)
-        {
-        }
+        public virtual void SelectUpdate(InternalUnitSelectList nextSelector) {}
 
-        public void Select(InternalUnitSelectList nextSelector)
+        public virtual void Select(InternalUnitSelectList nextSelector)
         {
             if (!CanSelect(nextSelector)) return;
             nextSelector.Add(this);
         }
 
-        public void Deselect()
+        public virtual void Deselect()
         {
             _selector?.Remove(this);
         }
 
-        public bool CanSelect(InternalUnitSelectList nextSelector)
+        public virtual bool CanSelect(InternalUnitSelectList nextSelector)
         {
             return true;
         }
 
-        internal void OnPreSelect(IEnumerable nextSelector)
+        public class InternalUnitSelectList : IList<GameUnit>, IFormationHolder
         {
-            UnitController.OnSelectChange(nextSelector != null);
-        }
+            protected readonly IList<GameUnit> _listImplementation;
 
-        public class InternalUnitSelectList : IList<UnitSelectModule>
-        {
-            private readonly IList<UnitSelectModule> _listImplementation = new List<UnitSelectModule>();
-
-            protected InternalUnitSelectList() {}
-
-            public void QueueMoveForSelection(Vector2 target, bool queue, float speed = -1)
+            private FormationBase _formation;
+            public FormationBase Formation
             {
-                // TODO: generate formation
-                foreach (var moveModule in this
-                    .Select(unit => unit.UnitController.GetModule<UnitMoveModule>(ModuleIndex.Move)))
+                get => _formation;
+                set
                 {
-                    if (speed > 0) moveModule.MaximumSpeedLimit = speed;
-                    if (!queue) moveModule.ClearTargets();
-                    moveModule.AddTarget(target);
+                    _formation = value;
+                    _formation.Holder = this;
                 }
             }
 
-            public IEnumerator<UnitSelectModule> GetEnumerator() => _listImplementation.GetEnumerator();
+            protected internal InternalUnitSelectList()
+            {
+                _listImplementation = new List<GameUnit>();
+            }
+
+            protected internal InternalUnitSelectList(int capacity)
+            {
+                _listImplementation = new List<GameUnit>(capacity);
+            }
+
+            public void QueueMoveForSelection(Vector2 target, bool queue, float speed = -1)
+            {
+                // TODO: generate formation?
+                foreach (var unit in this)
+                {
+                    if (speed > 0) unit.MaximumSpeedLimit = speed;
+                    if (!queue) unit.ClearMovementTargets();
+                    unit.MoveTo(target);
+                }
+            }
+
+            public IEnumerator<GameUnit> GetEnumerator() => _listImplementation.GetEnumerator();
             IEnumerator IEnumerable.GetEnumerator() => _listImplementation.GetEnumerator();
 
-            public void Add(UnitSelectModule item)
+            public void Add(GameUnit item)
             {
                 if (!(item?.CanSelect(this) ?? false) || ReferenceEquals(item._selector, this)) return;
                 _RemoveOrPreselect(item, this);
@@ -74,39 +90,39 @@ namespace MSG.Game.Unit
             {
                 foreach (var item in this)
                 {
-                    item.OnPreSelect(null);
+                    item.SelectUpdate(null);
                     item._selector = null;
                 }
 
                 _listImplementation.Clear();
             }
 
-            public bool Contains(UnitSelectModule item) => _listImplementation.Contains(item);
+            public bool Contains(GameUnit item) => _listImplementation.Contains(item);
 
-            public void CopyTo(UnitSelectModule[] array, int arrayIndex) =>
+            public void CopyTo(GameUnit[] array, int arrayIndex) =>
                 _listImplementation.CopyTo(array, arrayIndex);
 
-            public bool Remove(UnitSelectModule item) => _Remove(item, null);
+            public bool Remove(GameUnit item) => _Remove(item, null);
 
-            private bool _Remove(UnitSelectModule item, IEnumerable nextSelector)
+            private bool _Remove(GameUnit item, InternalUnitSelectList nextSelector)
             {
                 if (item == null) return false;
-                item.OnPreSelect(nextSelector);
+                item.SelectUpdate(nextSelector);
                 item._selector = null;
                 return _listImplementation.Remove(item);
             }
 
-            private static void _RemoveOrPreselect(UnitSelectModule item, IEnumerable nextSelector)
+            private static void _RemoveOrPreselect(GameUnit item, InternalUnitSelectList nextSelector)
             {
-                if (item._selector == null) item.OnPreSelect(nextSelector);
+                if (item._selector == null) item.SelectUpdate(nextSelector);
                 else item._selector._Remove(item, nextSelector);
             }
 
             public int Count => _listImplementation.Count;
             public bool IsReadOnly => _listImplementation.IsReadOnly;
-            public int IndexOf(UnitSelectModule item) => _listImplementation.IndexOf(item);
+            public int IndexOf(GameUnit item) => _listImplementation.IndexOf(item);
 
-            public void Insert(int index, UnitSelectModule item)
+            public void Insert(int index, GameUnit item)
             {
                 if (!(item?.CanSelect(this) ?? false) || ReferenceEquals(item._selector, this)) return;
                 _RemoveOrPreselect(item, this);
@@ -118,12 +134,12 @@ namespace MSG.Game.Unit
             {
                 if (index < 0 || index > Count) throw new IndexOutOfRangeException();
                 var item = this[index];
-                item.OnPreSelect(null);
+                item.SelectUpdate(null);
                 item._selector = null;
                 _listImplementation.RemoveAt(index);
             }
 
-            public UnitSelectModule this[int index]
+            public GameUnit this[int index]
             {
                 get => _listImplementation[index];
                 set

@@ -14,31 +14,13 @@ using SpartansLib.Structure;
 
 namespace MSG.Script.Agent
 {
-	public class Ship :
-		Node2D,
+	public partial class Ship :
+		GameUnit,
 		IComparable<Ship>,
 		IComparableOverlap<Ship>,
-		IEquatable<Ship>,
-		IUnitController
+		IEquatable<Ship>
 	{
 		public static readonly PackedScene Scene = GD.Load<PackedScene>("res://Scenes/Ship.tscn");
-
-		private readonly UnitModuleStorage _moduleStorage;
-
-		public float Mass { get; }
-		public float MaximumMoveSpeed { get; }
-		public float MaximumAngularSpeed { get; }
-		public float MaximumAcceleration { get; }
-		
-		public Ship()
-		{
-			_moduleStorage = new UnitModuleStorage(this);
-		}
-
-		void IUnitController.OnSelectChange(bool isToBeSelected)
-			=> ((Polygon2D)Border).Color = isToBeSelected ? SelectionColor : UnselectedColor;
-
-		//public UnitShipAgent Instance { get; private set; }
 
 		public static Ship MouseOverShip { get; set; }
 
@@ -63,10 +45,7 @@ namespace MSG.Script.Agent
 				_nationId = value;
 				if (!Engine.EditorHint)
 				{
-					_moduleStorage.GetClass<GameNation>("Nation").UnitManager.RegisterUnit(this);
-					//Instance.State = universe.GetNation(_nationId);
-					//if (Instance.State == null)
-					//universe.Add(Instance);
+					Manager.RegisterUnit(this);
 				}
 			}
 		}
@@ -103,90 +82,25 @@ namespace MSG.Script.Agent
 
 		public override void _Ready()
 		{
-			foreach(var m in _moduleStorage) m.Ready();
+			_HandeDebugReady();
 			UnselectedColor = Border.GetColorFor();
-			//Instance = new UnitShipAgent(this);
-			//Instance.Create();
 		}
 
 		public override void _Process(float delta)
 		{
-			foreach(var m in _moduleStorage) m.Process(delta);
+			_HandleDebugProcess(delta);
 		}
 
 		public override void _PhysicsProcess(float delta)
 		{
-			foreach(var m in _moduleStorage) m.PhysicsProcess(delta);
-			/*if (Unit.CurrentMovementTarget == null)
-			{
-				if (Unit.CurrentRotationTarget == null) return;
-				var rotation = MoveFunc.RotateLerpChecked(Rotation,
-					Unit.CurrentRotationTarget.Value.AngleToPoint(Position),
-					ClassData.MaxAngularSpeed,
-					ClassData.AngularStartThreshold,
-					delta);
-				if (rotation != null)
-					Rotation = rotation.Value;
-
-				return;
-			}
-
-			var first = Unit.CurrentMovementTarget;
-			if (first != null)
-			{
-				var dist = Position.DistanceTo(first.Value);
-				if (Unit.HasSecondaryTarget && (dist < ClassData.BrakingRadius)
-					|| dist < ClassData.GoalThreshold)
-				{
-					Unit.PopMovementTarget();
-					Velocity = Vector2.Zero;
-					return;
-				}
-
-				var maxSpeed = Mathf.Min(Unit.MaxSpeed, ClassData.MaxSpeed);
-
-				(Velocity, Rotation) = MoveFunc.Arrive(
-					(Position, Rotation),
-					first.Value,
-					Velocity,
-					SpeedLimit,
-					maxSpeed,
-					ClassData.MaxAcceleration,
-					ClassData.Mass,
-					ClassData.BrakingRadius,
-					ClassData.MaxAngularSpeed,
-					delta
-				);
-			}*/
-
-			Position += _moduleStorage.GetStruct<Vector2>("Velocity") * delta;
-		}
-
-		public override void _EnterTree()
-		{
-			foreach(var m in _moduleStorage) m.EnterTree();
+			_HandleAimPhysicsProcess(delta);
+			_HandleMovementPhysicsProcess(delta);
+			Position += Velocity * delta;
 		}
 
 		public override void _ExitTree()
 		{
-			foreach(var m in _moduleStorage) m.ExitTree();
 			if (MouseOverShip == this) MouseOverShip = null;
-			//Instance.Destroy();
-		}
-
-		public override void _Draw()
-		{
-			foreach(var m in _moduleStorage) m.Draw();
-		}
-
-		public override void _Input(InputEvent @event)
-		{
-			foreach(var m in _moduleStorage) m.Input(@event);
-		}
-
-		public override void _UnhandledInput(InputEvent @event)
-		{
-			foreach(var m in _moduleStorage) m.UnhandledInput(@event);
 		}
 
 		public int CompareTo(Ship other)
@@ -206,6 +120,25 @@ namespace MSG.Script.Agent
 			if (other == this) return 0;
 			var sign = Math.Sign(ZIndex - other.ZIndex);
 			return sign == 0 ? Math.Sign(GetIndex() - other.GetIndex()) : sign;
+		}
+
+		public override int CompareTo(GameUnit other)
+		{
+			if (other is Ship ship) return CompareTo(ship);
+			return base.CompareTo(other);
+		}
+
+		public override int CompareOverlap(GameUnit other)
+		{
+			if (other == null) return 1;
+			if (other == this) return 0;
+			if (other is Ship ship) return CompareOverlap(ship);
+			return 0;
+		}
+
+		public override void SelectUpdate(InternalUnitSelectList nextSelector)
+		{
+			((Polygon2D)Border).Color = nextSelector != null ? SelectionColor : UnselectedColor;
 		}
 	}
 }

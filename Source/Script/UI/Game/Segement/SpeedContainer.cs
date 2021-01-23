@@ -23,7 +23,7 @@ namespace MSG.Script.UI.Game.Segement
 
 		public void SpeedUpButtonPressed()
 		{
-			NodeRegistry.Get<Script.Game>().Domain.PlusActionSpeed();
+			NodeRegistry.Get<Script.Game>().Domain.AddActionSpeed();
 		}
 
 		public void SpeedDownButtonPressed()

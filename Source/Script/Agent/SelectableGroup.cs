@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Godot;
 using MSG.Game.Unit;
 using MSG.Global;
@@ -9,18 +11,16 @@ using SpartansLib.Extensions;
 
 namespace MSG.Script.Agent
 {
-    public class SelectableGroup :
-        Node2D,
-        IScriptUnit<BaseUnitGroup<SelectableGroup>>,
+    public partial class SelectableGroup :
+        GameUnit,
+        IFormationHolder,
+        IList<GameUnit>,
+        IReadOnlyList<GameUnit>,
         IComparable<SelectableGroup>,
         IComparableOverlap<SelectableGroup>,
         IEquatable<SelectableGroup>
     {
         public static readonly PackedScene Scene = GD.Load<PackedScene>("res://Scenes/SelectableGroup.tscn");
-
-        public UnitGroupAgent<SelectableGroup> Instance { get; private set; }
-        public BaseUnitGroup<SelectableGroup> Unit { get; private set; }
-        IUnit IScriptUnit.Unit => Unit;
 
         #region Script Exports
 
@@ -35,11 +35,22 @@ namespace MSG.Script.Agent
                 _nationId = value;
                 if (!Engine.EditorHint)
                 {
-                    Unit.World.GetNation(_nationId).Add(Unit);
+                    Manager.RegisterUnit(this);
                     //Instance.State = universe.GetNation(_nationId);
                     //if (Instance.State == null)
                     //universe.Add(Instance);
                 }
+            }
+        }
+
+        private FormationBase _formation;
+        public FormationBase Formation
+        {
+            get => _formation;
+            set
+            {
+                _formation = value;
+                _formation.Holder = this;
             }
         }
 
@@ -57,7 +68,6 @@ namespace MSG.Script.Agent
                 Update();
             }
         }
-
         [Node("InfoPanel/InfoLabel")] public RichTextLabel InfoLabel;
 
         [Node] public Control InfoPanel;
@@ -67,53 +77,14 @@ namespace MSG.Script.Agent
 
         #region Node Overrides
 
-        public SelectableGroup()
-        {
-            // Instance is needed before _Ready is called @ SelectionMenu.OnAcceptButtonUp()
-            // Instance = new UnitGroupAgent<SelectableGroup>(this);
-            Unit = new BaseUnitGroup<SelectableGroup>();
-        }
-
-        public override void _Ready()
-        {
-            this.GetFirstAncestorOf<Game>().OnReady += _OnGameReady;
-            //Instance.Create();
-            //OnTopSelectionChange(Instance.IsTopSelection);
-            //GroupInfoLabel = GetNode<RichTextLabel>(GroupInfoLabelPath);
-            //GroupInfoPanel = GetNode<Control>(GroupInfoPanelPath);
-            //Instance.OnSetAsTopSelection += (agent, menu, isTop) => OnTopSelectionChange(isTop);
-            //Instance.OnUpdate += agnt => UpdateData();
-        }
-
-        public void _OnGameReady(Game game)
-        {
-            Unit.Initialize(game.Domain, this);
-            NationId = NationId;
-        }
-
-        public override void _Process(float delta)
-        {
-            if (Instance.TryFree()) return;
-            if (Visible) GlobalRotation = 0;
-        }
-
-        public override void _PhysicsProcess(float delta)
-        {
-            Instance.PhysicsProcess(delta);
-        }
-
-        public override void _ExitTree()
-        {
-            Instance.Destroy();
-        }
-
         #endregion Node Overrides
 
         public void OnGroupInfoPanelGuiInput(InputEvent @event)
         {
             if (@event.LeftMouseIsJustPressed())
             {
-                SelectionHandler.Select(Instance, !InputHandler.AddControlKeyPressed);
+                // TODO: replace SelectionHandler with SelectionMenu UnitSelectList
+                //SelectionHandler.Select(Instance, !InputHandler.AddControlKeyPressed);
                 InfoPanel.AcceptEvent();
             }
         }
@@ -129,13 +100,13 @@ namespace MSG.Script.Agent
         public void UpdateData()
         {
             if (InfoLabel != null)
-                InfoLabel.Text = Instance.Name + "\n" + Instance.Count;
+                InfoLabel.Text = Name + "\n" + Count;
         }
 
-        public void SetSelected(bool value)
+        public override void SelectUpdate(InternalUnitSelectList list)
         {
-            foreach (var i in Instance)
-                i.OnSelected(value);
+            foreach(var unit in this)
+                unit.SelectUpdate(list);
         }
 
         public int CompareOverlap(SelectableGroup other)

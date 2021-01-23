@@ -25,4 +25,24 @@ namespace MSG.Game
         public static double Abs(double value)
             => Math.Abs(value);
     }
+
+    public struct InitOnly<T>
+    {
+        public bool IsSet { get; private set; }
+
+        private T _value;
+        public T Value
+        {
+            get => _value;
+            set
+            {
+                if(IsSet)
+                    throw new InvalidOperationException($"{nameof(Value)} already set as {_value}.");
+                _value = value;
+                IsSet = true;
+            }
+        }
+
+        public static implicit operator T(InitOnly<T> convert) => convert.Value;
+    }
 }

@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Godot;
-using MSG.Game.Region;
 
 namespace MSG.Game
 {
     public class GameWorldSettings
     {
-        public int StateCount { get; } = 2;
+        public int StateCount = 2;
     }
 
     public class GameWorld : Reference, IList<GameNation>

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using MSG.Game.Unit;
-using MSG.Game.Unit.Control.Group;
-using MSG.Game.Unit.Control.Select;
 using MSG.Global;
 using MSG.Script.Agent;
 using MSG.Script.UI.Base;
@@ -14,7 +12,7 @@ using SpartansLib.Extensions;
 namespace MSG.Script.UI.Game
 {
 	[Global]
-	public class SelectionMenu : VBoxContainer, IReadOnlyList<IUnit>
+	public class SelectionMenu : VBoxContainer, IReadOnlyList<GameUnit>
 	{
 		#region Nodes
 
@@ -49,18 +47,18 @@ namespace MSG.Script.UI.Game
 
 		#region Events
 
-		public delegate void SelectedGroupChangeAction(SelectionMenu menu, IGroup<IUnit> group);
+		public delegate void SelectedGroupChangeAction(SelectionMenu menu, SelectableGroup group);
 		public event SelectedGroupChangeAction OnSelectedGroupChange;
 
 		#endregion
 
 		#region Public Fields
 
-		public ISelectionList SelectionList { get; } = new SelectionList();
+		public UnitSelectList SelectionList { get; } = new UnitSelectList();
 
-		private IGroup _selectedGroup;
+		private SelectableGroup _selectedGroup;
 
-		public IGroup SelectedGroup
+		public SelectableGroup SelectedGroup
 		{
 			get => _selectedGroup;
 			set
@@ -98,7 +96,7 @@ namespace MSG.Script.UI.Game
 
 		public int SelectedCount => GetSelectedIndices().Count;
 
-		public IUnit this[int index] => SelectionList[index];
+		public GameUnit this[int index] => SelectionList[index];
 		public int Count => SelectedItemList.GetItemCount();
 
 		#endregion
@@ -139,24 +137,24 @@ namespace MSG.Script.UI.Game
 			}
 		}
 
-		public void Add(IUnit unit, bool clear = false)
+		public void Add(GameUnit unit)
 		{
-			SelectionList.Add(unit, clear);
+			SelectionList.Add(unit);
 			_AddUnitItem(unit, Count);
 			_UpdateSubtitle();
 		}
 
-		public void AddRange(IEnumerable<IUnit> units, bool clear = false)
+		public void AddRange(IEnumerable<GameUnit> units)
 		{
 			var count = Count;
-			var enumerable = units as IList<IUnit> ?? units.ToArray();
-			SelectionList.AddRange(enumerable, clear);
+			var enumerable = units as IList<GameUnit> ?? units.ToArray();
+			SelectionList.AddRange(enumerable);
 			foreach (var unit in enumerable)
 				_AddUnitItem(unit, count++);
 			_UpdateSubtitle();
 		}
 
-		public void Remove(IUnit unit)
+		public void Remove(GameUnit unit)
 		{
 			var index = SelectionList.IndexOf(unit);
 			if (index == -1) return;
@@ -171,14 +169,14 @@ namespace MSG.Script.UI.Game
 			_ResetItemList();
 		}
 
-		public static IGroup CreateGroup(string name)
+		public static SelectableGroup CreateGroup(string name)
 		{
-			var unit = SelectableGroup.Scene.Instance<SelectableGroup>().Unit;
+			var unit = SelectableGroup.Scene.Instance<SelectableGroup>();
 			unit.Name = name;
 			return unit;
 		}
 
-		private void _AddUnitItem(IUnit unit, int index)
+		private void _AddUnitItem(GameUnit unit, int index)
 			=> SelectedItemList.AddItem($"{(index == 0 ? "*" : "")}{index}. {unit.Name}");
 
 		private void _RemoveUnitItem(int index)
@@ -235,10 +233,10 @@ namespace MSG.Script.UI.Game
 
 		public IList<int> GetSelectedIndices() => SelectedItemList.GetSelectedItems();
 
-		public IList<IUnit> GetSelectedUnits()
+		public IList<GameUnit> GetSelectedUnits()
 		{
 			var indices = GetSelectedIndices();
-			var result = new IUnit[indices.Count];
+			var result = new GameUnit[indices.Count];
 			for (var i = 0; i < indices.Count; i++)
 				result[i] = this[indices[i]];
 			return result;
@@ -337,7 +335,7 @@ namespace MSG.Script.UI.Game
 			global.GetTree().SetInputAsHandled();
 		}
 
-		public IEnumerator<IUnit> GetEnumerator()
+		public IEnumerator<GameUnit> GetEnumerator()
 		{
 			for (var i = 0; i < Count; i++)
 				yield return this[i];
@@ -362,7 +360,7 @@ namespace MSG.Script.UI.Game
 					Visible = false;
 					return;
 				case 1:
-					if (!InputHandler.AddControlKeyPressed && this[0] is IGroup group) // TODO: not agent
+					if (!InputHandler.AddControlKeyPressed && this[0] is SelectableGroup group) // TODO: not agent
 						SelectedGroup = group;
 					else /* if menu deselected to one unit */
 						SelectedGroup = null;
@@ -374,7 +372,7 @@ namespace MSG.Script.UI.Game
 				// AddUnit(unit);
 		}
 
-		private void _OnSelectedGroupChanged(IGroup group)
+		private void _OnSelectedGroupChanged(SelectableGroup group)
 		{
 			if (_selectedGroup != null)
 				_selectedGroup.OnNameChange -= _OnSelectedGroupNameChange;
@@ -384,7 +382,7 @@ namespace MSG.Script.UI.Game
 			AddRange(group);
 		}
 
-		private void _OnSelectedGroupNameChange(IUnit unit, string name)
+		private void _OnSelectedGroupNameChange(GameUnit unit, string name)
 			=> PlaceholderNameText = name;
 	}
 }

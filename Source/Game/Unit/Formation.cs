@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using MSG.Script.Agent;
 using SpartansLib.Extensions;
 using SpartansLib.Structure;
 
@@ -18,7 +19,7 @@ namespace MSG.Game.Unit
         }
 
         public FormState State { get; internal set; }
-        public UnitGroupAgent Applicator { get; internal set; }
+        public IFormationHolder Holder { get; internal set; }
 
         /// <summary>
         /// Gets the Size of the Formation or -1 if Size is dynamic.
@@ -28,24 +29,23 @@ namespace MSG.Game.Unit
 
         public abstract Offset GetLocalFormationFor(int index);
 
-        public virtual bool QueueFormationMove(Offset goal, IReadOnlyList<UnitAgent> selectables, bool addGoals,
-            float speedLimit)
+        public virtual bool QueueFormationMove(Offset goal, IReadOnlyList<GameUnit> selectables)
         {
             float cos = goal.Rotation.Cos(), sin = goal.Rotation.Sin();
             Offset loc;
             State = FormState.Forming;
-            UnitAgent element;
+            GameUnit element;
             bool result = false;
             for (var i = 0; i < selectables.Count; i++)
             {
                 loc = GetLocalFormationFor(i);
                 element = selectables[i];
-                result |= element.QueueMove(
+                result |= element.MoveTo(
                     new Vector2(
                         cos * loc.Position.x - sin * loc.Position.y,
                         sin * loc.Position.x + cos * loc.Position.y
-                    ) + goal.Position, addGoals, speedLimit);
-                element.RotateTo = loc.Rotation - goal.Rotation;
+                    ) + goal.Position);
+                element.TargetAngle = loc.Rotation - goal.Rotation;
             }
 
             return result;

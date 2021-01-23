@@ -171,25 +171,23 @@ namespace MSG.Script.UI.Game
 			}
 		}
 
-		private readonly List<IUnit> _areaSelected = new List<IUnit>();
+		private readonly List<GameUnit> _areaSelected = new List<GameUnit>();
 
 		[Connect("area_entered", "Area2D")]
 		public void OnAreaEntered(Area2D area)
 		{
-			if (area.GetParent() is IScriptUnit script)
+			if (area.GetParent() is GameUnit unit)
 			{
-				_areaSelected.Add(script.Unit);
-				GD.Print($"'{(script as Node)?.Name}' entered");
+				_areaSelected.Add(unit);
 			}
 		}
 
 		[Connect("area_exited", "Area2D")]
 		public void OnAreaExited(Area2D area)
 		{
-			if (area.GetParent() is IScriptUnit script)
+			if (area.GetParent() is GameUnit unit)
 			{
-				_areaSelected.Remove(script.Unit);
-				GD.Print($"'{(script as Node)?.Name}' exited");
+				_areaSelected.Remove(unit);
 			}
 		}
 

@@ -1,24 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Godot;
-using MSG.Game.Controller;
+using MSG.Utility;
 
 namespace MSG.Game
 {
     public class GameDomainSettings
     {
-        public int NpcCount { get; } = 1;
-        public float InitialActionSpeed { get; } = 1;
-        public float ActionSpeedSteps { get; } = 0.25f;
-        public float MaxActionSpeed { get; } = 5f;
+        public int NpcCount = 1;
+        public float InitialActionSpeed = 1;
+        public float ActionSpeedSteps = 0.25f;
+        public float MaxActionSpeed = 5f;
     }
 
     public class GameDomain
     {
-        public GameDomainSettings Settings { get; }
+        public GameDomainSettings Settings;
 
         public GameWorld GameWorld { get; }
         public Script.Game Node { get; private set; }
+        public GameNationController Client { get; private set; }
 
         public delegate void GameDomainChangeAction<T>(GameDomain domain, T arg);
 
@@ -52,17 +53,16 @@ namespace MSG.Game
             Node = node;
             ActionSpeed = Settings.InitialActionSpeed;
 
-
-            AddController(new GameNationController(this, new GameNationControllerSettings {
+            AddController(Client = new GameNationController(this, new GameNationControllerSettings {
                 Name = (string)ProjectSettings.GetSetting("extra_settings/client_settings/player_name")
             }));
 
 
             for (var npcCounter = Settings.NpcCount; npcCounter > -1; npcCounter--)
-                Add(new BotController(id) {Name = Settings.NpcNameGenerator(id++)});
+                AddController(new GameNationController(this));
         }
 
-        public void PlusActionSpeed(int steps = 1)
+        public void AddActionSpeed(int steps = 1)
             => ActionSpeed += Settings.ActionSpeedSteps * steps;
 
         public void SubActionSpeed(int steps = 1)
@@ -75,7 +75,7 @@ namespace MSG.Game
             if (IsActionPause)
             {
                 if (GameMath.IsZeroApprox(lastSpeed))
-                    PlusActionSpeed();
+                    AddActionSpeed();
                 else
                 {
                     ActionSpeed = lastSpeed;
@@ -91,12 +91,14 @@ namespace MSG.Game
 
         private void _onControllerSet(GameNationController item)
         {
-            item.
+
         }
 
         public void AddController(GameNationController item)
         {
-
+            if(_controllers.Contains(item)) return;
+            _onControllerSet(item);
+            _controllers.Add(item);
         }
     }
 }

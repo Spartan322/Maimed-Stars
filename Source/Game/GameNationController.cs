@@ -2,7 +2,7 @@ namespace MSG.Game
 {
     public class GameNationControllerSettings
     {
-        public readonly string Name = "AI";
+        public string Name = "AI";
     }
 
     public class GameNationController

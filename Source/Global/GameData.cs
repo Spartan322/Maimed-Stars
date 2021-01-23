@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MSG.Game.Unit.Control.Group;
-using MSG.Game.Unit.Control.Select;
+using MSG.Game.Unit;
+using MSG.Script.Agent;
 using MSG.Script.UI.Game;
 using SpartansLib;
 
@@ -12,19 +12,19 @@ namespace MSG.Global
     {
         static GameData()
         {
-            controlGroups = new ISelectionList[InputHandler.ControlGroupMaxCount];
+            controlGroups = new UnitSelectList[InputHandler.ControlGroupMaxCount];
         }
 
         #region Control Groups
 
-        internal static readonly ISelectionList[] controlGroups; // = new Tuple<BaseButton, IReadOnlyList<UnitAgent>>[];
+        internal static readonly UnitSelectList[] controlGroups; // = new Tuple<BaseButton, IReadOnlyList<UnitAgent>>[];
 
-        public delegate void ControlGroupChange(ISelectionList agents, int groupNum);
+        public delegate void ControlGroupChange(UnitSelectList agents, int groupNum);
 
-        public static ISelectionList GetControlGroup(int index)
+        public static UnitSelectList GetControlGroup(int index)
             => controlGroups[index];
 
-        public static IList<ISelectionList> GetControlGroups()
+        public static IList<UnitSelectList> GetControlGroups()
             => controlGroups.ToList();
 
         private static Dictionary<int, ControlGroupChange> controlGroupChangeEvents =
@@ -36,7 +36,7 @@ namespace MSG.Global
             else controlGroupChangeEvents[num] += func;
         }
 
-        public static void SetControlGroup(int num, ISelectionList selectionList)
+        public static void SetControlGroup(int num, UnitSelectList selectionList)
         {
             if (num < 0 || num >= controlGroups.Length)
                 throw new ArgumentOutOfRangeException(nameof(num));
@@ -53,8 +53,8 @@ namespace MSG.Global
             {
                 var addControlNotPressed = !InputHandler.AddControlKeyPressed;
                 var selectionMenu = NodeRegistry.Get<SelectionMenu>();
-                if (group is IGroup unitGroup)
-                    selectionMenu.SelectedGroup = unitGroup;
+                if (group[0] is SelectableGroup topLevelGroup)
+                    selectionMenu.SelectedGroup = topLevelGroup;
                 else
                     selectionMenu.AddRange(group);
             }
