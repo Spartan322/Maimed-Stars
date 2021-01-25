@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/UI/Menu/Setting/SettingsPanel.tscn" type="PackedScene" id=4]
 
 [node name="PauseBackground" type="ColorRect"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.235294 )

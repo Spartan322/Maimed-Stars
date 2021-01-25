@@ -2,8 +2,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using MSG.Game.Unit;
+using MSG.Utility;
 
 namespace MSG.Game.Unit
 {
@@ -39,9 +41,9 @@ namespace MSG.Script.Agent
             return true;
         }
 
-        public class InternalUnitSelectList : IList<GameUnit>, IFormationHolder
+        public class InternalUnitSelectList : ISimpleList<GameUnit>, IFormationHolder
         {
-            protected readonly IList<GameUnit> _listImplementation;
+            protected readonly List<GameUnit> _listImplementation;
 
             private FormationBase _formation;
             public FormationBase Formation
@@ -83,8 +85,31 @@ namespace MSG.Script.Agent
                 if (!(item?.CanSelect(this) ?? false) || ReferenceEquals(item._selector, this)) return;
                 _RemoveOrPreselect(item, this);
                 _listImplementation.Add(item);
+                if(_listImplementation.Count > 1)
+                    _listImplementation.Sort();
                 item._selector = this;
             }
+
+            public void AddRange(IEnumerable<GameUnit> items)
+            {
+                if (items is ICollection<GameUnit> collection)
+                {
+                    AddRange(collection);
+                    return;
+                }
+                if (items is IReadOnlyCollection<GameUnit> readonlyCollection)
+                {
+                    AddRange(readonlyCollection);
+                    return;
+                }
+                _AddRange(items);
+            }
+
+            public void AddRange(ICollection<GameUnit> items)
+                => _AddRange(items, items.Count);
+
+            public void AddRange(IReadOnlyCollection<GameUnit> items)
+                => _AddRange(items, items.Count);
 
             public void Clear()
             {
@@ -99,8 +124,8 @@ namespace MSG.Script.Agent
 
             public bool Contains(GameUnit item) => _listImplementation.Contains(item);
 
-            public void CopyTo(GameUnit[] array, int arrayIndex) =>
-                _listImplementation.CopyTo(array, arrayIndex);
+            public void CopyTo(GameUnit[] array, int arrayIndex)
+                => _listImplementation.CopyTo(array, arrayIndex);
 
             public bool Remove(GameUnit item) => _Remove(item, null);
 
@@ -108,8 +133,15 @@ namespace MSG.Script.Agent
             {
                 if (item == null) return false;
                 item.SelectUpdate(nextSelector);
-                item._selector = null;
+                item._selector = nextSelector;
                 return _listImplementation.Remove(item);
+            }
+
+            private void _AddRange(IEnumerable<GameUnit> items, int capacity = -1)
+            {
+                if(capacity > -1) _listImplementation.Capacity += capacity;
+                foreach(var item in items)
+                    Add(item);
             }
 
             private static void _RemoveOrPreselect(GameUnit item, InternalUnitSelectList nextSelector)
@@ -119,16 +151,8 @@ namespace MSG.Script.Agent
             }
 
             public int Count => _listImplementation.Count;
-            public bool IsReadOnly => _listImplementation.IsReadOnly;
+            public bool IsReadOnly => true;
             public int IndexOf(GameUnit item) => _listImplementation.IndexOf(item);
-
-            public void Insert(int index, GameUnit item)
-            {
-                if (!(item?.CanSelect(this) ?? false) || ReferenceEquals(item._selector, this)) return;
-                _RemoveOrPreselect(item, this);
-                _listImplementation.Insert(index, item);
-                item._selector = this;
-            }
 
             public void RemoveAt(int index)
             {
@@ -139,18 +163,7 @@ namespace MSG.Script.Agent
                 _listImplementation.RemoveAt(index);
             }
 
-            public GameUnit this[int index]
-            {
-                get => _listImplementation[index];
-                set
-                {
-                    if (index < 0 || index > Count + 1) throw new IndexOutOfRangeException();
-                    if (!(value?.CanSelect(this) ?? false) || ReferenceEquals(value._selector, this)) return;
-                    _RemoveOrPreselect(value, this);
-                    _listImplementation[index] = value;
-                    value._selector = this;
-                }
-            }
+            public GameUnit this[int index] => _listImplementation[index];
         }
     }
 }

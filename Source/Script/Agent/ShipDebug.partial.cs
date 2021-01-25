@@ -20,8 +20,7 @@ namespace MSG.Script.Agent
         private readonly Label _debugLabel = (Label)_debugLabelTemplate.Duplicate();
 
         public string DebugString
-            => //Instance.Name + "\n" + ZIndex + ":" + GetIndex();
-                $"{Name}\n{ZIndex}:{GetIndex()}";
+            => $"{UnitName}\n{ZIndex}:{GetIndex()}";
 
         private void _HandeDebugReady()
         {

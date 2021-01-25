@@ -9,6 +9,11 @@ namespace MSG.Script.Agent
         public const float BRAKING_RADIUS = 50;
         public const float GOAL_THRESHOLD = 0.9f;
 
+        //TODO: figure out Mass, MaximumSpeedLimit, MaximumAngularSpeed, and MaximumAcceleration units
+
+        public float MaximumAngularSpeed { get; }
+        public float MaximumAcceleration { get; }
+
         private readonly Queue<Vector2> _movementTargetQueue = new Queue<Vector2>();
 
         public override void AddMovementTarget(Vector2 target)
@@ -57,6 +62,6 @@ namespace MSG.Script.Agent
                 MaximumAngularSpeed,
                 delta
             );
-        } 
+        }
     }
 }

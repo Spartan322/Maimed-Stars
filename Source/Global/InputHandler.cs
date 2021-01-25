@@ -103,10 +103,9 @@ namespace MSG.Global
             global.GetFocusOwner()?.ReleaseFocus();
             if (SelectionHandled) return;
             var ship = Ship.MouseOverShip;
+            if (!addControlPressed) _selectionMenu.Clear();
             if (ship != null)
                 _selectionMenu.Add(ship);
-            // ship.Select(!addControlPressed);
-            else if (!addControlPressed) _selectionMenu.Clear();
         }
 
         public const float CONTROL_GROUP_SET_WAIT_TIME = 0.3f;

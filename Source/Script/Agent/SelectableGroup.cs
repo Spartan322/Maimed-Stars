@@ -22,10 +22,21 @@ namespace MSG.Script.Agent
     {
         public static readonly PackedScene Scene = GD.Load<PackedScene>("res://Scenes/SelectableGroup.tscn");
 
-        #region Script Exports
+        private FormationBase _formation;
+        public FormationBase Formation
+        {
+            get => _formation;
+            set
+            {
+                _formation = value;
+                _formation.Holder = this;
+            }
+        }
 
+        private Vector2 minMaxSelectionAlpha = new Vector2(0.65f, 1);
+
+        #region Exports
         private int _nationId;
-
         [Export]
         public int NationId
         {
@@ -43,20 +54,7 @@ namespace MSG.Script.Agent
             }
         }
 
-        private FormationBase _formation;
-        public FormationBase Formation
-        {
-            get => _formation;
-            set
-            {
-                _formation = value;
-                _formation.Holder = this;
-            }
-        }
-
         [Export] public bool IgnoreMaxSpeed;
-
-        private Vector2 minMaxSelectionAlpha = new Vector2(0.65f, 1);
 
         [Export]
         public Vector2 MinMaxSelectionAlpha
@@ -68,16 +66,12 @@ namespace MSG.Script.Agent
                 Update();
             }
         }
+        #endregion
+
+        #region Nodes
         [Node("InfoPanel/InfoLabel")] public RichTextLabel InfoLabel;
-
         [Node] public Control InfoPanel;
-
-        #endregion Script Exports
-
-
-        #region Node Overrides
-
-        #endregion Node Overrides
+        #endregion
 
         public void OnGroupInfoPanelGuiInput(InputEvent @event)
         {
@@ -100,7 +94,7 @@ namespace MSG.Script.Agent
         public void UpdateData()
         {
             if (InfoLabel != null)
-                InfoLabel.Text = Name + "\n" + Count;
+                InfoLabel.Text = UnitName + "\n" + Count;
         }
 
         public override void SelectUpdate(InternalUnitSelectList list)

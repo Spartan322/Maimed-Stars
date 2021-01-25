@@ -8,3 +8,4 @@ export_presets.cfg
 
 packages/*
 Export/*
+mono_crash*
