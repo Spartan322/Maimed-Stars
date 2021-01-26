@@ -7,5 +7,8 @@ export_presets.cfg
 .mono/
 
 packages/*
-Export/*
+export/*
 mono_crash*
+
+bin/*
+obj/*

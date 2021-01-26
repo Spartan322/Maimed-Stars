@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Script/UI/Game/Segement/Outliner.cs" type="Script" id=1]
+
+
+[node name="OutlinerHBox" type="HBoxContainer"]
+margin_right = 272.0
+margin_bottom = 124.0
+size_flags_horizontal = 10
+size_flags_vertical = 11
+custom_constants/separation = -22
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutlinerPanel" type="PanelContainer" parent="."]
+margin_right = 274.0
+margin_bottom = 124.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OutlinerPanel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 267.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 260, 110 )
+scroll_horizontal_enabled = false
+
+[node name="MarginContainer" type="MarginContainer" parent="OutlinerPanel/ScrollContainer"]
+margin_right = 260.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+
+[node name="OutlinerList" type="VBoxContainer" parent="OutlinerPanel/ScrollContainer/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 255.0
+margin_bottom = 105.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OutlinerPanel"]
+margin_left = 247.0
+margin_top = 7.0
+margin_right = 267.0
+margin_bottom = 27.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="OutlinerSettings" type="Button" parent="OutlinerPanel/HBoxContainer"]
+margin_right = 20.0
+margin_bottom = 20.0
+size_flags_horizontal = 9
+size_flags_vertical = 2
+text = "*"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 252.0
+margin_right = 272.0
+margin_bottom = 124.0
+mouse_filter = 2
+custom_constants/separation = -21
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+margin_right = 20.0
+mouse_filter = 2
+
+[node name="OutlinerToggle" type="Button" parent="VBoxContainer"]
+margin_top = -21.0
+margin_right = 20.0
+margin_bottom = -1.0
+focus_mode = 0
+size_flags_horizontal = 9
+size_flags_vertical = 2
+enabled_focus_mode = 0
+text = ">"
+[connection signal="pressed" from="VBoxContainer/OutlinerToggle" to="." method="OnOutlinerToggleButtonPressed"]

@@ -4,7 +4,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MSG</RootNamespace>
     <AssemblyName>Maimed_Stars</AssemblyName>
-    <BaseDirectory>Source</BaseDirectory>
+    <BaseDirectory>src</BaseDirectory>
     <GodotProjectGeneratorVersion>1.0.0.0</GodotProjectGeneratorVersion>
     <TargetFramework>net472</TargetFramework>
     <!--The following properties were overriden during migration to prevent errors.
@@ -32,32 +32,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Source\**\*.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Source\Script\UI\" />
-    <Folder Include="Source\Game\" />
-    <Folder Include="Source\Game\Controller\" />
-    <Folder Include="Source\Game\Region\" />
-    <Folder Include="Source\Game\Unit\" />
-    <Folder Include="Source\Command\" />
-    <Folder Include="Source\InterfaceMarkup\" />
-    <Folder Include="Source\Script\Agent\" />
-    <Folder Include="Source\Script\UI\Game\" />
-    <Folder Include="Source\Script\UI\Base\" />
-    <Folder Include="Source\Script\UI\Settings\" />
-    <Folder Include="Source\Script\Agent\Weapon\" />
-    <Folder Include="Source\Script\Base\" />
-    <Folder Include="Source\Game\Weapon\" />
-    <Folder Include="Source\Script\UI\Settings\Tab\" />
-    <Folder Include="Source\Settings\" />
-    <Folder Include="Source\Script\UI\Game\Segement\" />
-    <Folder Include="Source\Game\Unit\Control\" />
-    <Folder Include="Source\Game\Unit\Control\Select\" />
-    <Folder Include="Source\Game\Unit\Control\Group\" />
-    <Folder Include="Source\Game\Unit\Ship\" />
-    <Folder Include="Source\Game\Unit\Ship\Template\" />
-    <Folder Include="Source\Game\Trash\" />
+    <Compile Include="src\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="SpartansLib\SpartansLib.csproj">
@@ -66,7 +41,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\packages.config" />
+    <None Include="src\packages.config" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
@@ -76,7 +51,7 @@
       <Properties>
         <Policies>
           <TextStylePolicy FileWidth="120" TabWidth="4" TabsToSpaces="False" IndentWidth="4" RemoveTrailingWhitespace="True" NoTabsAfterNonTabs="True" EolMarker="Unix" scope="text/plain" />
-          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical" />
+          <DotNetNamingPolicy ResrcNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical" />
           <TextStylePolicy inheritsSet="null" scope="application/config+xml" />
           <XmlFormattingPolicy scope="application/config+xml">
             <DefaultFormat OmitXmlDeclaration="False" IndentContent="True" AttributesInNewLine="False" MaxAttributesPerLine="10" WrapAttributes="False" AlignAttributes="False" AlignAttributeValues="False" QuoteChar="&quot;" SpacesBeforeAssignment="0" SpacesAfterAssignment="0" EmptyLinesBeforeStart="0" EmptyLinesAfterStart="0" EmptyLinesBeforeEnd="0" EmptyLinesAfterEnd="0" />

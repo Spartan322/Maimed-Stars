@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/Script/Resource/ShipData.cs" type="Script" id=1]
+
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource( 1 )
+Name = ""
+MaxSpeed = 100.0
+MaxAcceleration = 50.0
+MaxAngularSpeedDegree = 180.0
+Mass = 1.0
+BrakingRadius = 50.0
+GoalThreshold = 0.9
+AngularStartThresholdDegree = 7.0
