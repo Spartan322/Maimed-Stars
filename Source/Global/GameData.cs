@@ -12,19 +12,19 @@ namespace MSG.Global
     {
         static GameData()
         {
-            controlGroups = new UnitSelectList[InputHandler.ControlGroupMaxCount];
+            controlGroups = new GameUnit.InternalUnitSelectList[InputHandler.ControlGroupMaxCount];
         }
 
         #region Control Groups
 
-        internal static readonly UnitSelectList[] controlGroups; // = new Tuple<BaseButton, IReadOnlyList<UnitAgent>>[];
+        internal static readonly GameUnit.InternalUnitSelectList[] controlGroups; // = new Tuple<BaseButton, IReadOnlyList<UnitAgent>>[];
 
-        public delegate void ControlGroupChange(UnitSelectList agents, int groupNum);
+        public delegate void ControlGroupChange(GameUnit.InternalUnitSelectList agents, int groupNum);
 
-        public static UnitSelectList GetControlGroup(int index)
+        public static GameUnit.InternalUnitSelectList GetControlGroup(int index)
             => controlGroups[index];
 
-        public static IList<UnitSelectList> GetControlGroups()
+        public static IList<GameUnit.InternalUnitSelectList> GetControlGroups()
             => controlGroups.ToList();
 
         private static Dictionary<int, ControlGroupChange> controlGroupChangeEvents =
@@ -36,7 +36,7 @@ namespace MSG.Global
             else controlGroupChangeEvents[num] += func;
         }
 
-        public static void SetControlGroup(int num, UnitSelectList selectionList)
+        public static void SetControlGroup(int num, GameUnit.InternalUnitSelectList selectionList)
         {
             if (num < 0 || num >= controlGroups.Length)
                 throw new ArgumentOutOfRangeException(nameof(num));

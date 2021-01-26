@@ -15,7 +15,7 @@ namespace MSG.Script.Agent
         public SelectableGroup Group { get; internal set; }
         public Vector2? AimTarget;
         public float TargetAngle;
-        public virtual bool CanAim { get; set; }
+        public virtual bool CanProcessAim { get; set; } = true;
 
         private string _unitName;
         public string UnitName
@@ -32,7 +32,7 @@ namespace MSG.Script.Agent
                 _unitName = value;
             }
         }
-        public float MaximumMoveSpeed { get; }
+        public float MaximumMoveSpeed { get; } = 100;
 
         public virtual int CompareTo(GameUnit other)
         {

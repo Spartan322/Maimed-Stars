@@ -9,7 +9,7 @@ namespace MSG.Script.Agent
 
         private void _HandleAimPhysicsProcess(float delta)
         {
-            if (!CanAim || AimTarget == null) return;
+            if (!CanProcessAim || AimTarget == null) return;
             var rotation = Utility.MoveFunc.RotateLerpChecked(Rotation,
                 AimTarget.Value.AngleToPoint(Position),
                 MaximumAngularSpeed,

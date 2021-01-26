@@ -47,7 +47,7 @@ namespace MSG.Script.UI.Game
         #endregion
 
         #region Public Fields
-        public UnitSelectList SelectionList { get; } = new UnitSelectList();
+        public SelectionMenuList SelectionList { get; } = new SelectionMenuList();
 
         private SelectableGroup _selectedGroup;
 
@@ -80,10 +80,9 @@ namespace MSG.Script.UI.Game
         public int SelectedCount => GetSelectedIndices().Count;
 
         public GameUnit this[int index] => SelectionList[index];
-        public int Count => SelectedItemList.GetItemCount();
+        public int Count => SelectionList.Count;
         #endregion
 
-        //private bool selectionDirty;
         public override void _Ready()
         {
             TopWindowDecoration.OnButtonPressed += (sender, args) =>
@@ -98,28 +97,29 @@ namespace MSG.Script.UI.Game
             {
                 case NotificationVisibilityChanged: // Optimize when not visible
                     if (!Visible) ReleaseFocus();
-                    SetProcess(Visible);
                     if (SelectedGroup == null && !Visible && SelectionList.Count > 0)
-                        SelectionList.Clear();
+                        SelectionList.ClearInternal();
                     break;
             }
         }
 
         public void Add(GameUnit unit)
         {
-            SelectionList.Add(unit);
+            SelectionList.AddInternal(unit);
             _AddUnitItem(unit, Count);
             _UpdateSubtitle();
+            _UpdateSelection();
         }
 
         public void AddRange(IEnumerable<GameUnit> units)
         {
             var count = Count;
             var enumerable = units as ICollection<GameUnit> ?? units.ToArray();
-            SelectionList.AddRange(enumerable);
+            SelectionList.AddRangeInternal(enumerable);
             foreach (var unit in enumerable)
                 _AddUnitItem(unit, count++);
             _UpdateSubtitle();
+            _UpdateSelection();
         }
 
         public void Remove(GameUnit unit)
@@ -127,12 +127,14 @@ namespace MSG.Script.UI.Game
             var index = SelectionList.IndexOf(unit);
             if (index == -1) return;
             _RemoveUnitItem(index);
-            SelectionList.Remove(unit);
+            SelectionList.RemoveInternal(unit);
+            _UpdateSubtitle();
+            _UpdateSelection();
         }
 
         public void Clear()
         {
-            SelectionList.Clear();
+            SelectionList.ClearInternal();
             SelectedGroup = null;
             _ResetItemList();
         }
@@ -160,6 +162,7 @@ namespace MSG.Script.UI.Game
             foreach (var unit in SelectionList)
                 _AddUnitItem(unit, count++);
             _UpdateSubtitle();
+            _UpdateSelection();
         }
 
         private void _TryUpdateGroupName()
@@ -170,18 +173,24 @@ namespace MSG.Script.UI.Game
 
         private void _TryCreateGroup()
         {
-            if (string.IsNullOrWhiteSpace(TypedText)) return;
+            if (string.IsNullOrWhiteSpace(TypedText)) return; // TODO: game error, group must be named
             SelectedGroup = CreateGroup(TypedText);
         }
 
         private void _TryUpdateUnitName()
         {
-            if (string.IsNullOrWhiteSpace(TypedText)) return;
-            this[0].Name = TypedText;
+            if (string.IsNullOrWhiteSpace(TypedText)) return; // TODO: game error, unit must be named
+            this[0].UnitName = TypedText;
         }
 
         private void _UpdateSelection()
         {
+            if (Count == 0)
+            {
+                if(Visible) Visible = false;
+                return;
+            }
+            if(!Visible) Visible = true;
             SelectedPanel.Visible = Count > 1;
             AcceptButton.Text = "✓";
             if (SelectedGroup == null && Count > 1)
@@ -204,11 +213,6 @@ namespace MSG.Script.UI.Game
             return result;
         }
 
-        public override void _Process(float delta)
-        {
-            //HandleSelectedList();
-        }
-
         public override void _Input(InputEvent e)
         {
             Visible &= !e.PauseKeyIsJustPressed();
@@ -222,6 +226,7 @@ namespace MSG.Script.UI.Game
                 OnDestroyButtonPressed();
         }
 
+        [Connect("item_activated", "SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList")]
         public void OnSelectedListItemActivated(int index)
         {
             Clear();
@@ -229,6 +234,7 @@ namespace MSG.Script.UI.Game
             ignoreMouseInput |= InputHandler.MouseActionPressed;
         }
 
+        [Connect("item_rmb_selected", "SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList")]
         public void OnSelectedListRmbSelected(int index, Vector2 click)
             => Remove(this[index]);
 
@@ -238,6 +244,7 @@ namespace MSG.Script.UI.Game
                 OnSelectedListItemActivated(-1);*/
         }
 
+        [Connect("button_up", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/AcceptButton")]
         public void OnAcceptButtonUp()
         {
             switch (Count)
@@ -257,12 +264,14 @@ namespace MSG.Script.UI.Game
             NameLineEdit.ReleaseFocus();
         }
 
+        [Connect("pressed", "SelectionPanel/VBoxContainer/TopMargin/VList/ControlButtonList/DeleteButton")]
         public void OnDestroyButtonPressed()
         {
             SelectedGroup = null;
             _ResetItemList();
         }
 
+        [Connect("text_entered", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/Name")]
         public void OnNameTextEntered(string newText) => OnAcceptButtonUp();
 
         public void OnQuitButtonPressed() => Visible = false;

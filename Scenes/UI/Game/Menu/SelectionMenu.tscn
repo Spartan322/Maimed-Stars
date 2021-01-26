@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Source/Script/UI/Game/SelectionMenu.cs" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/Resources/SelectionMenuFont10.tres" type="DynamicFont" id=2]
@@ -9,20 +9,6 @@
 content_margin_top = 4.0
 content_margin_bottom = 3.0
 draw_center = false
-
-[sub_resource type="StyleBoxFlat" id=2]
-content_margin_top = 6.0
-content_margin_bottom = 6.0
-bg_color = Color( 0.172549, 0.164706, 0.196078, 1 )
-border_width_left = 2
-border_width_top = 3
-border_width_right = 2
-border_width_bottom = 3
-border_color = Color( 0.231373, 0.223529, 0.262745, 1 )
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_detail = 16
 
 [node name="SelectionMenu" type="VBoxContainer"]
 anchor_top = 1.0
@@ -177,16 +163,10 @@ margin_left = 5.0
 margin_top = 2.0
 margin_right = 281.0
 margin_bottom = 46.0
+focus_mode = 0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
-custom_styles/bg = SubResource( 2 )
-custom_colors/guide_color = Color( 0.462745, 0.462745, 0.462745, 1 )
 select_mode = 1
 allow_rmb_select = true
 [connection signal="mouse_entered" from="SelectionPanel" to="." method="SelectionPanelMouseEnter"]
 [connection signal="mouse_exited" from="SelectionPanel" to="." method="SelectionPanelMouseExit"]
-[connection signal="text_entered" from="SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/Name" to="." method="OnNameTextEntered"]
-[connection signal="button_up" from="SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/AcceptButton" to="." method="OnAcceptButtonUp"]
-[connection signal="pressed" from="SelectionPanel/VBoxContainer/TopMargin/VList/ControlButtonList/DeleteButton" to="." method="OnDestroyButtonPressed"]
-[connection signal="item_activated" from="SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList" to="." method="OnSelectedListItemActivated"]
-[connection signal="item_rmb_selected" from="SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList" to="." method="OnSelectedListRmbSelected"]

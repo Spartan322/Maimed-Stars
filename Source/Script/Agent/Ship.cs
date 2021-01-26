@@ -18,7 +18,7 @@ namespace MSG.Script.Agent
 
         public static Ship MouseOverShip { get; set; }
 
-        public float Mass { get; }
+        public float Mass { get; } = 1;
 
         #region Nodes
 

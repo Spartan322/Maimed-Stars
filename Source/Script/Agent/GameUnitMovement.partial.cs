@@ -6,8 +6,8 @@ namespace MSG.Script.Agent
     {
         public Vector2? MovementTarget { get; protected set; }
         public Vector2 Velocity;
-        public float TargetRotation;
-        public float MaximumSpeedLimit;
+        public float MaximumSpeedLimit = 100;
+        public virtual bool CanProcessMovement { get; set; } = true;
 
         public bool MoveTo(Vector2 target)
         {

@@ -6,13 +6,23 @@ namespace MSG.Script.Agent
 {
     public partial class Ship
     {
-        public const float BRAKING_RADIUS = 50;
-        public const float GOAL_THRESHOLD = 0.9f;
+        public const float BRAKING_RADIUS = 70;
+        public const float GOAL_THRESHOLD = 1f;
 
-        //TODO: figure out Mass, MaximumSpeedLimit, MaximumAngularSpeed, and MaximumAcceleration units
+        //TODO: figure out units for all Movement related variables
 
-        public float MaximumAngularSpeed { get; }
-        public float MaximumAcceleration { get; }
+        public float MaximumAngularSpeed { get; } = 2.5f;
+        public float MaximumAcceleration { get; } = 5;
+
+        public override bool CanProcessAim
+        {
+            get
+            {
+                if(MovementTarget != null) return false;
+                return base.CanProcessAim;
+            }
+            set => base.CanProcessAim = value;
+        }
 
         private readonly Queue<Vector2> _movementTargetQueue = new Queue<Vector2>();
 
@@ -30,7 +40,7 @@ namespace MSG.Script.Agent
 
         private bool _MakeMoveToNextTarget()
         {
-            if (_movementTargetQueue.Count < 0)
+            if (_movementTargetQueue.Count < 1)
             {
                 MovementTarget = null;
                 return false;
@@ -41,16 +51,16 @@ namespace MSG.Script.Agent
 
         private void _HandleMovementPhysicsProcess(float delta)
         {
-            if (MovementTarget == null) return;
-            var dist = Position.DistanceTo(MovementTarget.Value);
-            if (_movementTargetQueue.Count > 0 && dist < BRAKING_RADIUS || dist < GOAL_THRESHOLD)
+            if (!CanProcessMovement || MovementTarget == null) return;
+            var dist = Position.DistanceSquaredTo(MovementTarget.Value);
+            if (_movementTargetQueue.Count > 0 && dist < BRAKING_RADIUS*BRAKING_RADIUS || dist < GOAL_THRESHOLD*GOAL_THRESHOLD)
             {
                 _MakeMoveToNextTarget();
                 Velocity = Vector2.Zero;
                 return;
             }
 
-            (Velocity, TargetRotation) = MoveFunc.Arrive(
+            (Velocity, Rotation) = MoveFunc.Arrive(
                 (Position, Rotation),
                 MovementTarget.Value,
                 Velocity,

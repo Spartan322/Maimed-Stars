@@ -11,7 +11,6 @@ using SpartansLib.Extensions;
 namespace MSG.Script.UI.Game
 {
     // TODO: convert SelectionBox to use its Area2D child
-    [Tool]
     [Global]
     public class SelectionBox : Control
     {
