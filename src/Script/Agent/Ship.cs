@@ -14,7 +14,7 @@ namespace MSG.Script.Agent
 		IComparableOverlap<Ship>,
 		IEquatable<Ship>
 	{
-		public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/scene/Ship.tscn");
+		public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/Ship.tscn");
 
 		public static Ship MouseOverShip { get; set; }
 

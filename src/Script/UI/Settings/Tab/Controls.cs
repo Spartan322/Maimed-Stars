@@ -16,7 +16,7 @@ namespace MSG.Script.UI.Settings.Tab
 {
 	public class Controls : HBoxContainer
 	{
-		public static readonly PackedScene MenuRowScene = GD.Load<PackedScene>("res://asset/scene/UI/Menu/MenuRow.tscn");
+		public static readonly PackedScene MenuRowScene = GD.Load<PackedScene>("res://asset/godot-scene/UI/Menu/MenuRow.tscn");
 
 		public static SortedDictionary<string, Array<InputEvent>> NameToActions;
 

@@ -20,7 +20,7 @@ namespace MSG.Script.Agent
         IComparableOverlap<SelectableGroup>,
         IEquatable<SelectableGroup>
     {
-        public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/scene/SelectableGroup.tscn");
+        public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/SelectableGroup.tscn");
 
         private FormationBase _formation;
         public FormationBase Formation
