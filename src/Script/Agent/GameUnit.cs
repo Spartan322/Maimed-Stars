@@ -23,7 +23,7 @@ namespace MSG.Script.Agent
             get => _unitName;
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     // TODO: game error: can't leave unit names blank
                     return;
@@ -33,6 +33,12 @@ namespace MSG.Script.Agent
             }
         }
         public float MaximumMoveSpeed { get; } = 100;
+
+        public override void _Ready()
+        {
+            if (UnitName == null)
+                _unitName = Name;
+        }
 
         public virtual int CompareTo(GameUnit other)
         {
@@ -46,7 +52,7 @@ namespace MSG.Script.Agent
             => GetInstanceId() == other?.GetInstanceId();
 
         public virtual int CompareOverlap(GameUnit other)
-            => -CompareTo(other);
+            => CompareTo(other);
 
         private void _OnNodeRenamed()
         {

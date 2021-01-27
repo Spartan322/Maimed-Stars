@@ -91,17 +91,14 @@ namespace MSG.Global
             if (e.SelectAllShipsKeyIsJustPressed())
             {
                 // TODO: replace SelectionHandler with SelectionMenu's UnitSelectList
-                //SelectionHandler.SelectMultiple(UnitShipAgent.AllShipUnits, !addControlPressed);
             }
 
             if (e.RightMouseIsPressed() || !addControlPressed && RightMousePressed)
                 _selectionMenu.SelectionList.QueueMoveForSelection(MouseWatcher.MouseOriginGlobal, addControlPressed);
-            //SelectionHandler.MoveSelectionTo(MouseWatcher.MouseOriginGlobal, addControlPressed);
 
             if (!e.LeftMouseIsJustReleased()) return;
 
             global.GetFocusOwner()?.ReleaseFocus();
-            if (SelectionHandled) return;
             var ship = Ship.MouseOverShip;
             if (!addControlPressed) _selectionMenu.Clear();
             if (ship != null)
@@ -111,10 +108,10 @@ namespace MSG.Global
         public const float CONTROL_GROUP_SET_WAIT_TIME = 0.3f;
         public const float SPEED_CHANGE_ECHO_DELAY = 0.4f;
 
-        private static Timer controlGroupTimer = new Timer {Autostart = false, OneShot = true};
+        private static Timer controlGroupTimer = new Timer { Autostart = false, OneShot = true };
         private static int controlGroupNum = -1;
 
-        private static Timer speedChangeTimer = new Timer {Autostart = false, OneShot = true};
+        private static Timer speedChangeTimer = new Timer { Autostart = false, OneShot = true };
 
         private static SelectionMenu _selectionMenu;
 

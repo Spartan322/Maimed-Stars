@@ -47,9 +47,6 @@ namespace MSG.Script.Agent
                 if (!Engine.EditorHint)
                 {
                     Manager.RegisterUnit(this);
-                    //Instance.State = universe.GetNation(_nationId);
-                    //if (Instance.State == null)
-                    //universe.Add(Instance);
                 }
             }
         }
@@ -77,7 +74,8 @@ namespace MSG.Script.Agent
         {
             if (@event.LeftMouseIsJustPressed())
             {
-                // TODO: replace SelectionHandler with SelectionMenu UnitSelectList
+
+                // TODO: replace SelectionHandler with SelectionMenu SelectionList
                 //SelectionHandler.Select(Instance, !InputHandler.AddControlKeyPressed);
                 InfoPanel.AcceptEvent();
             }

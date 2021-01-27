@@ -8,130 +8,127 @@ using SpartansLib.Structure;
 
 namespace MSG.Script.Agent
 {
-	public partial class Ship :
-		GameUnit,
-		IComparable<Ship>,
-		IComparableOverlap<Ship>,
-		IEquatable<Ship>
-	{
-		public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/Ship.tscn");
+    public partial class Ship :
+        GameUnit,
+        IComparable<Ship>,
+        IComparableOverlap<Ship>,
+        IEquatable<Ship>
+    {
+        public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/Ship.tscn");
 
-		public static Ship MouseOverShip { get; set; }
+        public static Ship MouseOverShip { get; set; }
 
-		public float Mass { get; } = 1;
+        public float Mass { get; } = 1;
 
-		#region Nodes
+        #region Nodes
+        [Node] public Node2D SelectionBorder;
+        [Node] public Node2D Border;
+        [Node] public CollisionObject2D SelectionArea;
+        #endregion
 
-		[Node] public Node2D SelectionBorder;
-		[Node] public Node2D Border;
-		[Node] public CollisionObject2D SelectionArea;
+        #region Exports
+        private int _nationId;
 
-		#endregion
+        [Export]
+        public int NationId
+        {
+            get => _nationId;
+            set
+            {
+                _nationId = value;
+                if (!Engine.EditorHint)
+                {
+                    Manager.RegisterUnit(this);
+                }
+            }
+        }
 
-		#region Script Exports
+        [Export] public float SelectionRectSize = 6;
 
-		private int _nationId;
+        [Export]                                        // rr gg bb aa
+        public Color SelectionColor = ColorExt.FromRGBA8(0xff_00_00_be/*0xdc_d4_2d_0c*/);
 
-		[Export]
-		public int NationId
-		{
-			get => _nationId;
-			set
-			{
-				_nationId = value;
-				if (!Engine.EditorHint)
-				{
-					Manager.RegisterUnit(this);
-				}
-			}
-		}
+        public Color UnselectedColor { get; private set; }
 
-		[Export] public float SelectionRectSize = 6;
+        public ShipClassData ClassData = new ShipClassData();
 
-		[Export]                                        // rr gg bb aa
-		public Color SelectionColor = ColorExt.FromRGBA8(0xff_00_00_be/*0xdc_d4_2d_0c*/);
+        [Export] public Godot.Resource InstanceDataResource;
+        public ShipInstanceData InstanceData => (ShipInstanceData)InstanceDataResource;
+        #endregion
 
-		public Color UnselectedColor { get; private set; }
+        #region Signal Callbacks
+        [Connect("input_event", "SelectionArea")]
+        public void SelectionColliderInputEvent(Node viewport, InputEvent @event, int shapeIdx)
+        {
+            if (MouseOverShip == null || CompareOverlap(MouseOverShip) > 0)
+                MouseOverShip = this;
+        }
 
-		public ShipClassData ClassData = new ShipClassData();
+        [Connect("mouse_exited", "SelectionArea")]
+        public void SelectionColliderMouseExited()
+        {
+            if (MouseOverShip == this)
+                MouseOverShip = null;
+        }
+        #endregion
 
-		[Export] public Godot.Resource InstanceDataResource;
-		public ShipInstanceData InstanceData => (ShipInstanceData) InstanceDataResource;
+        public override void _Ready()
+        {
+            base._Ready();
+            _HandeDebugReady();
+            UnselectedColor = Border.GetColorFor();
+        }
 
-		#endregion
+        public override void _Process(float delta)
+        {
+            _HandleDebugProcess(delta);
+        }
 
-		[Connect("input_event", "SelectionArea")]
-		public void SelectionColliderInputEvent(Node viewport, InputEvent @event, int shapeIdx)
-		{
-			if (MouseOverShip == null || CompareOverlap(MouseOverShip) > 0)
-				MouseOverShip = this;
-		}
+        public override void _PhysicsProcess(float delta)
+        {
+            _HandleAimPhysicsProcess(delta);
+            _HandleMovementPhysicsProcess(delta);
+            Position += Velocity * delta;
+        }
 
-		[Connect("mouse_exited", "SelectionArea")]
-		public void SelectionColliderMouseExited()
-		{
-			if (MouseOverShip == this)
-				MouseOverShip = null;
-		}
+        public override void _ExitTree()
+        {
+            if (MouseOverShip == this) MouseOverShip = null;
+        }
 
-		public Node2D NodeObject => this;
+        public int CompareTo(Ship other)
+        {
+            if (other == null) return 1;
+            if (other == this) return 0;
+            var sign = other.ZIndex - ZIndex;
+            return -(sign == 0 ? other.GetIndex() - GetIndex() : sign);
+        }
 
-		public override void _Ready()
-		{
-			_HandeDebugReady();
-			UnselectedColor = Border.GetColorFor();
-		}
+        public bool Equals(Ship other)
+            => GetInstanceId() == other?.GetInstanceId();
 
-		public override void _Process(float delta)
-		{
-			_HandleDebugProcess(delta);
-		}
+        public int CompareOverlap(Ship other)
+        {
+            return base.CompareOverlap(other);
+        }
 
-		public override void _PhysicsProcess(float delta)
-		{
-			_HandleAimPhysicsProcess(delta);
-			_HandleMovementPhysicsProcess(delta);
-			Position += Velocity * delta;
-		}
+        public override int CompareTo(GameUnit other)
+        {
+            //if (other is Ship ship) return CompareTo(ship);
+            return base.CompareTo(other);
+        }
 
-		public override void _ExitTree()
-		{
-			if (MouseOverShip == this) MouseOverShip = null;
-		}
+        public override int CompareOverlap(GameUnit other)
+        {
+            if (other == null) return 1;
+            if (other == this) return 0;
+            if (other is Ship ship) return CompareOverlap(ship);
+            return 0;
+        }
 
-		public int CompareTo(Ship other)
-		{
-			if (other == null) return 1;
-			if (other == this) return 0;
-			var sign = other.ZIndex - ZIndex;
-			return sign == 0 ? other.GetIndex() - GetIndex() : sign;
-		}
-
-		public bool Equals(Ship other)
-			=> GetInstanceId() == other?.GetInstanceId();
-
-		public int CompareOverlap(Ship other)
-		{
-			return base.CompareOverlap(other);
-		}
-
-		public override int CompareTo(GameUnit other)
-		{
-			//if (other is Ship ship) return CompareTo(ship);
-			return base.CompareTo(other);
-		}
-
-		public override int CompareOverlap(GameUnit other)
-		{
-			if (other == null) return 1;
-			if (other == this) return 0;
-			if (other is Ship ship) return CompareOverlap(ship);
-			return 0;
-		}
-
-		public override void SelectUpdate(InternalUnitSelectList nextSelector)
-		{
-			((Polygon2D)Border).Color = nextSelector != null ? SelectionColor : UnselectedColor;
-		}
-	}
+        public override void SelectUpdate(InternalUnitSelectList nextSelector)
+        {
+            ((Polygon2D)Border).Color = nextSelector != null ? SelectionColor : UnselectedColor;
+        }
+    }
 }

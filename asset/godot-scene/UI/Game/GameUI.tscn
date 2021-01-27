@@ -10,9 +10,6 @@
 [ext_resource path="res://asset/godot-scene/UI/Game/Menu/SelectionMenu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://asset/godot-scene/UI/Game/Segments/Outliner.tscn" type="PackedScene" id=9]
 
-
-
-
 [node name="GameUI" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0

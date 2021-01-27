@@ -54,7 +54,7 @@ namespace MSG.Global
                 var addControlNotPressed = !InputHandler.AddControlKeyPressed;
                 var selectionMenu = NodeRegistry.Get<SelectionMenu>();
                 if (group[0] is SelectableGroup topLevelGroup)
-                    selectionMenu.SelectedGroup = topLevelGroup;
+                    selectionMenu.SelectedUnit = topLevelGroup;
                 else
                     selectionMenu.AddRange(group);
             }
