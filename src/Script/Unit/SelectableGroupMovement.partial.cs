@@ -1,7 +1,7 @@
 using Godot;
 using SpartansLib.Structure;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class SelectableGroup
     {

@@ -9,33 +9,33 @@ using MSG.Utility;
 
 namespace MSG.Game.Unit
 {
-    public sealed class UnitSelectList : Script.Agent.GameUnit.InternalUnitSelectList
+    public sealed class UnitSelectList : Script.Unit.GameUnit.InternalUnitSelectList
     {
         public UnitSelectList() : base() {}
         public UnitSelectList(int capacity) : base(capacity) {}
     }
 
-    public sealed class SelectionMenuList : Script.Agent.GameUnit.InternalUnitSelectList
+    public sealed class SelectionMenuList : Script.Unit.GameUnit.InternalUnitSelectList
     {
         public SelectionMenuList() : base() {}
         public SelectionMenuList(int capacity) : base(capacity) {}
 
-        public new void Add(Script.Agent.GameUnit item) { }
-        public new void AddRange(ICollection<Script.Agent.GameUnit> items) { }
-        public new void AddRange(IReadOnlyCollection<Script.Agent.GameUnit> items) { }
-        public new void AddRange(IEnumerable<Script.Agent.GameUnit> items) { }
-        public new bool Remove(Script.Agent.GameUnit item) { return false; }
+        public new void Add(Script.Unit.GameUnit item) { }
+        public new void AddRange(ICollection<Script.Unit.GameUnit> items) { }
+        public new void AddRange(IReadOnlyCollection<Script.Unit.GameUnit> items) { }
+        public new void AddRange(IEnumerable<Script.Unit.GameUnit> items) { }
+        public new bool Remove(Script.Unit.GameUnit item) { return false; }
         public new void RemoveAt(int index) { }
         public new void Clear() { }
 
-        internal void AddInternal(Script.Agent.GameUnit item) { base.Add(item); }
-        internal void AddRangeInternal(ICollection<Script.Agent.GameUnit> items) { base.AddRange(items); }
-        internal bool RemoveInternal(Script.Agent.GameUnit item) { return base.Remove(item); }
+        internal void AddInternal(Script.Unit.GameUnit item) { base.Add(item); }
+        internal void AddRangeInternal(ICollection<Script.Unit.GameUnit> items) { base.AddRange(items); }
+        internal bool RemoveInternal(Script.Unit.GameUnit item) { return base.Remove(item); }
         internal void ClearInternal() { base.Clear(); }
     }
 }
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class GameUnit
     {

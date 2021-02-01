@@ -1,11 +1,11 @@
 using System;
 using Godot;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class Ship
     {
-        private const float ANGULAR_START_THRESHOLD = 7 * ((float) Math.PI / 180f);
+        private const float ANGULAR_START_THRESHOLD = 7 * ((float)Math.PI / 180f);
 
         private void _HandleAimPhysicsProcess(float delta)
         {

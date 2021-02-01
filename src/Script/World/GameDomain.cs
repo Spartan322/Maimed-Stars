@@ -1,24 +1,26 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Godot;
+using MSG.Game;
+using MSG.Script.World;
 using MSG.Utility;
+using SpartansLib.Attributes;
 
-namespace MSG.Game
+namespace MSG.Script.World
 {
-    public class GameDomainSettings
+    [Global]
+    public class GameDomain : Node
     {
-        public int NpcCount = 1;
-        public float InitialActionSpeed = 1;
-        public float ActionSpeedSteps = 0.25f;
-        public float MaxActionSpeed = 5f;
-    }
+        public class SettingsClass
+        {
+            public int NpcCount = 1;
+            public float InitialActionSpeed = 1;
+            public float ActionSpeedSteps = 0.25f;
+            public float MaxActionSpeed = 5f;
+        }
+        public SettingsClass Settings = new SettingsClass();
 
-    public class GameDomain
-    {
-        public GameDomainSettings Settings;
-
-        public GameWorld GameWorld { get; }
-        public Script.Game Node { get; private set; }
+        public GameWorld GameWorld { get; private set; }
         public GameNationController Client { get; private set; }
 
         public delegate void GameDomainChangeAction<T>(GameDomain domain, T arg);
@@ -34,7 +36,7 @@ namespace MSG.Game
             get => actionSpeed;
             set
             {
-                actionSpeed = (float) GameMath.Clamp(GameMath.Stepify(value, Settings.ActionSpeedSteps), 0,
+                actionSpeed = (float)GameMath.Clamp(GameMath.Stepify(value, Settings.ActionSpeedSteps), 0,
                     Settings.MaxActionSpeed);
                 OnGameSpeedChange?.Invoke(this, actionSpeed);
             }
@@ -42,18 +44,12 @@ namespace MSG.Game
 
         public bool IsActionPause => GameMath.IsZeroApprox(ActionSpeed);
 
-        public GameDomain(GameDomainSettings domainSettings = default, GameWorldSettings worldSettings = default)
+        public override void _Ready()
         {
-            Settings = domainSettings ?? new GameDomainSettings();
-            GameWorld = new GameWorld(this, worldSettings);
-        }
-
-        public void Initialize(Script.Game node)
-        {
-            Node = node;
             ActionSpeed = Settings.InitialActionSpeed;
 
-            AddController(Client = new GameNationController(this, new GameNationControllerSettings {
+            AddController(Client = new GameNationController(this, new GameNationController.SettingsClass
+            {
                 Name = (string)ProjectSettings.GetSetting("extra_settings/client_settings/player_name")
             }));
 
@@ -96,7 +92,7 @@ namespace MSG.Game
 
         public void AddController(GameNationController item)
         {
-            if(_controllers.Contains(item)) return;
+            if (_controllers.Contains(item)) return;
             _onControllerSet(item);
             _controllers.Add(item);
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Godot;
@@ -9,7 +9,7 @@ using SpartansLib.Attributes;
 using SpartansLib.Common;
 using SpartansLib.Extensions;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class SelectableGroup :
         GameUnit,
@@ -20,7 +20,7 @@ namespace MSG.Script.Agent
         IComparableOverlap<SelectableGroup>,
         IEquatable<SelectableGroup>
     {
-        public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/SelectableGroup.tscn");
+        public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/Unit/SelectableGroup.tscn");
 
         private FormationBase _formation;
         public FormationBase Formation
@@ -36,21 +36,6 @@ namespace MSG.Script.Agent
         private Vector2 minMaxSelectionAlpha = new Vector2(0.65f, 1);
 
         #region Exports
-        private int _nationId;
-        [Export]
-        public int NationId
-        {
-            get => _nationId;
-            set
-            {
-                _nationId = value;
-                if (!Engine.EditorHint)
-                {
-                    Manager.RegisterUnit(this);
-                }
-            }
-        }
-
         [Export] public bool IgnoreMaxSpeed;
 
         [Export]
@@ -70,6 +55,7 @@ namespace MSG.Script.Agent
         [Node] public Control InfoPanel;
         #endregion
 
+        [Connect("gui_input", "InfoPanel")]
         public void OnGroupInfoPanelGuiInput(InputEvent @event)
         {
             if (@event.LeftMouseIsJustPressed())
@@ -91,15 +77,17 @@ namespace MSG.Script.Agent
 
         public void UpdateData()
         {
-            if (InfoLabel != null)
-                InfoLabel.Text = UnitName + "\n" + Count;
+            InfoLabel.Text = UnitName + "\n" + Count;
         }
 
         public override void SelectUpdate(InternalUnitSelectList list)
         {
-            foreach(var unit in this)
+            foreach (var unit in this)
                 unit.SelectUpdate(list);
         }
+
+        public void AddRange(IEnumerable<GameUnit> items)
+            => _units.AddRange(items);
 
         public int CompareOverlap(SelectableGroup other)
         {

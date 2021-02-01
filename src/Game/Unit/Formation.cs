@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
-using MSG.Script.Agent;
+using MSG.Script.Unit;
 using SpartansLib.Extensions;
 using SpartansLib.Structure;
 

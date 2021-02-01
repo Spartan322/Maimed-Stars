@@ -3,7 +3,7 @@ using System.Linq;
 using Godot;
 using MSG.Game.Unit;
 using MSG.Global;
-using MSG.Script.Agent;
+using MSG.Script.Unit;
 using SpartansLib;
 using SpartansLib.Attributes;
 using SpartansLib.Extensions;

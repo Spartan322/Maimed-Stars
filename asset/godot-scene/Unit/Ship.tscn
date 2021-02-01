@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Script/Agent/Ship.cs" type="Script" id=1]
-[ext_resource path="res://asset/godot-resource/game/unit/base_ship_instance_data.tres" type="Resource" id=2]
+[ext_resource path="res://src/Script/Unit/Ship.cs" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -10,7 +9,6 @@ radius = 26.5
 
 [node name="Ship" type="Node2D"]
 script = ExtResource( 1 )
-InstanceDataResource = ExtResource( 2 )
 
 [node name="BaseShape" type="Polygon2D" parent="."]
 polygon = PoolVector2Array( 15, 0, -15, -15, -15, 15 )

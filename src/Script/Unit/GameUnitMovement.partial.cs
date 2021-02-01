@@ -1,6 +1,6 @@
 using Godot;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class GameUnit
     {

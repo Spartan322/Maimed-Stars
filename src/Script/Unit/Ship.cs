@@ -6,7 +6,7 @@ using SpartansLib;
 using SpartansLib.Attributes;
 using SpartansLib.Structure;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class Ship :
         GameUnit,
@@ -14,7 +14,7 @@ namespace MSG.Script.Agent
         IComparableOverlap<Ship>,
         IEquatable<Ship>
     {
-        public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/Ship.tscn");
+        public static readonly PackedScene Scene = GD.Load<PackedScene>("res://asset/godot-scene/Unit/Ship.tscn");
 
         public static Ship MouseOverShip { get; set; }
 
@@ -27,33 +27,17 @@ namespace MSG.Script.Agent
         #endregion
 
         #region Exports
-        private int _nationId;
-
-        [Export]
-        public int NationId
-        {
-            get => _nationId;
-            set
-            {
-                _nationId = value;
-                if (!Engine.EditorHint)
-                {
-                    Manager.RegisterUnit(this);
-                }
-            }
-        }
-
         [Export] public float SelectionRectSize = 6;
 
         [Export]                                        // rr gg bb aa
         public Color SelectionColor = ColorExt.FromRGBA8(0xff_00_00_be/*0xdc_d4_2d_0c*/);
 
         public Color UnselectedColor { get; private set; }
+        /*
+                public ShipClassData ClassData = new ShipClassData();
 
-        public ShipClassData ClassData = new ShipClassData();
-
-        [Export] public Godot.Resource InstanceDataResource;
-        public ShipInstanceData InstanceData => (ShipInstanceData)InstanceDataResource;
+                [Export] public Godot.Resource InstanceDataResource;
+                public ShipInstanceData InstanceData => (ShipInstanceData)InstanceDataResource; */
         #endregion
 
         #region Signal Callbacks

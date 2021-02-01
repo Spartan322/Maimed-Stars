@@ -1,7 +1,7 @@
 ﻿using Godot;
 using MSG.Game.Unit;
 using MSG.Global.Attribute;
-using MSG.Script.Agent;
+using MSG.Script.Unit;
 using MSG.Script.UI.Game;
 using SpartansLib;
 
@@ -188,7 +188,7 @@ namespace MSG.Global
 
         private static void ChangeSpeed(GameSpeedInteraction speed)
         {
-            var domain = NodeRegistry.Get<Script.Game>().Domain;
+            var domain = NodeRegistry.Get<Script.World.GameDomain>();
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
             switch (speed)
             {

@@ -1,7 +1,7 @@
 using Godot;
 using SpartansLib.Structure;
 
-namespace MSG.Script.Agent.Weapon
+namespace MSG.Script.Unit.Weapon
 {
     [Tool]
     public class Arrow : Node2D

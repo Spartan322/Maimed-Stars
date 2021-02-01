@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class SelectableGroup
     {
@@ -24,10 +24,10 @@ namespace MSG.Script.Agent
             unit.Group = newGroup;
         }
 
-        public GameUnit this[int index] 
-        { 
+        public GameUnit this[int index]
+        {
             get => _units[index];
-            set 
+            set
             {
                 if(Contains(value)) return;
                 _OnAddUnit(value);
@@ -37,7 +37,7 @@ namespace MSG.Script.Agent
 
         public int IndexOf(GameUnit item) => _units.IndexOf(item);
 
-        public void Insert(int index, GameUnit item) 
+        public void Insert(int index, GameUnit item)
         {
             _OnAddUnit(item);
             _units.Insert(index, item);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MSG.Game.Unit;
-using MSG.Script.Agent;
+using MSG.Script.Unit;
 using MSG.Script.UI.Game;
 using SpartansLib;
 

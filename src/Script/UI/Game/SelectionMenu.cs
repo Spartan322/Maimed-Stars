@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 using MSG.Game.Unit;
 using MSG.Global;
-using MSG.Script.Agent;
+using MSG.Script.Unit;
 using MSG.Script.UI.Base;
 using SpartansLib.Attributes;
 using SpartansLib.Extensions;
@@ -61,7 +61,6 @@ namespace MSG.Script.UI.Game
                     SelectedUnit.OnNameChange -= _OnSelectedUnitNameChange;
                 OnSelectedUnitChange?.Invoke(this, value);
                 DeleteButton.Visible = value != null;
-                _ResetItemList();
                 if (value is IEnumerable<GameUnit> range)
                     AddRange(range);
                 if (value != null)
@@ -119,7 +118,7 @@ namespace MSG.Script.UI.Game
             SelectionList.AddInternal(unit);
             if (Count == 1)
                 SelectedUnit = unit;
-            else if (SelectedUnit == this[0])
+            else if (SelectedUnit != null && SelectionList.Contains(SelectedUnit))
                 SelectedUnit = null;
             _AddUnitItem(unit, Count);
             _UpdateSubtitle();
@@ -128,15 +127,18 @@ namespace MSG.Script.UI.Game
 
         public void AddRange(IEnumerable<GameUnit> units)
         {
-            if (SelectedUnit == this[0])
+            if (Count > 0 && SelectedUnit == this[0])
                 SelectedUnit = null;
-            var count = Count;
+            var count = Count + 1;
             var enumerable = units as ICollection<GameUnit> ?? units.ToArray();
             SelectionList.AddRangeInternal(enumerable);
+            if (Count == 1)
+                SelectedUnit = this[0];
             foreach (var unit in enumerable)
                 _AddUnitItem(unit, count++);
             _UpdateSubtitle();
             _UpdateSelection();
+
         }
 
         public void Remove(GameUnit unit)
@@ -163,8 +165,10 @@ namespace MSG.Script.UI.Game
             return unit;
         }
 
-        private void _AddUnitItem(GameUnit unit, int index)
-            => SelectedItemList.AddItem($"{(index == 0 ? "*" : "")}{index}. {unit.UnitName}");
+        private void _AddUnitItem(GameUnit unit, int displayIndex)
+        {
+            SelectedItemList.AddItem($"{(displayIndex == 1 ? "*" : "")}{displayIndex}. {unit.UnitName}");
+        }
 
         private void _RemoveUnitItem(int index)
             => SelectedItemList.RemoveItem(index);
@@ -172,26 +176,25 @@ namespace MSG.Script.UI.Game
         private void _UpdateSubtitle()
             => SubtitleNode.Text = $"Selection: {Count}";
 
-        private void _ResetItemList()
+        private void _ResetItemList(bool noAdd = false)
         {
             SelectedItemList.Clear();
-            var count = 0;
-            foreach (var unit in SelectionList)
-                _AddUnitItem(unit, count++);
+            var count = 1;
+            if (!noAdd)
+                foreach (var unit in SelectionList)
+                    _AddUnitItem(unit, count++);
             _UpdateSubtitle();
             _UpdateSelection();
-        }
-
-        private void _TryUpdateGroupName()
-        {
-            if (string.IsNullOrWhiteSpace(TypedText)) return; // TODO: game error, group must be named
-            SelectedUnit.UnitName = TypedText;
         }
 
         private void _TryCreateGroup()
         {
             if (string.IsNullOrWhiteSpace(TypedText)) return; // TODO: game error, group must be named
-            SelectedUnit = CreateGroup(TypedText);
+            var group = CreateGroup(TypedText);
+            group.AddRange(this);
+            this[0].Manager.RegisterUnit(group);
+            SelectedUnit = group;
+            this[0].GetParent().AddChild(SelectedUnit);
         }
 
         private void _TryUpdateUnitName()
@@ -269,8 +272,7 @@ namespace MSG.Script.UI.Game
                     _TryUpdateUnitName();
                     break;
                 default:
-                    if (SelectedUnit == null)
-                        _TryCreateGroup();
+                    if (SelectedUnit == null) _TryCreateGroup();
                     else _TryUpdateUnitName();
                     break;
             }

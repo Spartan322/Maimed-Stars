@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using MSG.Utility;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public partial class Ship
     {

@@ -1,34 +1,28 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Godot;
+using MSG.Game;
 
-namespace MSG.Game
+namespace MSG.Script.World
 {
-    public class GameWorldSettings
-    {
-        public int StateCount = 2;
-    }
 
-    public class GameWorld : Reference, IList<GameNation>
+    public class GameWorld : Node, IList<GameNation>
     {
-        public GameDomain Domain { get; }
-        public GameWorldSettings Settings { get; }
+        public class SettingsClass
+        {
+        }
 
-        public GameNation EmptyNation { get; }
+        public GameDomain Domain { get; private set; }
+        public SettingsClass Settings { get; private set; }
+
+        public GameNation EmptyNation { get; private set; }
 
         private List<GameNation> _nations = new List<GameNation>();
 
-        public GameWorld(GameDomain domain, GameWorldSettings settings = default)
+        public override void _Ready()
         {
-            Domain = domain;
-            Settings = settings ?? new GameWorldSettings();
+            Domain = GetParent<GameDomain>();
             EmptyNation = new GameNation(this);
-        }
-
-        public void Initialize(Script.Game node)
-        {
-            for (var id = 0; id <= Settings.StateCount; id++)
-                Add(new GameNation(this));
         }
 
         private void _onNationSet(GameNation nation)
@@ -55,14 +49,14 @@ namespace MSG.Game
 
         public bool IsReadOnly => false;
 
-        public GameNation this[int index] 
+        public GameNation this[int index]
         {
             get => _nations[index];
-            set 
+            set
             {
-                if(index == Count)
+                if (index == Count)
                     Add(value);
-                else if(!_nations.Contains(value))
+                else if (!_nations.Contains(value))
                 {
                     _nations[index] = value;
                     _onNationSet(value);
@@ -78,7 +72,7 @@ namespace MSG.Game
 
         public void Clear()
         {
-            foreach(var nation in _nations)
+            foreach (var nation in _nations)
                 _onNationRemoved(nation, null);
             _nations.Clear();
         }
@@ -94,7 +88,7 @@ namespace MSG.Game
 
         public void Insert(int index, GameNation item)
         {
-            if(_nations.Contains(item)) return;
+            if (_nations.Contains(item)) return;
             _nations.Insert(index, item);
             _onNationSet(item);
         }

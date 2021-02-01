@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using MSG.Game.Unit;
-using MSG.Script.Agent;
+using MSG.Script.Unit;
+using MSG.Script.World;
 
 namespace MSG.Game
 {
@@ -24,7 +25,7 @@ namespace MSG.Game
 
         public void DeregisterUnit(GameUnit unit)
         {
-            if(unit.Group != null)
+            if (unit.Group != null)
             {
                 // TODO: remove from group
             }

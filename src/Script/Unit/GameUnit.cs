@@ -2,8 +2,10 @@ using System;
 using Godot;
 using MSG.Game;
 using MSG.Game.Unit;
+using MSG.Script.World;
+using SpartansLib;
 
-namespace MSG.Script.Agent
+namespace MSG.Script.Unit
 {
     public abstract partial class GameUnit : Node2D,
         IComparable<GameUnit>,
@@ -11,13 +13,25 @@ namespace MSG.Script.Agent
         IEquatable<GameUnit>
     {
         public UnitManager Manager { get; internal set; }
-        public GameNation Nation => Manager.Nation;
+        public GameNation Nation
+        {
+            get => Manager.Nation;
+            set
+            {
+                if (!Engine.EditorHint)
+                {
+                    Manager = value?.UnitManager;
+                    Manager?.RegisterUnit(this);
+                }
+            }
+        }
         public SelectableGroup Group { get; internal set; }
         public Vector2? AimTarget;
         public float TargetAngle;
         public virtual bool CanProcessAim { get; set; } = true;
 
         private string _unitName;
+        [Export]
         public string UnitName
         {
             get => _unitName;
@@ -36,9 +50,12 @@ namespace MSG.Script.Agent
 
         public override void _Ready()
         {
+            Manager = GetParent().GetParent<GameNation>().UnitManager;
             if (UnitName == null)
                 _unitName = Name;
         }
+
+        public virtual void OnUnitDeleted() { }
 
         public virtual int CompareTo(GameUnit other)
         {
@@ -53,11 +70,6 @@ namespace MSG.Script.Agent
 
         public virtual int CompareOverlap(GameUnit other)
             => CompareTo(other);
-
-        private void _OnNodeRenamed()
-        {
-
-        }
 
         public delegate void NameChangeAction(GameUnit unit, string newName);
         public event NameChangeAction OnNameChange;
