@@ -3,10 +3,10 @@ using MSG.Script.UI.Game;
 
 namespace MSG.Command
 {
-    public class ClickControlCommand : BaseCommand
+    public class SimClickCommand : BaseCommand
     {
         public override string Name => "sim_click";
-        public override string Description => "Clicks the Control object containing the ID.";
+        public override string Description => "Simulates a clicks ontop of the Control object's (0,0) coordinate containing the ID.";
 
         public override (ArgType type, string name, string description)[] Arguments =>
             new[]
@@ -26,7 +26,7 @@ namespace MSG.Command
                     var dummyInput = new InputEventMouseButton
                     {
                         Position = ctrl.RectGlobalPosition,
-                        ButtonIndex = (int) ButtonList.Left,
+                        ButtonIndex = (int)ButtonList.Left,
                         Pressed = true
                     };
                     Input.ParseInputEvent(dummyInput);
@@ -48,7 +48,7 @@ namespace MSG.Command
                 var dummyInput = new InputEventMouseButton
                 {
                     Position = ctrl.RectGlobalPosition,
-                    ButtonIndex = (int) ButtonList.Left,
+                    ButtonIndex = (int)ButtonList.Left,
                     Pressed = true
                 };
                 Input.ParseInputEvent(dummyInput);

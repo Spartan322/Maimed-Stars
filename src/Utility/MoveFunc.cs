@@ -106,11 +106,11 @@ namespace MSG.Utility
             //    end = Angle.NormalizeToFloat(end);
             //}
             return new Angle(start, true).LerpAngle(end, weight * max);
-            start += Mathf.Pi;
-            end += Mathf.Pi;
-            if (end > start) end = Mathf.Min(end, start + max);
-            else if (start > end) end = Mathf.Max(end, start - max);
-            return new Angle(start, true).LerpAngle(end, weight).Clamp(-end, end); // fix this
+            // start += Mathf.Pi;
+            // end += Mathf.Pi;
+            // if (end > start) end = Mathf.Min(end, start + max);
+            // else if (start > end) end = Mathf.Max(end, start - max);
+            // return new Angle(start, true).LerpAngle(end, weight).Clamp(-end, end); // fix this
         }
 
         public static float? RotateLerpChecked(float start,

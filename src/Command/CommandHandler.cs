@@ -21,7 +21,7 @@ namespace MSG.Command
                 {
                     var ctors = t.GetConstructors();
                     if (ctors.Length < 2 && ctors[0].GetParameters().Length < 1)
-                        RegisterCommand((BaseCommand) Activator.CreateInstance(t));
+                        RegisterCommand((BaseCommand)Activator.CreateInstance(t));
                 }
             }
         }
@@ -57,13 +57,13 @@ namespace MSG.Command
             {
                 return new List<ArgList>
                 {
-                    new ArgList(input.Split(WHITESPACE.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
+                    new ArgList(input.Split(WHITESPACE.ToCharArray(), StringSplitOptions.RemoveEmptyEntries), input)
                 };
             }
 
             var escapedOutput = input.ParseEscapableString(QUOTE, WHITESPACE + COMMAND_SEP, BACKSLASH, out var indexes);
             if (!input.ContainsAny(COMMAND_SEP))
-                return new List<ArgList> {new ArgList(escapedOutput)};
+                return new List<ArgList> { new ArgList(escapedOutput, input) };
             var multiArgList = escapedOutput.ParseLineSeperator(COMMAND_SEP + NEWLINE, BACKSLASH, indexes);
 
             var argList = new List<string>();
@@ -73,7 +73,7 @@ namespace MSG.Command
                 argList.Add(parsedString);
                 if (endStatement)
                 {
-                    result.Add(new ArgList(argList));
+                    result.Add(new ArgList(argList, input));
                     argList.Clear();
                 }
             }
@@ -86,7 +86,7 @@ namespace MSG.Command
             var cmd = GetCommand(argList[0]);
             if (cmd == null)
                 return null;
-            var cmdArgs = new CommandArguments {Interface = cmdInterface, Command = cmd, ArgumentList = argList};
+            var cmdArgs = new CommandArguments { Interface = cmdInterface, Command = cmd, ArgumentList = argList };
             cmdInterface.OnCommandExecute(cmdArgs);
             cmd?.ExecuteCommand(cmdArgs);
             return cmd;

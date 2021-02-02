@@ -11,6 +11,8 @@ using SpartansLib.Structure;
 
 namespace MSG.Script.UI.Game
 {
+    // TODO: enable properly drawing indentation on wrapping
+    [Global]
     public class Console : PanelContainer, ICommandInterface
     {
         public event Action<CommandArguments> OnExecute;
@@ -19,24 +21,24 @@ namespace MSG.Script.UI.Game
 
         [Export] public string ExecutionLineIndicator { get; private set; } = "$";
 
-        [Export] //  r  g  b
+        [Export]                                                           // rr gg bb
         public Color CommandColor { get; private set; } = ColorExt.FromRGB8(0xff_ff_66);
 
         [Export] public string CommandSplit { get; private set; } = ";";
 
         [Export] public int MaxHistorySize { get; private set; } = 10;
 
-        [Export] public NodePath ConsoleTitlePath;
-        [Node] public Label ConsoleTitle;
+        [Node("MarginContainer/ConsoleContainer/ConsoleTitle")]
+        public Label ConsoleTitle;
 
-        [Export] public NodePath ConsoleTextPath;
-        [Node] public RichTextLabel ConsoleText;
+        [Node("MarginContainer/ConsoleContainer/VBoxContainer/ConsoleTextPanel/ConsoleText")]
+        public RichTextLabel ConsoleText;
 
-        [Export] public NodePath ConsoleLinePath;
-        [Node] public LineEdit ConsoleLine;
+        [Node("MarginContainer/ConsoleContainer/VBoxContainer/ConsoleLine")]
+        public LineEdit ConsoleLine;
 
-        [Export] public NodePath ConsoleContainerPath;
-        [Node] public VBoxContainer ConsoleContainer;
+        [Node("MarginContainer/ConsoleContainer")]
+        public VBoxContainer ConsoleContainer;
 
         private DragType dragType = DragType.None;
         private Vector2 dragOffset, dragOffsetFar;
@@ -51,14 +53,9 @@ namespace MSG.Script.UI.Game
             PrintLine(ProjectSettings.GetSetting("application/config/name")
                       + $" (Godot {v["major"]}.{v["minor"]}.{v["patch"]} {v["status"]})\n"
                       + $"Type {CommandHandler.GetCommand("help").FormatName()} to get more information about usage");
-
-            ConsoleText.Connect("meta_clicked", this, nameof(OnMetaClicked));
-            ConsoleLine.Connect("text_entered", this, nameof(OnConsoleLineTextEntered));
-            ConsoleLine.Connect("gui_input", this, nameof(OnConsoleLineGuiInput));
         }
 
-        #region Console Manipulatable Impls
-
+        #region Console Implementation
         public DragType DragHitTest(Vector2 pos)
         {
             if (ConsoleTitle.GetGlobalRect().HasPoint(pos)) return DragType.Move;
@@ -77,7 +74,7 @@ namespace MSG.Script.UI.Game
             return DragType.None;
         }
 
-        const int MOUSE_BUTTON = (int) ButtonList.Left;
+        const int MOUSE_BUTTON = (int)ButtonList.Left;
 
         public override void _Process(float delta)
         {
@@ -207,11 +204,10 @@ namespace MSG.Script.UI.Game
                     MouseDefaultCursorShape = CursorShape.Arrow;
             }
         }
-
         #endregion
 
         public void Print(string str)
-            => ConsoleText.BbcodeText += str;
+            => ConsoleText.AppendBbcode(str);
 
         public void Print(params string[] str)
             => Print(ConsoleFormatHandler.Format(str));
@@ -230,6 +226,7 @@ namespace MSG.Script.UI.Game
 
         public void Clear() => ConsoleText.BbcodeText = "";
 
+        [Connect("meta_clicked", "MarginContainer/ConsoleContainer/VBoxContainer/ConsoleTextPanel/ConsoleText")]
         public void OnMetaClicked(object meta)
         {
             if (meta is string str)
@@ -296,6 +293,7 @@ namespace MSG.Script.UI.Game
             return history.ElementAt(history.Count - 1 - index);
         }
 
+        [Connect("text_entered", "MarginContainer/ConsoleContainer/VBoxContainer/ConsoleLine")]
         public void OnConsoleLineTextEntered(string text)
         {
             currentHistoryIndex = -1;
@@ -322,6 +320,7 @@ namespace MSG.Script.UI.Game
 
         private int currentHistoryIndex = -1;
 
+        [Connect("gui_input", "MarginContainer/ConsoleContainer/VBoxContainer/ConsoleLine")]
         public void OnConsoleLineGuiInput(InputEvent e)
         {
             var prevHistoryIndex = currentHistoryIndex;
@@ -340,7 +339,7 @@ namespace MSG.Script.UI.Game
         }
 
         public string GetLastLine()
-            => ConsoleLine.Text.Split(new[] {CommandSplit}, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            => ConsoleLine.Text.Split(new[] { CommandSplit }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
 
         public string TryFindNearestCommandNameFor(string input)
         {

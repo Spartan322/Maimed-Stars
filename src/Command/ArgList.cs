@@ -28,14 +28,17 @@ namespace MSG.Command
     {
         private string[] argList;
 
+        public string FullExecution { get; } = "";
+
         public ArgList(int capacity)
         {
             argList = new string[capacity];
         }
 
-        public ArgList(IList<string> array) : this(array.Count)
+        public ArgList(IList<string> array, string fullExecution = "") : this(array.Count)
         {
             array.CopyTo(argList, 0);
+            FullExecution = fullExecution;
         }
 
         public ArgList(string commandStr)
@@ -62,6 +65,7 @@ namespace MSG.Command
             //    else if (parsingAsString) saveString.Append(c);
             //}
             //commandList.Add(saveString.ToString().Trim());
+            FullExecution = commandStr;
             argList = commandStr.ParseEscapableString().ToArray();
         }
 
@@ -105,7 +109,7 @@ namespace MSG.Command
             {
                 var converter = TypeDescriptor.GetConverter(typeof(T));
                 if (converter.IsValid(this[index]))
-                    return (T) converter.ConvertFrom(this[index]);
+                    return (T)converter.ConvertFrom(this[index]);
             }
 
             return null;
