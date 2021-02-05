@@ -115,9 +115,18 @@ namespace MSG.Script.UI.Game
 
         public void Add(GameUnit unit)
         {
-            SelectionList.AddInternal(unit);
+            if (!SelectionList.AddInternal(unit)) return;
             if (Count == 1)
+            {
                 SelectedUnit = unit;
+                if (SelectedUnit is IEnumerable<GameUnit> group)
+                {
+                    SelectionList.RemoveInternal(unit);
+                    unit.SelectUpdate(SelectionList);
+                    _ResetItemList();
+                    return;
+                }
+            }
             else if (SelectedUnit != null && SelectionList.Contains(SelectedUnit))
                 SelectedUnit = null;
             _AddUnitItem(unit, Count);
@@ -131,10 +140,10 @@ namespace MSG.Script.UI.Game
                 SelectedUnit = null;
             var count = Count + 1;
             var enumerable = units as ICollection<GameUnit> ?? units.ToArray();
-            SelectionList.AddRangeInternal(enumerable);
+            var diff = SelectionList.AddRangeInternal(enumerable);
             if (Count == 1)
                 SelectedUnit = this[0];
-            foreach (var unit in enumerable)
+            foreach (var unit in diff)
                 _AddUnitItem(unit, count++);
             _UpdateSubtitle();
             _UpdateSelection();
@@ -189,18 +198,27 @@ namespace MSG.Script.UI.Game
 
         private void _TryCreateGroup()
         {
-            if (string.IsNullOrWhiteSpace(TypedText)) return; // TODO: game error, group must be named
+            if (string.IsNullOrWhiteSpace(TypedText))
+                return; // TODO: game error, group must be named
             var group = CreateGroup(TypedText);
             group.AddRange(this);
             this[0].Manager.RegisterUnit(group);
             SelectedUnit = group;
-            this[0].GetParent().AddChild(SelectedUnit);
+            this[0].AddChild(SelectedUnit);
         }
 
         private void _TryUpdateUnitName()
         {
-            if (string.IsNullOrWhiteSpace(TypedText)) return; // TODO: game error, unit must be named
-            this[0].UnitName = TypedText;
+            var group = SelectedUnit as SelectableGroup;
+            if (!string.IsNullOrWhiteSpace(TypedText))
+                SelectedUnit.UnitName = TypedText;
+            else if (group == null)
+                return; // TODO: game error, unit must be named)
+            if (group != null)
+            {
+                group.Clear();
+                group.AddRange(this);
+            }
         }
 
         private void _UpdateSelection()

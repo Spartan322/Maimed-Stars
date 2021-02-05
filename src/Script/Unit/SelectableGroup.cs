@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Godot;
 using MSG.Game.Unit;
 using MSG.Global;
+using MSG.Script.UI.Game;
+using MSG.Script.World;
 using SpartansLib;
 using SpartansLib.Attributes;
 using SpartansLib.Common;
@@ -55,14 +57,32 @@ namespace MSG.Script.Unit
         [Node] public Control InfoPanel;
         #endregion
 
+        private static SelectionMenu _selectionMenu;
+
+        private bool _isReady;
+        public override void _Ready()
+        {
+            base._Ready();
+            _isReady = true;
+            UpdateData();
+        }
+
+        public override void _Process(float delta)
+        {
+            GlobalRotation = 0;
+        }
+
+        protected override GameNation FindNation()
+            => GetParent<GameUnit>().Nation;
+
         [Connect("gui_input", "InfoPanel")]
         public void OnGroupInfoPanelGuiInput(InputEvent @event)
         {
+            if (_selectionMenu == null) _selectionMenu = NodeRegistry.Get<SelectionMenu>();
             if (@event.LeftMouseIsJustPressed())
             {
-
-                // TODO: replace SelectionHandler with SelectionMenu SelectionList
-                //SelectionHandler.Select(Instance, !InputHandler.AddControlKeyPressed);
+                if (!InputHandler.AddControlKeyPressed) _selectionMenu.Clear();
+                _selectionMenu.Add(this);
                 InfoPanel.AcceptEvent();
             }
         }
@@ -77,6 +97,7 @@ namespace MSG.Script.Unit
 
         public void UpdateData()
         {
+            if (!_isReady) return;
             InfoLabel.Text = UnitName + "\n" + Count;
         }
 
@@ -85,9 +106,6 @@ namespace MSG.Script.Unit
             foreach (var unit in this)
                 unit.SelectUpdate(list);
         }
-
-        public void AddRange(IEnumerable<GameUnit> items)
-            => _units.AddRange(items);
 
         public int CompareOverlap(SelectableGroup other)
         {

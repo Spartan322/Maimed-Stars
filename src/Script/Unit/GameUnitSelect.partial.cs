@@ -5,32 +5,47 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using MSG.Game.Unit;
+using MSG.Script.Unit;
 using MSG.Utility;
 
 namespace MSG.Game.Unit
 {
-    public sealed class UnitSelectList : Script.Unit.GameUnit.InternalUnitSelectList
+    public sealed class UnitSelectList : GameUnit.InternalUnitSelectList
     {
-        public UnitSelectList() : base() {}
-        public UnitSelectList(int capacity) : base(capacity) {}
+        public UnitSelectList() : base() { }
+        public UnitSelectList(int capacity) : base(capacity) { }
+        public UnitSelectList(GameUnit.InternalUnitSelectList list) : base(list.Count)
+        {
+            _listImplementation.AddRange(list);
+        }
     }
 
-    public sealed class SelectionMenuList : Script.Unit.GameUnit.InternalUnitSelectList
+    public sealed class SelectionMenuList : GameUnit.InternalUnitSelectList
     {
-        public SelectionMenuList() : base() {}
-        public SelectionMenuList(int capacity) : base(capacity) {}
+        public SelectionMenuList() : base() { }
+        public SelectionMenuList(int capacity) : base(capacity) { }
 
-        public new void Add(Script.Unit.GameUnit item) { }
-        public new void AddRange(ICollection<Script.Unit.GameUnit> items) { }
-        public new void AddRange(IReadOnlyCollection<Script.Unit.GameUnit> items) { }
-        public new void AddRange(IEnumerable<Script.Unit.GameUnit> items) { }
-        public new bool Remove(Script.Unit.GameUnit item) { return false; }
+        public new void Add(GameUnit item) { }
+        public new void AddRange(ICollection<GameUnit> items) { }
+        public new void AddRange(IReadOnlyCollection<GameUnit> items) { }
+        public new void AddRange(IEnumerable<GameUnit> items) { }
+        public new bool Remove(GameUnit item) { return false; }
         public new void RemoveAt(int index) { }
         public new void Clear() { }
 
-        internal void AddInternal(Script.Unit.GameUnit item) { base.Add(item); }
-        internal void AddRangeInternal(ICollection<Script.Unit.GameUnit> items) { base.AddRange(items); }
-        internal bool RemoveInternal(Script.Unit.GameUnit item) { return base.Remove(item); }
+        internal bool AddInternal(GameUnit item)
+        {
+            var newAdd = !Contains(item);
+            base.Add(item);
+            return newAdd;
+        }
+        internal IList<GameUnit> AddRangeInternal(ICollection<GameUnit> items)
+        {
+            IList<GameUnit> difference = items.Except(this).ToArray();
+            base.AddRange(difference);
+            return difference;
+        }
+        internal bool RemoveInternal(GameUnit item) { return base.Remove(item); }
         internal void ClearInternal() { base.Clear(); }
     }
 }
@@ -42,7 +57,7 @@ namespace MSG.Script.Unit
         private InternalUnitSelectList _selector;
         public UnitSelectList Selector => (UnitSelectList)_selector;
 
-        public virtual void SelectUpdate(InternalUnitSelectList nextSelector) {}
+        public virtual void SelectUpdate(InternalUnitSelectList nextSelector) { }
 
         public virtual void Select(InternalUnitSelectList nextSelector)
         {
@@ -104,7 +119,7 @@ namespace MSG.Script.Unit
                 if (!(item?.CanSelect(this) ?? false) || ReferenceEquals(item._selector, this)) return;
                 _RemoveOrPreselect(item, this);
                 _listImplementation.Add(item);
-                if(_listImplementation.Count > 1)
+                if (_listImplementation.Count > 1)
                     _listImplementation.Sort();
                 item._selector = this;
             }
@@ -158,8 +173,8 @@ namespace MSG.Script.Unit
 
             private void _AddRange(IEnumerable<GameUnit> items, int capacity = -1)
             {
-                if(capacity > -1) _listImplementation.Capacity += capacity;
-                foreach(var item in items)
+                if (capacity > -1) _listImplementation.Capacity += capacity;
+                foreach (var item in items)
                     Add(item);
             }
 

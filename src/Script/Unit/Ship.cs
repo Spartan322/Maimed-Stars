@@ -2,6 +2,7 @@ using System;
 using Godot;
 using MSG.Game.Unit;
 using MSG.Script.Resource;
+using MSG.Script.World;
 using SpartansLib;
 using SpartansLib.Attributes;
 using SpartansLib.Structure;
@@ -80,6 +81,9 @@ namespace MSG.Script.Unit
             if (MouseOverShip == this) MouseOverShip = null;
         }
 
+        protected override GameNation FindNation()
+            => GetParent().GetParent<GameNation>();
+
         public int CompareTo(Ship other)
         {
             if (other == null) return 1;
@@ -98,8 +102,8 @@ namespace MSG.Script.Unit
 
         public override int CompareTo(GameUnit other)
         {
-            //if (other is Ship ship) return CompareTo(ship);
-            return base.CompareTo(other);
+            if (other is Ship ship) return CompareTo(ship);
+            return -1;
         }
 
         public override int CompareOverlap(GameUnit other)

@@ -14,17 +14,17 @@ namespace MSG.Script.Unit
             // TODO: generate formation?
             if (Formation != null)
                 Formation.QueueFormationMove(new Offset(target, TargetAngle), this);
-            else foreach(var unit in this)
-            {
-                if (MaximumSpeedLimit > 0)
-                    unit.MaximumSpeedLimit = MaximumSpeedLimit;
-                unit.MoveTo(target);
-            }
+            else foreach (var unit in this)
+                {
+                    if (MaximumSpeedLimit > 0)
+                        unit.MaximumSpeedLimit = MaximumSpeedLimit;
+                    unit.MoveTo(target);
+                }
         }
 
         public override void ClearMovementTargets()
         {
-            foreach(var unit in this)
+            foreach (var unit in this)
                 unit.ClearMovementTargets();
         }
     }

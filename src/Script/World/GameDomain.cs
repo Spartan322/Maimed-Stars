@@ -44,13 +44,14 @@ namespace MSG.Script.World
 
         public bool IsActionPause => GameMath.IsZeroApprox(ActionSpeed);
 
-        public override void _Ready()
+        public override void _EnterTree()
         {
             ActionSpeed = Settings.InitialActionSpeed;
 
             AddController(Client = new GameNationController(this, new GameNationController.SettingsClass
             {
-                Name = (string)ProjectSettings.GetSetting("extra_settings/client_settings/player_name")
+                Name = (string)ProjectSettings.GetSetting("extra_settings/client_settings/player_name"),
+                IsClient = true
             }));
 
 

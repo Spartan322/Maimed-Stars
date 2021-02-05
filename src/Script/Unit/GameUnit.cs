@@ -20,6 +20,7 @@ namespace MSG.Script.Unit
             {
                 if (!Engine.EditorHint)
                 {
+                    if (value == null) GD.PushWarning($"{nameof(GameUnit)} '{UnitName}' Nation being set to null.");
                     Manager = value?.UnitManager;
                     Manager?.RegisterUnit(this);
                 }
@@ -50,10 +51,12 @@ namespace MSG.Script.Unit
 
         public override void _Ready()
         {
-            Manager = GetParent().GetParent<GameNation>().UnitManager;
             if (UnitName == null)
                 _unitName = Name;
+            Nation = FindNation();
         }
+
+        protected virtual GameNation FindNation() { return null; }
 
         public virtual void OnUnitDeleted() { }
 

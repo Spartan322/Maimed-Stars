@@ -1,15 +1,18 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using MSG.Game;
 using SpartansLib.XML;
 
 namespace MSG.Script.World
 {
-    public class GameNation : Node
+    public class GameNation : Node2D
     {
         public class SettingsClass { }
 
         private readonly List<GameNationController> _controllers = new List<GameNationController>();
+
+        public bool ClientNation { get; private set; }
 
         public GameWorld World { get; internal set; }
 
@@ -19,12 +22,13 @@ namespace MSG.Script.World
 
         public GameNation() { }
 
-        public GameNation(GameWorld gameWorld) { World = gameWorld; _Ready(); }
+        public GameNation(GameWorld gameWorld) { World = gameWorld; _EnterTree(); }
 
-        public override void _Ready()
+        public override void _EnterTree()
         {
-            UnitManager = new UnitManager(this);
             if (World == null) World = GetParent<GameWorld>();
+            UnitManager = new UnitManager(this);
+            if (_controllers.Any(cont => cont.Settings.IsClient)) ClientNation = true;
         }
     }
 }

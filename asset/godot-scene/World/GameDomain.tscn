@@ -18,6 +18,7 @@ script = ExtResource( 4 )
 script = ExtResource( 6 )
 
 [node name="PlayerGameNation" parent="GameWorld" instance=ExtResource( 5 )]
+z_index = 1
 
 [node name="Ship" parent="GameWorld/PlayerGameNation/UnitList" index="0" instance=ExtResource( 1 )]
 position = Vector2( 0.48221, 9.51666 )
@@ -55,6 +56,8 @@ rotation = -1.5708
 [node name="Ship10" parent="GameWorld/PlayerGameNation/UnitList" index="9" instance=ExtResource( 1 )]
 position = Vector2( -133.94, 179.003 )
 rotation = -1.5708
+
+[node name="EnemyGameNation" parent="GameWorld" instance=ExtResource( 5 )]
 
 [node name="Background" type="ParallaxBackground" parent="GameWorld"]
 layer = -20

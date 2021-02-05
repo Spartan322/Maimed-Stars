@@ -3,6 +3,7 @@
 [ext_resource path="res://src/Script/Unit/SelectableGroup.cs" type="Script" id=1]
 
 [node name="SelectableGroup" type="Node2D"]
+z_index = -1
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""

@@ -16,7 +16,6 @@ namespace MSG.Global
         }
 
         #region Control Groups
-
         internal static readonly GameUnit.InternalUnitSelectList[] controlGroups; // = new Tuple<BaseButton, IReadOnlyList<UnitAgent>>[];
 
         public delegate void ControlGroupChange(GameUnit.InternalUnitSelectList agents, int groupNum);
@@ -42,8 +41,8 @@ namespace MSG.Global
                 throw new ArgumentOutOfRangeException(nameof(num));
             if (selectionList?.Count == 0) selectionList = null;
             if (controlGroups[num] == null && selectionList == null) return;
-            controlGroups[num] = selectionList;
-            controlGroupChangeEvents[num]?.Invoke(selectionList, num);
+            controlGroups[num] = selectionList != null ? new UnitSelectList(selectionList) : null;
+            controlGroupChangeEvents[num]?.Invoke(controlGroups[num], num);
         }
 
         public static void TrySelectControlGroup(int num)
@@ -54,12 +53,11 @@ namespace MSG.Global
                 var addControlNotPressed = !InputHandler.AddControlKeyPressed;
                 var selectionMenu = NodeRegistry.Get<SelectionMenu>();
                 if (group[0] is SelectableGroup topLevelGroup)
-                    selectionMenu.SelectedUnit = topLevelGroup;
+                    selectionMenu.Add(topLevelGroup);
                 else
                     selectionMenu.AddRange(group);
             }
         }
-
         #endregion
     }
 }

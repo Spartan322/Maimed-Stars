@@ -19,16 +19,14 @@ namespace MSG.Game
 
         public void RegisterUnit(GameUnit unit)
         {
-            unit.Manager._DeregisterUnit(unit, this);
+            unit.Manager?._DeregisterUnit(unit, this);
             _units.Add(unit);
         }
 
         public void DeregisterUnit(GameUnit unit)
         {
             if (unit.Group != null)
-            {
-                // TODO: remove from group
-            }
+                unit.Group.Remove(unit);
             _DeregisterUnit(unit, null);
         }
 
