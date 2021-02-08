@@ -2,7 +2,6 @@
 
 [ext_resource path="res://src/Script/UI/Base/TopWindowDecoration.cs" type="Script" id=1]
 
-
 [node name="TopWindowDecoration" type="HBoxContainer"]
 margin_right = 1022.0
 margin_bottom = 20.0

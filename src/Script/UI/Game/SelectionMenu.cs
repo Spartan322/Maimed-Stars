@@ -30,7 +30,7 @@ namespace MSG.Script.UI.Game
         [Node("SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel")]
         public Control SelectedPanel;
 
-        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/ControlButtonList/DeleteButton")]
+        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/DeleteButton")]
         public Button DeleteButton;
 
         [Node("SelectionPanel/VBoxContainer/TopWindowDecoration")]
@@ -160,12 +160,14 @@ namespace MSG.Script.UI.Game
             _UpdateSelection();
         }
 
-        public void Clear()
+        public void Clear(bool ignoreItemList)
         {
             SelectionList.ClearInternal();
             SelectedUnit = null;
-            _ResetItemList();
+            if (!ignoreItemList) _ResetItemList();
         }
+
+        public void Clear() => Clear(false);
 
         public static SelectableGroup CreateGroup(string name)
         {
@@ -201,8 +203,8 @@ namespace MSG.Script.UI.Game
             if (string.IsNullOrWhiteSpace(TypedText))
                 return; // TODO: game error, group must be named
             var group = CreateGroup(TypedText);
-            group.AddRange(this);
             this[0].Manager.RegisterUnit(group);
+            group.AddRange(this);
             SelectedUnit = group;
             this[0].AddChild(SelectedUnit);
         }
@@ -230,7 +232,7 @@ namespace MSG.Script.UI.Game
             }
             if (!Visible) Visible = true;
             SelectedPanel.Visible = Count > 1;
-            AcceptButton.Text = "✓";
+            AcceptButton.Text = "A";//"✓";
             if (SelectedUnit == null && Count > 1)
             {
                 PlaceholderNameText = "Group Name";
@@ -265,8 +267,13 @@ namespace MSG.Script.UI.Game
         [Connect("item_activated", "SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList")]
         public void OnSelectedListItemActivated(int index)
         {
-            Clear();
-            AddRange(GetSelectedUnits());
+            (IList<GameUnit> list, GameUnit unit) temp = (null, null);
+            if (index > -1) temp.unit = this[index];
+            else temp.list = GetSelectedUnits();
+            Clear(true);
+            SelectedItemList.Clear();
+            if (temp.unit != null) Add(temp.unit);
+            else AddRange(temp.list);
             ignoreMouseInput |= InputHandler.MouseActionPressed;
         }
 
@@ -299,11 +306,15 @@ namespace MSG.Script.UI.Game
             NameLineEdit.ReleaseFocus();
         }
 
-        [Connect("pressed", "SelectionPanel/VBoxContainer/TopMargin/VList/ControlButtonList/DeleteButton")]
+        [Connect("pressed", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/DeleteButton")]
         public void OnDestroyButtonPressed()
         {
-            SelectedUnit = null;
-            _ResetItemList();
+            var delete = SelectedUnit;
+            // BUG: leaves nullptr error for previous deleted object when deleting a following object
+            Clear();
+            delete.Manager.DeregisterUnit(delete);
+            delete.GetParent().RemoveChild(delete);
+            delete.QueueFree();
         }
 
         [Connect("text_entered", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/Name")]
@@ -311,16 +322,7 @@ namespace MSG.Script.UI.Game
 
         public void OnQuitButtonPressed() => Visible = false;
 
-        public void SelectionPanelMouseEnter()
-        {
-        }
-
-        public void SelectionPanelMouseExit()
-        {
-        }
-
         private static bool ignoreMouseInput;
-
         public static void HandleTopLevelInput(GlobalScript global, InputEvent @event)
         {
             if (!@event.IsMouseAction() || !ignoreMouseInput) return;

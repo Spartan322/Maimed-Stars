@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Script/UI/Game/SelectionMenu.cs" type="Script" id=1]
-[ext_resource path="res://asset/godot-resource/font/SelectionMenuFont10.tres" type="DynamicFont" id=2]
 [ext_resource path="res://asset/godot-theme/Styles/standard_panel_style.tres" type="StyleBox" id=3]
 [ext_resource path="res://asset/godot-scene/UI/TopWindowDecoration.tscn" type="PackedScene" id=4]
 
@@ -72,7 +71,7 @@ margin_right = 288.0
 margin_bottom = 24.0
 
 [node name="Name" type="LineEdit" parent="SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList"]
-margin_right = 256.0
+margin_right = 255.0
 margin_bottom = 24.0
 focus_next = NodePath("../AcceptButton")
 focus_previous = NodePath("../AcceptButton")
@@ -84,21 +83,29 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="HListSep" type="VSeparator" parent="SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList"]
-margin_left = 260.0
-margin_right = 264.0
+margin_left = 259.0
+margin_right = 263.0
 margin_bottom = 24.0
 mouse_filter = 1
 
 [node name="AcceptButton" type="Button" parent="SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList"]
-margin_left = 268.0
+margin_left = 267.0
 margin_right = 288.0
 margin_bottom = 24.0
 focus_next = NodePath("../Name")
 focus_previous = NodePath("../Name")
 mouse_filter = 1
 size_flags_horizontal = 8
-custom_fonts/font = ExtResource( 2 )
-text = "🗸"
+text = "A"
+
+[node name="DeleteButton" type="Button" parent="SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList"]
+visible = false
+margin_left = 268.0
+margin_right = 288.0
+margin_bottom = 24.0
+hint_tooltip = "Delete"
+mouse_filter = 1
+text = "X"
 
 [node name="SubtitlePanel" type="PanelContainer" parent="SelectionPanel/VBoxContainer/TopMargin/VList"]
 self_modulate = Color( 0.133333, 0.133333, 0.133333, 1 )
@@ -122,19 +129,10 @@ scroll_active = false
 
 [node name="ControlButtonList" type="HBoxContainer" parent="SelectionPanel/VBoxContainer/TopMargin/VList"]
 visible = false
-margin_top = 52.0
-margin_right = 290.0
-margin_bottom = 52.0
+margin_top = 54.0
+margin_right = 288.0
+margin_bottom = 54.0
 alignment = 2
-
-[node name="DeleteButton" type="Button" parent="SelectionPanel/VBoxContainer/TopMargin/VList/ControlButtonList"]
-visible = false
-margin_left = 270.0
-margin_right = 290.0
-margin_bottom = 20.0
-hint_tooltip = "Delete"
-mouse_filter = 1
-text = "X"
 
 [node name="SelectedPanel" type="PanelContainer" parent="SelectionPanel/VBoxContainer/TopMargin/VList"]
 self_modulate = Color( 0.133333, 0.133333, 0.133333, 1 )
@@ -168,5 +166,3 @@ mouse_filter = 1
 mouse_default_cursor_shape = 2
 select_mode = 1
 allow_rmb_select = true
-[connection signal="mouse_entered" from="SelectionPanel" to="." method="SelectionPanelMouseEnter"]
-[connection signal="mouse_exited" from="SelectionPanel" to="." method="SelectionPanelMouseExit"]

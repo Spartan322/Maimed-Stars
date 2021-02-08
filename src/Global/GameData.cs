@@ -5,6 +5,7 @@ using MSG.Game.Unit;
 using MSG.Script.Unit;
 using MSG.Script.UI.Game;
 using SpartansLib;
+using Godot;
 
 namespace MSG.Global
 {
@@ -41,21 +42,26 @@ namespace MSG.Global
                 throw new ArgumentOutOfRangeException(nameof(num));
             if (selectionList?.Count == 0) selectionList = null;
             if (controlGroups[num] == null && selectionList == null) return;
-            controlGroups[num] = selectionList != null ? new UnitSelectList(selectionList) : null;
+            controlGroups[num] = selectionList;
             controlGroupChangeEvents[num]?.Invoke(controlGroups[num], num);
         }
 
+        private static SelectionMenu _selectionMenu = NodeRegistry.Get<SelectionMenu>();
         public static void TrySelectControlGroup(int num)
         {
             var group = GetControlGroup(num);
             if (group != null)
             {
-                var addControlNotPressed = !InputHandler.AddControlKeyPressed;
-                var selectionMenu = NodeRegistry.Get<SelectionMenu>();
-                if (group[0] is SelectableGroup topLevelGroup)
-                    selectionMenu.Add(topLevelGroup);
+                if (!InputHandler.AddControlKeyPressed)
+                    _selectionMenu.Clear();
+                if (group.Count == 1 && group[0] is SelectableGroup selectedGroupUnit)
+                {
+                    _selectionMenu.Add(selectedGroupUnit);
+                }
                 else
-                    selectionMenu.AddRange(group);
+                {
+                    _selectionMenu.AddRange(group);
+                }
             }
         }
         #endregion

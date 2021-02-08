@@ -25,6 +25,8 @@ namespace MSG.Game.Unit
         public SelectionMenuList() : base() { }
         public SelectionMenuList(int capacity) : base(capacity) { }
 
+        protected override bool IsMainSelector => true;
+
         public new void Add(GameUnit item) { }
         public new void AddRange(ICollection<GameUnit> items) { }
         public new void AddRange(IReadOnlyCollection<GameUnit> items) { }
@@ -55,7 +57,6 @@ namespace MSG.Script.Unit
     public partial class GameUnit
     {
         private InternalUnitSelectList _selector;
-        public UnitSelectList Selector => (UnitSelectList)_selector;
 
         public virtual void SelectUpdate(InternalUnitSelectList nextSelector) { }
 
@@ -100,6 +101,8 @@ namespace MSG.Script.Unit
                 _listImplementation = new List<GameUnit>(capacity);
             }
 
+            protected virtual bool IsMainSelector => false;
+
             public void QueueMoveForSelection(Vector2 target, bool queue, float speed = -1)
             {
                 // TODO: generate formation?
@@ -121,7 +124,11 @@ namespace MSG.Script.Unit
                 _listImplementation.Add(item);
                 if (_listImplementation.Count > 1)
                     _listImplementation.Sort();
-                item._selector = this;
+                if (IsMainSelector)
+                {
+                    item._selector = this;
+                    item.SelectUpdate(this);
+                }
             }
 
             public void AddRange(IEnumerable<GameUnit> items)
@@ -147,11 +154,12 @@ namespace MSG.Script.Unit
 
             public void Clear()
             {
-                foreach (var item in this)
-                {
-                    item.SelectUpdate(null);
-                    item._selector = null;
-                }
+                if (IsMainSelector)
+                    foreach (var item in this)
+                    {
+                        item.SelectUpdate(null);
+                        item._selector = null;
+                    }
 
                 _listImplementation.Clear();
             }
@@ -166,8 +174,11 @@ namespace MSG.Script.Unit
             private bool _Remove(GameUnit item, InternalUnitSelectList nextSelector)
             {
                 if (item == null) return false;
-                item.SelectUpdate(nextSelector);
-                item._selector = nextSelector;
+                if (IsMainSelector)
+                {
+                    item.SelectUpdate(nextSelector);
+                    item._selector = nextSelector;
+                }
                 return _listImplementation.Remove(item);
             }
 
@@ -192,8 +203,11 @@ namespace MSG.Script.Unit
             {
                 if (index < 0 || index > Count) throw new IndexOutOfRangeException();
                 var item = this[index];
-                item.SelectUpdate(null);
-                item._selector = null;
+                if (IsMainSelector)
+                {
+                    item.SelectUpdate(null);
+                    item._selector = null;
+                }
                 _listImplementation.RemoveAt(index);
             }
 

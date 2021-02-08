@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Godot;
 using MSG.Game.Unit;
 using MSG.Script.Unit;
 using MSG.Script.World;
@@ -19,7 +20,7 @@ namespace MSG.Game
 
         public void RegisterUnit(GameUnit unit)
         {
-            unit.Manager?._DeregisterUnit(unit, this);
+            _DeregisterUnit(unit, this);
             _units.Add(unit);
         }
 
@@ -30,9 +31,9 @@ namespace MSG.Game
             _DeregisterUnit(unit, null);
         }
 
-        private void _DeregisterUnit(GameUnit unit, UnitManager nextManager)
+        private static void _DeregisterUnit(GameUnit unit, UnitManager nextManager)
         {
-            _units.Remove(unit);
+            unit.Manager?._units.Remove(unit);
             unit.Manager = nextManager;
         }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Godot;
 
 namespace MSG.Script.Unit
 {
@@ -16,8 +17,7 @@ namespace MSG.Script.Unit
             if (SlowestUnit == null || unit.MaximumMoveSpeed < SlowestUnit.MaximumMoveSpeed)
                 SlowestUnit = unit;
             if (unit.Group == null) return;
-            _OnRemoveUnit(unit, this);
-            unit.Group._units.Remove(unit);
+            unit.Group.Remove(unit);
             if (unit.Manager != Manager) unit.Manager = Manager;
         }
 
@@ -44,6 +44,7 @@ namespace MSG.Script.Unit
                 if (Contains(value)) return;
                 _OnAddUnit(value);
                 _units[index] = value;
+                value.Group = this;
                 UpdateData();
             }
         }
@@ -54,6 +55,7 @@ namespace MSG.Script.Unit
         {
             _OnAddUnit(item);
             _units.Insert(index, item);
+            item.Group = this;
             UpdateData();
         }
 
@@ -68,6 +70,7 @@ namespace MSG.Script.Unit
         {
             _OnAddUnit(item);
             _units.Add(item);
+            item.Group = this;
             if (!ignoreUpdate) UpdateData();
         }
 
@@ -98,13 +101,20 @@ namespace MSG.Script.Unit
 
         public void CopyTo(GameUnit[] array, int arrayIndex) => _units.CopyTo(array, arrayIndex);
 
-        public bool Remove(GameUnit item)
+        public bool Remove(GameUnit item, bool ignoreUpdate)
         {
             _OnRemoveUnit(item, null);
             var result = _units.Remove(item);
-            UpdateData();
+            if (Count == 0)
+            {
+                GetParent().RemoveChild(this);
+                QueueFree();
+            }
+            else if (!ignoreUpdate) UpdateData();
             return result;
         }
+
+        public bool Remove(GameUnit item) => Remove(item, false);
 
         public IEnumerator<GameUnit> GetEnumerator() => _units.GetEnumerator();
 

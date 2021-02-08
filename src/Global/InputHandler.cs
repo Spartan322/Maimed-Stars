@@ -4,6 +4,7 @@ using MSG.Global.Attribute;
 using MSG.Script.Unit;
 using MSG.Script.UI.Game;
 using SpartansLib;
+using System.Linq;
 
 namespace MSG.Global
 {
@@ -142,10 +143,15 @@ namespace MSG.Global
             {
                 if (Mathf.IsZeroApprox(controlGroupTimer.TimeLeft))
                 {
-                    var selectionMenu = NodeRegistry.Get<SelectionMenu>();
-                    GameData.SetControlGroup(controlGroupNum,
-                        /* (ISelectionList) selectionMenu.SelectedGroup
-                        ??  */selectionMenu.SelectionList);
+                    if (_selectionMenu.SelectedUnit is SelectableGroup group
+                        && _selectionMenu.SelectionList.All(u => group.Contains(u)))
+                    {
+                        GameData.SetControlGroup(controlGroupNum,
+                            new UnitSelectList() { group });
+                    }
+                    else
+                        GameData.SetControlGroup(controlGroupNum,
+                            new UnitSelectList(_selectionMenu.SelectionList));
                     StopTimer();
                 }
                 else if (!pressed)
