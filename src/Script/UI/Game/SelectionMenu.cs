@@ -12,7 +12,7 @@ using SpartansLib.Extensions;
 namespace MSG.Script.UI.Game
 {
     [Global]
-    public class SelectionMenu : VBoxContainer, IReadOnlyList<GameUnit>
+    public partial class SelectionMenu : VBoxContainer, IReadOnlyList<GameUnit>
     {
         #region Nodes
         [Node("SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/Name")]
@@ -47,7 +47,7 @@ namespace MSG.Script.UI.Game
         #endregion
 
         #region Public Fields
-        public SelectionMenuList SelectionList { get; } = new SelectionMenuList();
+        public MainSelectList SelectList { get; } = new MainSelectList();
 
         private GameUnit _selectedUnit;
 
@@ -84,9 +84,6 @@ namespace MSG.Script.UI.Game
         }
 
         public int SelectedCount => GetSelectedIndices().Count;
-
-        public GameUnit this[int index] => SelectionList[index];
-        public int Count => SelectionList.Count;
         #endregion
 
         public override void _Ready()
@@ -106,149 +103,11 @@ namespace MSG.Script.UI.Game
                     {
                         ReleaseFocus();
                         if (SelectedUnit == null && Count > 0)
-                            SelectionList.ClearInternal();
+                            SelectList.ClearInternal();
                         else Clear();
                     }
                     break;
             }
-        }
-
-        public void Add(GameUnit unit)
-        {
-            if (!SelectionList.AddInternal(unit)) return;
-            if (Count == 1)
-            {
-                SelectedUnit = unit;
-                if (SelectedUnit is IEnumerable<GameUnit> group)
-                {
-                    SelectionList.RemoveInternal(unit);
-                    unit.SelectUpdate(SelectionList);
-                    _ResetItemList();
-                    return;
-                }
-            }
-            else if (SelectedUnit != null && SelectionList.Contains(SelectedUnit))
-                SelectedUnit = null;
-            _AddUnitItem(unit, Count);
-            _UpdateSubtitle();
-            _UpdateSelection();
-        }
-
-        public void AddRange(IEnumerable<GameUnit> units)
-        {
-            if (Count > 0 && SelectedUnit == this[0])
-                SelectedUnit = null;
-            var count = Count + 1;
-            var enumerable = units as ICollection<GameUnit> ?? units.ToArray();
-            var diff = SelectionList.AddRangeInternal(enumerable);
-            if (Count == 1)
-                SelectedUnit = this[0];
-            foreach (var unit in diff)
-                _AddUnitItem(unit, count++);
-            _UpdateSubtitle();
-            _UpdateSelection();
-
-        }
-
-        public void Remove(GameUnit unit)
-        {
-            var index = SelectionList.IndexOf(unit);
-            if (index == -1) return;
-            _RemoveUnitItem(index);
-            SelectionList.RemoveInternal(unit);
-            _UpdateSubtitle();
-            _UpdateSelection();
-        }
-
-        public void Clear(bool ignoreItemList)
-        {
-            SelectionList.ClearInternal();
-            SelectedUnit = null;
-            if (!ignoreItemList) _ResetItemList();
-        }
-
-        public void Clear() => Clear(false);
-
-        public static SelectableGroup CreateGroup(string name)
-        {
-            var unit = SelectableGroup.Scene.Instance<SelectableGroup>();
-            unit.UnitName = name;
-            return unit;
-        }
-
-        private void _AddUnitItem(GameUnit unit, int displayIndex)
-        {
-            SelectedItemList.AddItem($"{(displayIndex == 1 ? "*" : "")}{displayIndex}. {unit.UnitName}");
-        }
-
-        private void _RemoveUnitItem(int index)
-            => SelectedItemList.RemoveItem(index);
-
-        private void _UpdateSubtitle()
-            => SubtitleNode.Text = $"Selection: {Count}";
-
-        private void _ResetItemList(bool noAdd = false)
-        {
-            SelectedItemList.Clear();
-            var count = 1;
-            if (!noAdd)
-                foreach (var unit in SelectionList)
-                    _AddUnitItem(unit, count++);
-            _UpdateSubtitle();
-            _UpdateSelection();
-        }
-
-        private void _TryCreateGroup()
-        {
-            if (string.IsNullOrWhiteSpace(TypedText))
-                return; // TODO: game error, group must be named
-            var group = CreateGroup(TypedText);
-            this[0].Manager.RegisterUnit(group);
-            group.AddRange(this);
-            SelectedUnit = group;
-            this[0].AddChild(SelectedUnit);
-        }
-
-        private void _TryUpdateUnitName()
-        {
-            var group = SelectedUnit as SelectableGroup;
-            if (!string.IsNullOrWhiteSpace(TypedText))
-                SelectedUnit.UnitName = TypedText;
-            else if (group == null)
-                return; // TODO: game error, unit must be named)
-            if (group != null)
-            {
-                group.Clear();
-                group.AddRange(this);
-            }
-        }
-
-        private void _UpdateSelection()
-        {
-            if (Count == 0)
-            {
-                if (Visible) Visible = false;
-                return;
-            }
-            if (!Visible) Visible = true;
-            SelectedPanel.Visible = Count > 1;
-            AcceptButton.Text = "A";//"✓";
-            if (SelectedUnit == null && Count > 1)
-            {
-                PlaceholderNameText = "Group Name";
-                AcceptButton.Text = "+";
-            }
-        }
-
-        public IList<int> GetSelectedIndices() => SelectedItemList.GetSelectedItems();
-
-        public IList<GameUnit> GetSelectedUnits()
-        {
-            var indices = GetSelectedIndices();
-            var result = new GameUnit[indices.Count];
-            for (var i = 0; i < indices.Count; i++)
-                result[i] = this[indices[i]];
-            return result;
         }
 
         public override void _Input(InputEvent e)
@@ -280,12 +139,6 @@ namespace MSG.Script.UI.Game
         [Connect("item_rmb_selected", "SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList")]
         public void OnSelectedListRmbSelected(int index, Vector2 click)
             => Remove(this[index]);
-
-        public void OnSelectedListGuiInput(InputEvent @event)
-        {
-            /*if (Input.IsActionJustPressed("ui_accept"))
-                OnSelectedListItemActivated(-1);*/
-        }
 
         [Connect("button_up", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/AcceptButton")]
         public void OnAcceptButtonUp()
@@ -328,36 +181,12 @@ namespace MSG.Script.UI.Game
             global.GetTree().SetInputAsHandled();
         }
 
-        public IEnumerator<GameUnit> GetEnumerator()
-        {
-            for (var i = 0; i < Count; i++)
-                yield return this[i];
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
         static SelectionMenu()
         {
             GlobalScript.OnInput += HandleTopLevelInput;
         }
 
-        private void HandleSelectedList()
-        {
-            SelectedItemList.Clear();
-            switch (SelectionList.Count)
-            {
-                case 0:
-                    Visible = false;
-                    return;
-                case 1:
-                    if (!InputHandler.AddControlKeyPressed && this[0] is SelectableGroup group) // TODO: not agent
-                        SelectedUnit = group;
-                    else /* if menu deselected to one unit */
-                        SelectedUnit = null;
-                    break;
-            }
-            // 🛡
-        }
+        // 🛡
 
         private void _OnSelectedUnitNameChange(GameUnit unit, string name)
             => PlaceholderNameText = name;

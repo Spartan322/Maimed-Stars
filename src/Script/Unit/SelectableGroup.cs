@@ -101,7 +101,7 @@ namespace MSG.Script.Unit
             InfoLabel.Text = UnitName + "\n" + Count;
         }
 
-        public override void SelectUpdate(InternalUnitSelectList list)
+        public override void SelectUpdate(InternalSelectList list)
         {
             foreach (var unit in this)
                 unit.SelectUpdate(list);

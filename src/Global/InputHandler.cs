@@ -95,7 +95,7 @@ namespace MSG.Global
             }
 
             if (e.RightMouseIsPressed() || !addControlPressed && RightMousePressed)
-                _selectionMenu.SelectionList.QueueMoveForSelection(MouseWatcher.MouseOriginGlobal, addControlPressed);
+                _selectionMenu.SelectList.QueueMoveForSelection(MouseWatcher.MouseOriginGlobal, addControlPressed);
 
             if (!e.LeftMouseIsJustReleased()) return;
 
@@ -144,14 +144,14 @@ namespace MSG.Global
                 if (Mathf.IsZeroApprox(controlGroupTimer.TimeLeft))
                 {
                     if (_selectionMenu.SelectedUnit is SelectableGroup group
-                        && _selectionMenu.SelectionList.All(u => group.Contains(u)))
+                        && _selectionMenu.SelectList.All(u => group.Contains(u)))
                     {
                         GameData.SetControlGroup(controlGroupNum,
-                            new UnitSelectList() { group });
+                            new SelectList() { group });
                     }
                     else
                         GameData.SetControlGroup(controlGroupNum,
-                            new UnitSelectList(_selectionMenu.SelectionList));
+                            new SelectList(_selectionMenu.SelectList));
                     StopTimer();
                 }
                 else if (!pressed)

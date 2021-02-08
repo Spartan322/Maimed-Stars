@@ -114,7 +114,7 @@ namespace MSG.Script.Unit
             return 0;
         }
 
-        public override void SelectUpdate(InternalUnitSelectList nextSelector)
+        public override void SelectUpdate(InternalSelectList nextSelector)
         {
             ((Polygon2D)Border).Color = nextSelector != null ? SelectionColor : UnselectedColor;
         }

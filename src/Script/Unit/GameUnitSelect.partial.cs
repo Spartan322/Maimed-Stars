@@ -1,66 +1,19 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using MSG.Game.Unit;
-using MSG.Script.Unit;
 using MSG.Utility;
-
-namespace MSG.Game.Unit
-{
-    public sealed class UnitSelectList : GameUnit.InternalUnitSelectList
-    {
-        public UnitSelectList() : base() { }
-        public UnitSelectList(int capacity) : base(capacity) { }
-        public UnitSelectList(GameUnit.InternalUnitSelectList list) : base(list.Count)
-        {
-            _listImplementation.AddRange(list);
-        }
-    }
-
-    public sealed class SelectionMenuList : GameUnit.InternalUnitSelectList
-    {
-        public SelectionMenuList() : base() { }
-        public SelectionMenuList(int capacity) : base(capacity) { }
-
-        protected override bool IsMainSelector => true;
-
-        public new void Add(GameUnit item) { }
-        public new void AddRange(ICollection<GameUnit> items) { }
-        public new void AddRange(IReadOnlyCollection<GameUnit> items) { }
-        public new void AddRange(IEnumerable<GameUnit> items) { }
-        public new bool Remove(GameUnit item) { return false; }
-        public new void RemoveAt(int index) { }
-        public new void Clear() { }
-
-        internal bool AddInternal(GameUnit item)
-        {
-            var newAdd = !Contains(item);
-            base.Add(item);
-            return newAdd;
-        }
-        internal IList<GameUnit> AddRangeInternal(ICollection<GameUnit> items)
-        {
-            IList<GameUnit> difference = items.Except(this).ToArray();
-            base.AddRange(difference);
-            return difference;
-        }
-        internal bool RemoveInternal(GameUnit item) { return base.Remove(item); }
-        internal void ClearInternal() { base.Clear(); }
-    }
-}
 
 namespace MSG.Script.Unit
 {
     public partial class GameUnit
     {
-        internal InternalUnitSelectList _selector;
+        internal InternalSelectList _selector;
 
-        public virtual void SelectUpdate(InternalUnitSelectList nextSelector) { }
+        public virtual void SelectUpdate(InternalSelectList nextSelector) { }
 
-        public virtual void Select(InternalUnitSelectList nextSelector)
+        public virtual void Select(InternalSelectList nextSelector)
         {
             if (!CanSelect(nextSelector)) return;
             nextSelector.Add(this);
@@ -71,12 +24,12 @@ namespace MSG.Script.Unit
             _selector?.Remove(this);
         }
 
-        public virtual bool CanSelect(InternalUnitSelectList nextSelector)
+        public virtual bool CanSelect(InternalSelectList nextSelector)
         {
             return true;
         }
 
-        public class InternalUnitSelectList : ISimpleList<GameUnit>, IFormationHolder
+        public class InternalSelectList : ISimpleList<GameUnit>, IFormationHolder
         {
             protected readonly List<GameUnit> _listImplementation;
 
@@ -91,12 +44,12 @@ namespace MSG.Script.Unit
                 }
             }
 
-            protected internal InternalUnitSelectList()
+            protected internal InternalSelectList()
             {
                 _listImplementation = new List<GameUnit>();
             }
 
-            protected internal InternalUnitSelectList(int capacity)
+            protected internal InternalSelectList(int capacity)
             {
                 _listImplementation = new List<GameUnit>(capacity);
             }
@@ -171,7 +124,7 @@ namespace MSG.Script.Unit
 
             public bool Remove(GameUnit item) => _Remove(item, null);
 
-            private bool _Remove(GameUnit item, InternalUnitSelectList nextSelector)
+            private bool _Remove(GameUnit item, InternalSelectList nextSelector)
             {
                 if (item == null) return false;
                 if (IsMainSelector)
@@ -189,7 +142,7 @@ namespace MSG.Script.Unit
                     Add(item);
             }
 
-            private static void _RemoveOrPreselect(GameUnit item, InternalUnitSelectList nextSelector)
+            private static void _RemoveOrPreselect(GameUnit item, InternalSelectList nextSelector)
             {
                 if (item._selector == null) item.SelectUpdate(nextSelector);
                 else item._selector._Remove(item, nextSelector);
