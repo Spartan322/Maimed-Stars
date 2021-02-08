@@ -310,8 +310,6 @@ namespace MSG.Script.UI.Game
         public void OnDestroyButtonPressed()
         {
             var delete = SelectedUnit;
-            // BUG: leaves nullptr error for previous deleted object when deleting a following object
-            Clear();
             delete.Manager.DeregisterUnit(delete);
             delete.GetParent().RemoveChild(delete);
             delete.QueueFree();

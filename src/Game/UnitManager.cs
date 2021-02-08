@@ -26,8 +26,10 @@ namespace MSG.Game
 
         public void DeregisterUnit(GameUnit unit)
         {
-            if (unit.Group != null)
-                unit.Group.Remove(unit);
+            if (unit is IList<GameUnit> group)
+                group.Clear();
+            unit.Group?.Remove(unit);
+            unit._selector?.Remove(unit);
             _DeregisterUnit(unit, null);
         }
 

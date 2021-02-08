@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using MSG.Game;
+using SpartansLib.Attributes;
 using SpartansLib.XML;
 
 namespace MSG.Script.World
@@ -11,6 +12,9 @@ namespace MSG.Script.World
         public class SettingsClass { }
 
         private readonly List<GameNationController> _controllers = new List<GameNationController>();
+
+        [Node]
+        public Node UnitList;
 
         public bool ClientNation { get; private set; }
 

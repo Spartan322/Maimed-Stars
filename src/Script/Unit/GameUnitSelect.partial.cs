@@ -56,7 +56,7 @@ namespace MSG.Script.Unit
 {
     public partial class GameUnit
     {
-        private InternalUnitSelectList _selector;
+        internal InternalUnitSelectList _selector;
 
         public virtual void SelectUpdate(InternalUnitSelectList nextSelector) { }
 
