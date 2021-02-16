@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Godot;
 using MSG.Script.Unit;
 using SpartansLib.Extensions;
 
@@ -53,15 +55,15 @@ namespace MSG.Script.UI.Game
             var group = CreateGroup(TypedText);
             this[0].Manager.RegisterUnit(group);
             group.AddRange(this);
-            SelectedUnit = group;
-            this[0].AddChild(SelectedUnit);
+            this[0].AddChild(group);
+            FocusUnit = group;
         }
 
         private void _TryUpdateUnitName()
         {
-            var group = SelectedUnit as SelectableGroup;
+            var group = FocusUnit as SelectableGroup;
             if (!string.IsNullOrWhiteSpace(TypedText))
-                SelectedUnit.UnitName = TypedText;
+                FocusUnit.UnitName = TypedText;
             else if (group == null)
                 return; // TODO: game error, unit must be named)
             if (group != null)
@@ -75,13 +77,13 @@ namespace MSG.Script.UI.Game
         {
             if (Count == 0)
             {
-                if (Visible) Visible = false;
+                Visible = false;
                 return;
             }
-            if (!Visible) Visible = true;
+            Visible = true;
             SelectedPanel.Visible = Count > 1;
             AcceptButton.Text = "A";//"✓";
-            if (SelectedUnit == null && Count > 1)
+            if (FocusUnit == null && Count > 1)
             {
                 PlaceholderNameText = "Group Name";
                 AcceptButton.Text = "+";

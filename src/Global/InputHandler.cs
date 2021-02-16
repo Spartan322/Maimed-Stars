@@ -143,7 +143,7 @@ namespace MSG.Global
             {
                 if (Mathf.IsZeroApprox(controlGroupTimer.TimeLeft))
                 {
-                    if (_selectionMenu.SelectedUnit is SelectableGroup group
+                    if (_selectionMenu.FocusUnit is SelectableGroup group
                         && _selectionMenu.SelectList.All(u => group.Contains(u)))
                     {
                         GameData.SetControlGroup(controlGroupNum,

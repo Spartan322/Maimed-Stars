@@ -49,26 +49,10 @@ namespace MSG.Script.UI.Game
         #region Public Fields
         public MainSelectList SelectList { get; } = new MainSelectList();
 
-        private GameUnit _selectedUnit;
-
-        public GameUnit SelectedUnit
+        public GameUnit FocusUnit
         {
-            get => _selectedUnit;
-            set
-            {
-                if (Object.ReferenceEquals(SelectedUnit, value)) return;
-                if (SelectedUnit != null)
-                    SelectedUnit.OnNameChange -= _OnSelectedUnitNameChange;
-                OnSelectedUnitChange?.Invoke(this, value);
-                DeleteButton.Visible = value != null;
-                if (value is IEnumerable<GameUnit> range)
-                    AddRange(range);
-                if (value != null)
-                    PlaceholderNameText = value.UnitName;
-                _selectedUnit = value;
-                if (SelectedUnit == null) return;
-                SelectedUnit.OnNameChange += _OnSelectedUnitNameChange;
-            }
+            get => SelectList.FocusUnit;
+            set => SelectList.FocusUnit = value;
         }
 
         public string TypedText
@@ -88,6 +72,10 @@ namespace MSG.Script.UI.Game
 
         public override void _Ready()
         {
+            SelectList.OnSelectListChanged += _OnSelectListChanged;
+            SelectList.OnSelectListPostChanged += _OnSelectListPostChanged;
+            SelectList.OnFocusUnitChanged += _OnFocusUnitChanged;
+            SelectList.OnFocusUnitNameChange += _OnFocusUnitNameChange;
             TopWindowDecoration.OnButtonPressed += (sender, args) =>
             {
                 if (args.ButtonType.IsExit()) OnQuitButtonPressed();
@@ -102,8 +90,8 @@ namespace MSG.Script.UI.Game
                     if (!Visible)
                     {
                         ReleaseFocus();
-                        if (SelectedUnit == null && Count > 0)
-                            SelectList.ClearInternal();
+                        if (FocusUnit == null && Count > 0)
+                            SelectList.Clear();
                         else Clear();
                     }
                     break;
@@ -119,7 +107,7 @@ namespace MSG.Script.UI.Game
                 && !NameLineEdit.HasFocus())
                 NameLineEdit.GrabFocus();
 
-            if (SelectedUnit != null && e.SelectionDeleteKeyIsJustPressed())
+            if (FocusUnit != null && e.SelectionDeleteKeyIsJustPressed())
                 OnDestroyButtonPressed();
         }
 
@@ -150,7 +138,7 @@ namespace MSG.Script.UI.Game
                     _TryUpdateUnitName();
                     break;
                 default:
-                    if (SelectedUnit == null) _TryCreateGroup();
+                    if (FocusUnit == null) _TryCreateGroup();
                     else _TryUpdateUnitName();
                     break;
             }
@@ -162,7 +150,7 @@ namespace MSG.Script.UI.Game
         [Connect("pressed", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/DeleteButton")]
         public void OnDestroyButtonPressed()
         {
-            var delete = SelectedUnit;
+            var delete = FocusUnit;
             delete.Manager.DeregisterUnit(delete);
             delete.GetParent().RemoveChild(delete);
             delete.QueueFree();
@@ -188,7 +176,18 @@ namespace MSG.Script.UI.Game
 
         // 🛡
 
-        private void _OnSelectedUnitNameChange(GameUnit unit, string name)
-            => PlaceholderNameText = name;
+        private void _OnFocusUnitChanged(MainSelectList list, GameUnit unit)
+        {
+            DeleteButton.Visible = unit != null;
+            if (unit != null)
+            {
+                _OnFocusUnitNameChange(unit, unit.UnitName);
+            }
+        }
+
+        private void _OnFocusUnitNameChange(GameUnit unit, string name)
+        {
+            PlaceholderNameText = name;
+        }
     }
 }

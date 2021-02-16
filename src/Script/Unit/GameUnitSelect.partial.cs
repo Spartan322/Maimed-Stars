@@ -44,6 +44,8 @@ namespace MSG.Script.Unit
                 }
             }
 
+            public float MaximumSpeedLimit = -1;
+
             protected internal InternalSelectList()
             {
                 _listImplementation = new List<GameUnit>();
@@ -56,12 +58,12 @@ namespace MSG.Script.Unit
 
             protected virtual bool IsMainSelector => false;
 
-            public void QueueMoveForSelection(Vector2 target, bool queue, float speed = -1)
+            public void QueueMoveForSelection(Vector2 target, bool queue)
             {
                 // TODO: generate formation?
                 foreach (var unit in this)
                 {
-                    if (speed > 0) unit.MaximumSpeedLimit = speed;
+                    if (MaximumSpeedLimit > 0) unit.MaximumSpeedLimit = MaximumSpeedLimit;
                     if (!queue) unit.ClearMovementTargets();
                     unit.MoveTo(target);
                 }
@@ -70,7 +72,7 @@ namespace MSG.Script.Unit
             public IEnumerator<GameUnit> GetEnumerator() => _listImplementation.GetEnumerator();
             IEnumerator IEnumerable.GetEnumerator() => _listImplementation.GetEnumerator();
 
-            public void Add(GameUnit item)
+            public virtual void Add(GameUnit item)
             {
                 if (!(item?.CanSelect(this) ?? false) || ReferenceEquals(item._selector, this)) return;
                 _RemoveOrPreselect(item, this);
@@ -84,7 +86,7 @@ namespace MSG.Script.Unit
                 }
             }
 
-            public void AddRange(IEnumerable<GameUnit> items)
+            public virtual void AddRange(IEnumerable<GameUnit> items)
             {
                 if (items is ICollection<GameUnit> collection)
                 {
@@ -105,7 +107,7 @@ namespace MSG.Script.Unit
             public void AddRange(IReadOnlyCollection<GameUnit> items)
                 => _AddRange(items, items.Count);
 
-            public void Clear()
+            public virtual void Clear()
             {
                 if (IsMainSelector)
                     foreach (var item in this)
@@ -117,14 +119,14 @@ namespace MSG.Script.Unit
                 _listImplementation.Clear();
             }
 
-            public bool Contains(GameUnit item) => _listImplementation.Contains(item);
+            public virtual bool Contains(GameUnit item) => _listImplementation.Contains(item);
 
-            public void CopyTo(GameUnit[] array, int arrayIndex)
+            public virtual void CopyTo(GameUnit[] array, int arrayIndex)
                 => _listImplementation.CopyTo(array, arrayIndex);
 
             public bool Remove(GameUnit item) => _Remove(item, null);
 
-            private bool _Remove(GameUnit item, InternalSelectList nextSelector)
+            protected virtual bool _Remove(GameUnit item, InternalSelectList nextSelector)
             {
                 if (item == null) return false;
                 if (IsMainSelector)
@@ -135,14 +137,15 @@ namespace MSG.Script.Unit
                 return _listImplementation.Remove(item);
             }
 
-            private void _AddRange(IEnumerable<GameUnit> items, int capacity = -1)
+            protected void _AddRange(IEnumerable<GameUnit> items, int capacity = -1)
             {
-                if (capacity > -1) _listImplementation.Capacity += capacity;
+                if (capacity > -1)
+                    _listImplementation.Capacity = Count + capacity;
                 foreach (var item in items)
                     Add(item);
             }
 
-            private static void _RemoveOrPreselect(GameUnit item, InternalSelectList nextSelector)
+            protected static void _RemoveOrPreselect(GameUnit item, InternalSelectList nextSelector)
             {
                 if (item._selector == null) item.SelectUpdate(nextSelector);
                 else item._selector._Remove(item, nextSelector);
@@ -150,9 +153,9 @@ namespace MSG.Script.Unit
 
             public int Count => _listImplementation.Count;
             public bool IsReadOnly => true;
-            public int IndexOf(GameUnit item) => _listImplementation.IndexOf(item);
+            public virtual int IndexOf(GameUnit item) => _listImplementation.IndexOf(item);
 
-            public void RemoveAt(int index)
+            public virtual void RemoveAt(int index)
             {
                 if (index < 0 || index > Count) throw new IndexOutOfRangeException();
                 var item = this[index];
@@ -164,7 +167,7 @@ namespace MSG.Script.Unit
                 _listImplementation.RemoveAt(index);
             }
 
-            public GameUnit this[int index] => _listImplementation[index];
+            public virtual GameUnit this[int index] => _listImplementation[index];
         }
     }
 }

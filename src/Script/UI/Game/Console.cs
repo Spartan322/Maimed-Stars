@@ -346,7 +346,7 @@ namespace MSG.Script.UI.Game
             if (input == null) input = "";
             var cmd = CommandHandler.GetAllCommands().FirstOrDefault(pair =>
                 pair.Name.StartsWith(input, StringComparison.CurrentCultureIgnoreCase));
-            if (cmd.Name != null)
+            if (cmd?.Name != null)
                 return cmd.Name;
             return "";
         }

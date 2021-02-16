@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
+using MSG.Game.Unit;
 using MSG.Script.Unit;
 
 namespace MSG.Script.UI.Game
@@ -10,58 +12,17 @@ namespace MSG.Script.UI.Game
         public GameUnit this[int index] => SelectList[index];
         public int Count => SelectList.Count;
 
-        public void Add(GameUnit unit)
-        {
-            if (!SelectList.AddInternal(unit)) return;
-            if (Count == 1)
-            {
-                SelectedUnit = unit;
-                if (SelectedUnit is IEnumerable<GameUnit> group)
-                {
-                    SelectList.RemoveInternal(unit);
-                    unit.SelectUpdate(SelectList);
-                    _ResetItemList();
-                    return;
-                }
-            }
-            else if (SelectedUnit != null && SelectList.Contains(SelectedUnit))
-                SelectedUnit = null;
-            _AddUnitItem(unit, Count);
-            _UpdateSubtitle();
-            _UpdateSelection();
-        }
+        public void Add(GameUnit unit) => SelectList.Add(unit);
 
-        public void AddRange(IEnumerable<GameUnit> units)
-        {
-            if (Count > 0 && SelectedUnit == this[0])
-                SelectedUnit = null;
-            var count = Count + 1;
-            var enumerable = units as ICollection<GameUnit> ?? units.ToArray();
-            var diff = SelectList.AddRangeInternal(enumerable);
-            if (Count == 1)
-                SelectedUnit = this[0];
-            foreach (var unit in diff)
-                _AddUnitItem(unit, count++);
-            _UpdateSubtitle();
-            _UpdateSelection();
+        public void AddRange(IEnumerable<GameUnit> units) => SelectList.AddRange(units);
 
-        }
+        public void Remove(GameUnit unit) => SelectList.Remove(unit);
 
-        public void Remove(GameUnit unit)
-        {
-            var index = SelectList.IndexOf(unit);
-            if (index == -1) return;
-            _RemoveUnitItem(index);
-            SelectList.RemoveInternal(unit);
-            _UpdateSubtitle();
-            _UpdateSelection();
-        }
-
+        private bool _ignoreItemList;
         public void Clear(bool ignoreItemList)
         {
-            SelectList.ClearInternal();
-            SelectedUnit = null;
-            if (!ignoreItemList) _ResetItemList();
+            _ignoreItemList = ignoreItemList;
+            SelectList.Clear();
         }
 
         public void Clear() => Clear(false);
@@ -72,5 +33,35 @@ namespace MSG.Script.UI.Game
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        private bool _updateListShouldWait;
+        private void _OnSelectListChanged(MainSelectList list, GameUnit singleAdd, GameUnit[] multiAdd, GameUnit sub)
+        {
+            if (singleAdd != null)
+            {
+                _AddUnitItem(singleAdd, Count + 1);
+            }
+            else if (sub != null)
+            {
+                _RemoveUnitItem(list.IndexOf(sub));
+            }
+            else if (multiAdd != null)
+            {
+                _updateListShouldWait = true;
+            }
+        }
+
+        private void _OnSelectListPostChanged(MainSelectList list, GameUnit singleAdd, GameUnit[] multiAdd, GameUnit sub)
+        {
+            if (singleAdd == null && multiAdd == null && sub == null) // if cleared
+            {
+                if (!_ignoreItemList) _ResetItemList();
+                return;
+            }
+            if (_updateListShouldWait && multiAdd == null) return;
+            _UpdateSubtitle();
+            _UpdateSelection();
+            _updateListShouldWait = false;
+        }
     }
 }

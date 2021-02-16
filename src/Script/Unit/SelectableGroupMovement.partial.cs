@@ -7,11 +7,10 @@ namespace MSG.Script.Unit
     {
         public GameUnit SlowestUnit { get; private set; }
 
-        public override void AddMovementTarget(Vector2 target)
+        public void AddMovementTarget(Vector2 target, bool ignoreSlowest)
         {
-            // TODO: define a manner to allow units to ignore slowest unit or stay in formation as well?
-            MaximumSpeedLimit = Mathf.Min(MaximumSpeedLimit, SlowestUnit.MaximumMoveSpeed);
-            // TODO: generate formation?
+            if (!ignoreSlowest)
+                MaximumSpeedLimit = Mathf.Min(MaximumSpeedLimit, SlowestUnit.MaximumMoveSpeed);
             if (Formation != null)
                 Formation.QueueFormationMove(new Offset(target, TargetAngle), this);
             else foreach (var unit in this)
@@ -21,6 +20,9 @@ namespace MSG.Script.Unit
                     unit.MoveTo(target);
                 }
         }
+
+        public override void AddMovementTarget(Vector2 target)
+            => AddMovementTarget(target, false);
 
         public override void ClearMovementTargets()
         {
