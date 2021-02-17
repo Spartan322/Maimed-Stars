@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bb4d3a5f-db58-402d-b524-37980f528bbc" name="Default Changelist" comment="" />
+    <list default="true" id="bb4d3a5f-db58-402d-b524-37980f528bbc" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/contentModel.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/riderModule.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Maimed_Stars.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Maimed_Stars.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Maimed_Stars.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Maimed_Stars.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpartansLib" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLib.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLib.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/SpartansLibTask.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/SpartansLibTask.csproj" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/SpartansLib/Source/Xml/Parser.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/36/7351cfe1/BindingFlags.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/e0/9ffe7a36/IList`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/128/RuntimeFieldHandle.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/65EAD0CE-844A-4BD9-91B1-72402E0C0E60/b8/8ed89745/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/20/3bdb2598/TaskLoggingHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/a6/feb7cb9e/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/28/dc43f22a/Label.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/66/OpCodes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/2B/GenericInstanceMethod.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/a6/feb7cb9e/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/37/MethodSpecification.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/IL/85B2AFF0-A8DC-426A-9933-640E03BF917F/f5/5ee1ab97/0200010Cpdb.il" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/12/MethodReference.cs" root0="SKIP_HIGHLIGHTING" />
@@ -21,23 +42,17 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/22/CustomAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/11/MethodDefinition.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/3EA/MethodBase.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/1a/915bc167/Script.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/7C/InvalidCastException.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/65EAD0CE-844A-4BD9-91B1-72402E0C0E60/b8/8ed89745/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/85B2AFF0-A8DC-426A-9933-640E03BF917F/97/0556aa14/IMemberDefinition.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/e0/9ffe7a36/IList`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/D32DBEDA-FDF3-41FD-B6E6-8B825C2B3237/9/TypeDefinitionRocks.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/4d/e23dc639/CSharpScript.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/3F5/PropertyInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/1a/915bc167/Script.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/8d/df762854/Task.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/CC/Type.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/03/4bfbe2b0/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/28/dc43f22a/Label.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/3E3/FieldInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8BB8D73E-F63E-4977-9468-A25AC0907979/4e/94b29d43/LoggerVerbosity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/36/7351cfe1/BindingFlags.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/128/RuntimeFieldHandle.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/20/3bdb2598/TaskLoggingHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/50E/List.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -49,15 +64,12 @@
       <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/InjectionTask.cs" />
       <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/GodotInjector.cs" />
       <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Class1.cs" />
-      <option value="$PROJECT_DIR$/Maimed_Stars.csproj" />
       <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/ParentNodeAttribute.cs" />
       <option value="$PROJECT_DIR$/Source/Global/GlobalScript.cs" />
       <option value="$PROJECT_DIR$/Source/InterfaceMarkup/MarkupReader.cs" />
       <option value="$PROJECT_DIR$/SpartansLib/Source/SL.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" />
       <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/SpartansLibAttribute.cs" />
       <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/GlobalAttribute.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" />
       <option value="$PROJECT_DIR$/Source/Script/Game.cs" />
       <option value="$PROJECT_DIR$/Source/Script/UI/Game/Segement/SpeedContainer.cs" />
       <option value="$PROJECT_DIR$/SpartansLib/Source/Internal/VariableMemberInfo.cs" />
@@ -92,9 +104,13 @@
       <option value="$PROJECT_DIR$/Source/Game/Unit/UnitNationModule.cs" />
       <option value="$PROJECT_DIR$/Source/Game/UnitManager.cs" />
       <option value="$PROJECT_DIR$/Source/Game/GameNation.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" />
+      <option value="$PROJECT_DIR$/Maimed_Stars.csproj" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1k7DroRbqRufF6p3tRq6Vu2yc4W" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -134,6 +150,9 @@
       <workItem from="1606552230422" duration="2459000" />
       <workItem from="1607316213487" duration="9162000" />
       <workItem from="1607753077829" duration="5235000" />
+      <workItem from="1613523704853" duration="3042000" />
+      <workItem from="1613526951783" duration="575000" />
+      <workItem from="1613580621816" duration="197000" />
     </task>
     <servers />
   </component>
@@ -142,6 +161,18 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>

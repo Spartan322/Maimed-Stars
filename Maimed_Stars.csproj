@@ -12,6 +12,8 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Deterministic>false</Deterministic>
+    <Configurations>Debug;ExportDebug;ExportRelease</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ExportDebug|AnyCPU' ">
     <LangVersion>Latest</LangVersion>
@@ -23,7 +25,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>Latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <NoWarn>CS0649</NoWarn>
   </PropertyGroup>
@@ -43,9 +45,6 @@
   <ItemGroup>
     <None Include="src\packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
-  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
@@ -64,7 +63,7 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
-  <UsingTask AssemblyFile="$(ProjectDir)SpartansLib/SpartansLibTask/bin/$(Configuration)/SpartansLibTask.dll" TaskName="SpartansLib.Injection.InjectionTask" />
+  <UsingTask AssemblyFile="$(ProjectDir).mono/temp/bin/$(Configuration)/SpartansLibTask.dll" TaskName="SpartansLib.Injection.InjectionTask" />
   <Target Name="InjectionTask" AfterTargets="Build">
     <SpartansLib.Injection.InjectionTask ProjectDir="$(ProjectDir)" Configuration="$(Configuration)" TargetAssemblyName="$(AssemblyName)" EnableChecks="True" EnableChecksInRelease="False" />
   </Target>
