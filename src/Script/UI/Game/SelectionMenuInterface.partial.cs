@@ -82,12 +82,6 @@ namespace MSG.Script.UI.Game
             }
             Visible = true;
             SelectedPanel.Visible = Count > 1;
-            AcceptButton.Text = "A";//"✓";
-            if (FocusUnit == null && Count > 1)
-            {
-                PlaceholderNameText = "Group Name";
-                AcceptButton.Text = "+";
-            }
         }
     }
 }

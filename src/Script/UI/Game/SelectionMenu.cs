@@ -75,6 +75,7 @@ namespace MSG.Script.UI.Game
             SelectList.OnSelectListChanged += _OnSelectListChanged;
             SelectList.OnSelectListPostChanged += _OnSelectListPostChanged;
             SelectList.OnFocusUnitChanged += _OnFocusUnitChanged;
+            _OnFocusUnitChanged(SelectList, FocusUnit);
             SelectList.OnFocusUnitNameChange += _OnFocusUnitNameChange;
             TopWindowDecoration.OnButtonPressed += (sender, args) =>
             {
@@ -151,6 +152,7 @@ namespace MSG.Script.UI.Game
         public void OnDestroyButtonPressed()
         {
             var delete = FocusUnit;
+            FocusUnit = null;
             delete.Manager.DeregisterUnit(delete);
             delete.GetParent().RemoveChild(delete);
             delete.QueueFree();
@@ -182,6 +184,12 @@ namespace MSG.Script.UI.Game
             if (unit != null)
             {
                 _OnFocusUnitNameChange(unit, unit.UnitName);
+                AcceptButton.Text = "A";//"✓";
+            }
+            else
+            {
+                PlaceholderNameText = "Group Name";
+                AcceptButton.Text = "+";
             }
         }
 
