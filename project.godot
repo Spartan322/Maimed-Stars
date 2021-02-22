@@ -16,15 +16,11 @@ _global_script_class_icons={
 [application]
 
 config/name="Maimed_Stars"
-run/main_scene="res://asset/godot-scene/World/GameDomain.tscn"
+run/main_scene="res://asset/godot-scene/UI/MainMenu/MainMenu.tscn"
 
 [audio]
 
 default_bus_layout="res://asset/godot-resource/audio/bus/default_bus_layout.tres"
-
-[autoload]
-
-GlobalScript="*res://src/Global/GlobalScript.cs"
 
 [extra_settings]
 

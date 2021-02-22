@@ -9,7 +9,7 @@ using SpartansLib.Structure;
 
 namespace MSG.Script.UI.Game
 {
-    public class PauseMenu : ColorRect
+    public class PauseMenu : ColorRect, IMenuParent
     {
         public static bool FocusOwnerExist { get; private set; } = false;
 
@@ -20,7 +20,8 @@ namespace MSG.Script.UI.Game
 
         [Node("PauseContainer/SettingsMenu")] SettingsMenu SettingsMenu;
 
-        internal readonly List<BasePauseMenuPanel> MenuPanels = new List<BasePauseMenuPanel>();
+        private List<BaseMenuPanel> _menuPanels = new List<BaseMenuPanel>();
+        public IList<BaseMenuPanel> MenuPanels => _menuPanels;
 
         public override void _Ready()
         {
@@ -28,7 +29,7 @@ namespace MSG.Script.UI.Game
             // PausePanel = GetNode<PanelContainer>("PausePanel"); // for some reason works fine
             foreach (var child in GetChild(0).GetChildren())
             {
-                if (!(child is BasePauseMenuPanel panel)) continue;
+                if (!(child is BaseMenuPanel panel)) continue;
                 MenuPanels.Add(panel);
                 panel.MenuParent = this;
             }
@@ -45,11 +46,11 @@ namespace MSG.Script.UI.Game
                 if (!value) return;
                 Camera.CurrentCamera.Reset();
                 NodeRegistry.Get<SelectionBox>().Reset();
-                PausePanelActive = true;
+                IsPanelActive = true;
             }
         }
 
-        public bool PausePanelActive
+        public bool IsPanelActive
         {
             get => PausePanel.Visible;
             set
@@ -62,7 +63,13 @@ namespace MSG.Script.UI.Game
             }
         }
 
-        public BasePauseMenuPanel ActiveMenu { get; internal set; }
+        public BaseMenuPanel ActiveMenu { get; internal set; }
+
+        public void RequestSetActiveMenu(BaseMenuPanel panel)
+        {
+            if (ActiveMenu == null && MenuPanels.Contains(panel))
+                ActiveMenu = panel;
+        }
 
         public void HandleCancelPress()
         {
@@ -73,6 +80,8 @@ namespace MSG.Script.UI.Game
 
         public void ExitToMenu()
         {
+            GetTree().ChangeScene("res://asset/godot-scene/UI/MainMenu/MainMenu.tscn");
+            GetTree().Paused = false;
         }
 
         public void TerminateGame() => GetTree().Quit();

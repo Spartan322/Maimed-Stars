@@ -5,7 +5,7 @@ using SpartansLib.Attributes;
 
 namespace MSG.Script.UI.Settings
 {
-    public class SettingsMenu : BasePauseMenuPanel
+    public class SettingsMenu : BaseMenuPanel
     {
         [Node("VBoxContainer/SettingsTabs/Game")]
         public HBoxContainer GameTab;

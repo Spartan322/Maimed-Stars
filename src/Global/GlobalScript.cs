@@ -11,6 +11,7 @@ namespace MSG.Global
     public class GlobalScript : Control
     {
         public static GlobalScript Singleton { get; private set; }
+        bool _initalized = false;
 
         public delegate void GlobalScriptEvent(GlobalScript global);
 
@@ -40,20 +41,32 @@ namespace MSG.Global
                 //RuntimeHelpers.RunClassConstructor(t.TypeHandle);
                 var inEditor = Engine.EditorHint;
                 foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.Static))
-                foreach (var attrib in m.GetAllAttributesOf<MSGBaseGlobalAttribute>())
-                    attrib.HandleFor(m);
+                    foreach (var attrib in m.GetAllAttributesOf<MSGBaseGlobalAttribute>())
+                        attrib.HandleFor(m);
             }
         }
 
         public override void _Ready()
         {
             PauseMode = PauseModeEnum.Process;
-            Singleton = this;
-            GetTree().Connect("idle_frame", this, nameof(_OnIdleFrame));
+            if (!_initalized)
+                GetTree().Connect("idle_frame", this, nameof(_OnIdleFrame));
             OnReady?.Invoke(this);
+            _initalized = true;
         }
 
-        public GlobalScript() => OnInit?.Invoke(this);
+        public GlobalScript()
+        {
+            if (_initalized) return;
+            Singleton = this;
+            OnInit?.Invoke(this);
+        }
+
+        public GlobalScript(Node parent) : this()
+        {
+            parent.AddChild(this);
+        }
+
         public override void _Draw() => OnDraw?.Invoke(this);
         public override void _EnterTree() => OnEnterTree?.Invoke(this);
         public override void _ExitTree() => OnExitTree?.Invoke(this);

@@ -4,9 +4,9 @@ using MSG.Script.UI.Game;
 
 namespace MSG.Script.UI.Base
 {
-    public class BasePauseMenuPanel : PanelContainer
+    public class BaseMenuPanel : PanelContainer
     {
-        public PauseMenu MenuParent { get; internal set; }
+        public IMenuParent MenuParent { get; internal set; }
 
         public bool Active
         {
@@ -15,19 +15,18 @@ namespace MSG.Script.UI.Base
             {
                 Visible = value;
                 if (!value) return;
-                MenuParent.PausePanelActive = false;
+                MenuParent.IsPanelActive = false;
                 foreach (var panel in MenuParent.MenuPanels.Where(panel => panel != this))
                 {
                     panel.Active = false;
                 }
-
-                MenuParent.ActiveMenu = this;
+                MenuParent.RequestSetActiveMenu(this);
             }
         }
 
         public virtual void HandleCancelPress()
         {
-            MenuParent.PausePanelActive = true;
+            MenuParent.IsPanelActive = true;
         }
     }
 }

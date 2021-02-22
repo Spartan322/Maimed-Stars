@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Godot;
 using MSG.Game;
+using MSG.Global;
 using MSG.Script.World;
 using MSG.Utility;
 using SpartansLib.Attributes;
@@ -46,6 +47,7 @@ namespace MSG.Script.World
 
         public override void _EnterTree()
         {
+            if (GlobalScript.Singleton == null) new GlobalScript(GetViewport());
             ActionSpeed = Settings.InitialActionSpeed;
 
             AddController(Client = new GameNationController(this, new GameNationController.SettingsClass
