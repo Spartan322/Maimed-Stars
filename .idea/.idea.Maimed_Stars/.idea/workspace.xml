@@ -2,18 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb4d3a5f-db58-402d-b524-37980f528bbc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/contentModel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/riderModule.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Script/UI/Base/MenuParent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Maimed_Stars.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Maimed_Stars.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Maimed_Stars.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Maimed_Stars.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpartansLib" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLib.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLib.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/SpartansLibTask.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/SpartansLibTask/SpartansLibTask.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/BaseMenuPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/Base/BaseMenuPanel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/IMenuParent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/PauseMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/Game/PauseMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/MainMenu/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/MainMenu/MainMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/GameUnitSelect.partial.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/Unit/GameUnitSelect.partial.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/World/GameNation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/World/GameNation.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/SpartansLib" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/36/7351cfe1/BindingFlags.cs" root0="SKIP_HIGHLIGHTING" />
@@ -31,6 +28,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/20/3bdb2598/TaskLoggingHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/a6/feb7cb9e/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/28/dc43f22a/Label.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/66/OpCodes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/2B/GenericInstanceMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/37/MethodSpecification.cs" root0="SKIP_HIGHLIGHTING" />
@@ -105,8 +103,9 @@
       <option value="$PROJECT_DIR$/Source/Game/UnitManager.cs" />
       <option value="$PROJECT_DIR$/Source/Game/GameNation.cs" />
       <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" />
       <option value="$PROJECT_DIR$/Maimed_Stars.csproj" />
+      <option value="$PROJECT_DIR$/src/Script/UI/MainMenu/MainMenu.cs" />
+      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1k7DroRbqRufF6p3tRq6Vu2yc4W" />
@@ -153,6 +152,7 @@
       <workItem from="1613523704853" duration="3042000" />
       <workItem from="1613526951783" duration="575000" />
       <workItem from="1613580621816" duration="197000" />
+      <workItem from="1614127005530" duration="7017000" />
     </task>
     <servers />
   </component>

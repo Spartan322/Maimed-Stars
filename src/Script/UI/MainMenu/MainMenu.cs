@@ -2,56 +2,19 @@ using System.Collections.Generic;
 using Godot;
 using MSG.Global;
 using MSG.Script.UI.Base;
+using MSG.Script.UI.Game;
 using MSG.Script.UI.Settings;
 using SpartansLib.Attributes;
 
 namespace MSG.Script.UI.MainMenu
 {
-    public class MainMenu : TextureRect, IMenuParent
+    public class MainMenu : MenuParent
     {
-        [Node("MenuContainer/MenuPanel")] internal PanelContainer MenuPanel;
+        [Node("MenuContainer/MenuPanel")]
+        protected override PanelContainer Panel { get; set; }
 
-        [Node("MenuContainer/SettingsMenu")] SettingsMenu SettingsMenu;
-
-        public List<BaseMenuPanel> _menuPanels = new List<BaseMenuPanel>();
-        public IList<BaseMenuPanel> MenuPanels => _menuPanels;
-        public override void _Ready()
-        {
-            //GD.Print(GetNode(PausePanelPath)?.ToString() ?? "Null"); // for some reason fails
-            // PausePanel = GetNode<PanelContainer>("PausePanel"); // for some reason works fine
-            foreach (var child in GetChild(0).GetChildren())
-            {
-                if (!(child is BaseMenuPanel panel)) continue;
-                MenuPanels.Add(panel);
-                panel.MenuParent = this;
-            }
-        }
-
-        public bool IsPanelActive
-        {
-            get => MenuPanel.Visible;
-            set
-            {
-                MenuPanel.Visible = value;
-                if (!value) return;
-                foreach (var panel in MenuPanels)
-                    panel.Active = false;
-                ActiveMenu = null;
-            }
-        }
-
-        public BaseMenuPanel ActiveMenu { get; internal set; }
-
-        public void RequestSetActiveMenu(BaseMenuPanel panel)
-        {
-            if (ActiveMenu == null && MenuPanels.Contains(panel))
-                ActiveMenu = panel;
-        }
-
-        public void HandleCancelPress()
-        {
-            if (ActiveMenu != null) ActiveMenu.HandleCancelPress();
-        }
+        [Node("MenuContainer/SettingsMenu")]
+        protected override SettingsMenu SettingsMenu { get; set; }
 
         public void TerminateGame() => GetTree().Quit();
 
@@ -81,6 +44,15 @@ namespace MSG.Script.UI.MainMenu
         public void OnQuitPressed()
         {
             TerminateGame();
+        }
+
+        public override void _Input(InputEvent @event)
+        {
+            if (@event.PauseKeyIsJustPressed())
+            {
+                AcceptEvent();
+                HandleCancelPress();
+            }
         }
     }
 }

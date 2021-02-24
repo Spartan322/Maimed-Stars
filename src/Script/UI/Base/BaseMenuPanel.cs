@@ -6,7 +6,7 @@ namespace MSG.Script.UI.Base
 {
     public class BaseMenuPanel : PanelContainer
     {
-        public IMenuParent MenuParent { get; internal set; }
+        public MenuParent MenuParent { get; internal set; }
 
         public bool Active
         {
@@ -16,11 +16,11 @@ namespace MSG.Script.UI.Base
                 Visible = value;
                 if (!value) return;
                 MenuParent.IsPanelActive = false;
-                foreach (var panel in MenuParent.MenuPanels.Where(panel => panel != this))
+                foreach (var panel in MenuParent.Where(panel => panel != this))
                 {
                     panel.Active = false;
                 }
-                MenuParent.RequestSetActiveMenu(this);
+                MenuParent.ActiveMenu = this;
             }
         }
 
