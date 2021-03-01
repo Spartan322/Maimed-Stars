@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Script/Gui/Game/Frontend/SpeedController.cs" type="Script" id=1]
+
+[node name="SpeedController" type="HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 20.0
+alignment = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedLabelButton" type="Button" parent="."]
+margin_right = 80.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 80, 0 )
+focus_mode = 0
+mouse_filter = 1
+size_flags_vertical = 3
+enabled_focus_mode = 0
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedHBox" type="HBoxContainer" parent="SpeedLabelButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedLabel" type="Label" parent="SpeedLabelButton/SpeedHBox"]
+margin_left = 44.0
+margin_top = 3.0
+margin_right = 80.0
+margin_bottom = 17.0
+text = "Temp"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedUpButton" type="Button" parent="."]
+margin_left = 84.0
+margin_right = 104.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+focus_mode = 0
+mouse_filter = 1
+enabled_focus_mode = 0
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpeedDownButton" type="Button" parent="."]
+margin_left = 108.0
+margin_right = 128.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+focus_mode = 0
+mouse_filter = 1
+enabled_focus_mode = 0
+text = "-"
+[connection signal="pressed" from="SpeedLabelButton" to="." method="SpeedLabelButtonPressed"]
+[connection signal="pressed" from="SpeedUpButton" to="." method="SpeedUpButtonPressed"]
+[connection signal="pressed" from="SpeedDownButton" to="." method="SpeedDownButtonPressed"]

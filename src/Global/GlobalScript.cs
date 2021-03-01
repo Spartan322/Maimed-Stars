@@ -7,6 +7,7 @@ using SpartansLib.Extensions;
 
 namespace MSG.Global
 {
+    // TODO: remove reliance on Global namespace
     //[Tool]
     public class GlobalScript : Control
     {
@@ -39,7 +40,7 @@ namespace MSG.Global
                 if (!(t.IsAbstract && t.IsSealed))
                     continue;
                 //RuntimeHelpers.RunClassConstructor(t.TypeHandle);
-                var inEditor = Engine.EditorHint;
+                var inEditor = Godot.Engine.EditorHint;
                 foreach (var m in t.GetMethods(BindingFlags.Public | BindingFlags.Static))
                     foreach (var attrib in m.GetAllAttributesOf<MSGBaseGlobalAttribute>())
                         attrib.HandleFor(m);

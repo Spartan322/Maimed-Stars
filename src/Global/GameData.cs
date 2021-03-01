@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MSG.Game.Unit;
-using MSG.Script.Unit;
-using MSG.Script.UI.Game;
 using SpartansLib;
 using Godot;
+using MSG.Game.Rts.Unit;
+using MSG.Script.Game.Unit;
+using MSG.Script.Gui.Game.Select;
 
 namespace MSG.Global
 {
@@ -13,18 +13,18 @@ namespace MSG.Global
     {
         static GameData()
         {
-            controlGroups = new GameUnit.InternalSelectList[InputHandler.ControlGroupMaxCount];
+            controlGroups = new BaseUnit.InternalSelectList[InputHandler.ControlGroupMaxCount];
         }
 
         #region Control Groups
-        internal static readonly GameUnit.InternalSelectList[] controlGroups; // = new Tuple<BaseButton, IReadOnlyList<UnitAgent>>[];
+        internal static readonly BaseUnit.InternalSelectList[] controlGroups; // = new Tuple<BaseButton, IReadOnlyList<UnitAgent>>[];
 
-        public delegate void ControlGroupChange(GameUnit.InternalSelectList agents, int groupNum);
+        public delegate void ControlGroupChange(BaseUnit.InternalSelectList agents, int groupNum);
 
-        public static GameUnit.InternalSelectList GetControlGroup(int index)
+        public static BaseUnit.InternalSelectList GetControlGroup(int index)
             => controlGroups[index];
 
-        public static IList<GameUnit.InternalSelectList> GetControlGroups()
+        public static IList<BaseUnit.InternalSelectList> GetControlGroups()
             => controlGroups.ToList();
 
         private static Dictionary<int, ControlGroupChange> controlGroupChangeEvents =
@@ -36,7 +36,7 @@ namespace MSG.Global
             else controlGroupChangeEvents[num] += func;
         }
 
-        public static void SetControlGroup(int num, GameUnit.InternalSelectList selectionList)
+        public static void SetControlGroup(int num, BaseUnit.InternalSelectList selectionList)
         {
             if (num < 0 || num >= controlGroups.Length)
                 throw new ArgumentOutOfRangeException(nameof(num));
@@ -46,21 +46,21 @@ namespace MSG.Global
             controlGroupChangeEvents[num]?.Invoke(controlGroups[num], num);
         }
 
-        private static SelectionMenu _selectionMenu = NodeRegistry.Get<SelectionMenu>();
+        private static SelectionDisplay _selectionDisplay = NodeRegistry.Get<SelectionDisplay>();
         public static void TrySelectControlGroup(int num)
         {
             var group = GetControlGroup(num);
             if (group != null)
             {
                 if (!InputHandler.AddControlKeyPressed)
-                    _selectionMenu.Clear();
-                if (group.Count == 1 && group[0] is SelectableGroup selectedGroupUnit)
+                    _selectionDisplay.Clear();
+                if (group.Count == 1 && group[0] is GroupUnit selectedGroupUnit)
                 {
-                    _selectionMenu.Add(selectedGroupUnit);
+                    _selectionDisplay.Add(selectedGroupUnit);
                 }
                 else
                 {
-                    _selectionMenu.AddRange(group);
+                    _selectionDisplay.AddRange(group);
                 }
             }
         }

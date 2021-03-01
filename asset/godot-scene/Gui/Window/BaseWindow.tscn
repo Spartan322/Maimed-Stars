@@ -1,0 +1,110 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Script/Gui/Window/BaseWindow.cs" type="Script" id=1]
+
+[node name="BaseWindow" type="Container"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+Title = "Blank"
+ShouldCenterTitle = true
+HasMinimizeButton = true
+HasMaximizeButton = true
+HasCloseButton = true
+IsMovable = true
+IsResizeable = true
+
+[node name="WindowContainer" type="VBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DecorationBar" type="PanelContainer" parent="WindowContainer"]
+margin_right = 1024.0
+margin_bottom = 34.0
+mouse_filter = 1
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DecorationContent" type="HBoxContainer" parent="WindowContainer/DecorationBar"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 27.0
+size_flags_vertical = 0
+
+[node name="Seperator" type="Control" parent="WindowContainer/DecorationBar/DecorationContent"]
+margin_right = 5.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 1
+
+[node name="TitleLabel" type="Label" parent="WindowContainer/DecorationBar/DecorationContent"]
+margin_left = 458.0
+margin_top = 3.0
+margin_right = 493.0
+margin_bottom = 17.0
+mouse_filter = 1
+size_flags_horizontal = 6
+text = "Blank"
+
+[node name="ButtonList" type="HBoxContainer" parent="WindowContainer/DecorationBar/DecorationContent"]
+margin_left = 946.0
+margin_right = 1010.0
+margin_bottom = 20.0
+size_flags_horizontal = 8
+
+[node name="MinimizeButton" type="Button" parent="WindowContainer/DecorationBar/DecorationContent/ButtonList"]
+margin_right = 17.0
+margin_bottom = 20.0
+focus_mode = 0
+text = "-"
+
+[node name="MaximizeButton" type="Button" parent="WindowContainer/DecorationBar/DecorationContent/ButtonList"]
+margin_left = 21.0
+margin_right = 41.0
+margin_bottom = 20.0
+focus_mode = 0
+text = "0"
+
+[node name="CloseButton" type="Button" parent="WindowContainer/DecorationBar/DecorationContent/ButtonList"]
+margin_left = 45.0
+margin_right = 64.0
+margin_bottom = 20.0
+focus_mode = 0
+text = "x"
+
+[node name="DecorationPanel" type="MarginContainer" parent="WindowContainer"]
+show_behind_parent = true
+margin_top = 38.0
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 1
+size_flags_vertical = 3
+custom_constants/margin_top = -11
+
+[node name="PanelContainer" type="PanelContainer" parent="WindowContainer/DecorationPanel"]
+margin_top = -11.0
+margin_right = 1024.0
+margin_bottom = 562.0
+mouse_filter = 1
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="WindowContainer/DecorationPanel/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1017.0
+margin_bottom = 566.0
+rect_clip_content = true
+mouse_filter = 1

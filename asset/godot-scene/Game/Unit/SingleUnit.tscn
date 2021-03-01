@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/Script/Game/Unit/SingleUnit.cs" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 26.5
+
+[node name="SingleUnit" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="BaseShape" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( 15, 0, -15, -15, -15, 15 )
+
+[node name="Border" type="Polygon2D" parent="."]
+show_behind_parent = true
+color = Color( 0, 0, 0, 0.745098 )
+polygon = PoolVector2Array( 20, 0, -18, 19, -18, -19 )
+
+[node name="SelectionBorder" type="Polygon2D" parent="."]
+visible = false
+show_behind_parent = true
+color = Color( 0.831373, 0.176471, 0.0470588, 0.862745 )
+polygon = PoolVector2Array( 20, 0, -18, 19, -18, -19 )
+
+[node name="SelectionArea" type="Area2D" parent="."]
+monitoring = false
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SelectionArea"]
+polygon = PoolVector2Array( 20, 0, -18, 19, -18, -19 )
+
+[node name="SelectionHighlight" type="Polygon2D" parent="."]
+visible = false
+show_behind_parent = true
+color = Color( 1, 0, 0, 0.745098 )
+polygon = PoolVector2Array( 20, 0, -18, 19, -18, -19 )
+
+[node name="ShipHardCollideArea" type="Area2D" parent="."]
+visible = false
+input_pickable = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="ShipHardCollideShape" type="CollisionShape2D" parent="ShipHardCollideArea"]
+shape = SubResource( 1 )
+
+[node name="ShipSoftCollideArea" type="Area2D" parent="."]
+visible = false
+input_pickable = false
+collision_layer = 8
+collision_mask = 8
+
+[node name="ShipSoftCollideShape" type="CollisionShape2D" parent="ShipSoftCollideArea"]
+shape = SubResource( 2 )

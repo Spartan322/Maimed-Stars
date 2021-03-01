@@ -1,0 +1,41 @@
+[gd_scene format=2]
+
+[node name="GameFrontendMenuBar" type="PanelContainer"]
+margin_left = 949.0
+margin_right = 1024.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 68.0
+margin_bottom = 27.0
+mouse_filter = 2
+custom_constants/separation = 5
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Button2" type="Button" parent="HBoxContainer"]
+margin_left = 17.0
+margin_right = 29.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Button3" type="Button" parent="HBoxContainer"]
+margin_left = 34.0
+margin_right = 46.0
+margin_bottom = 20.0
+mouse_filter = 1
+
+[node name="Padding" type="Control" parent="HBoxContainer"]
+margin_left = 51.0
+margin_right = 61.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 10, 0 )
+mouse_filter = 2

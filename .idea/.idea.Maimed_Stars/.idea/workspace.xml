@@ -2,15 +2,106 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb4d3a5f-db58-402d-b524-37980f528bbc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Script/UI/Base/MenuParent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Maimed_Stars/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Maimed_Stars.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Maimed_Stars.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SpartansLib" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/BaseMenuPanel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/Base/BaseMenuPanel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/IMenuParent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/PauseMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/Game/PauseMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Script/UI/MainMenu/MainMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/MainMenu/MainMenu.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Script/Unit/GameUnitSelect.partial.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/Unit/GameUnitSelect.partial.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Script/World/GameNation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/World/GameNation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SpartansLib/src/Attributes/NodeAttribute.cs" beforeDir="false" afterPath="$PROJECT_DIR$/SpartansLib/src/Attributes/NodeAttribute.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Console.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/GameUI.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Menu/SelectionMenu.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Menu/ShipTemplateMenu.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Segments/GameMenuSegment-TL.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Segments/InfoBar-T.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Segments/MenuSegment-BR.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Segments/MusicBar-TR.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Segments/Outliner.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/Segments/SpeedContainer.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Game/SelectionBox.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/MainMenu/MainMenu.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Menu/MenuRow.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Menu/PauseMenu.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Menu/Setting/RebindDialog.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/Menu/Setting/SettingsPanel.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UI/UI.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/Unit/SelectableGroup.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/Unit/Ship.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/UnitGroup.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/World/GameDomain.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asset/godot-scene/World/GameNation.tscn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.godot" beforeDir="false" afterPath="$PROJECT_DIR$/project.godot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/ArgList.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/BaseCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/BindCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/CommandArguments.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/CommandHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/CompiledCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/ExecCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/GenericCommandInterface.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/HelpCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/ICommandInterface.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/PrintCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/SimClickCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/TerminateGameCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Command/ToggleInterfaceCommand.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GameLogging.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Unit/Formation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Unit/IComparableOverlap.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Unit/IFormationHolder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Rts/Unit/IFormationHolder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Unit/MainSelectList.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Unit/SelectList.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/UnitManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Utility.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Weapon/WeaponBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Weapon/WeaponType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Global/GameData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Global/GameData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Global/GlobalScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Global/GlobalScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Global/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Global/InputHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Base/Arrow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/Base/Arrow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Camera.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/BaseMenuPanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/ControlsMenuRow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/MenuParent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/MenuRow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/StandardButton.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/Base/StandardButton.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Base/TopWindowDecoration.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Script/UI/Base/TopWindowDecoration.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/Console.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/ConsoleFormatHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/ControlGroupButtonList.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/InterfaceCore.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/PauseMenu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/Segement/MusicPanel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/Segement/Outliner.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/Segement/SpeedContainer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/Segement/TopBar.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/SelectionBox.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/SelectionMenu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/SelectionMenuInterface.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/SelectionMenuList.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Game/ShipTemplateMenu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/MainMenu/MainMenu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Settings/RebindPopupDialog.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Settings/SettingsMenu.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UI/Settings/Tab/Controls.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/GameUnit.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/GameUnitMovement.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/GameUnitSelect.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/SelectableGroup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/SelectableGroupList.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/SelectableGroupMovement.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/Ship.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/ShipAim.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/ShipDebug.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/ShipMovement.partial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/Unit/Weapon/DirectorBase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/UnitHolder.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/World/GameDomain.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/World/GameNation.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/World/GameNationController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Script/World/GameWorld.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Settings/ControlSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/SettingsManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Settings/GameSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utility/ISimpleList.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utility/MoveFunc.cs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +109,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/SpartansLib" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/671EF078-4B04-474C-83BB-500A849492F2/36/7351cfe1/BindingFlags.cs" root0="SKIP_HIGHLIGHTING" />
@@ -26,9 +117,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/671EF078-4B04-474C-83BB-500A849492F2/128/RuntimeFieldHandle.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/65EAD0CE-844A-4BD9-91B1-72402E0C0E60/b8/8ed89745/Enumerable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/703F37A6-CC85-4591-BC71-DB65925CD1FF/20/3bdb2598/TaskLoggingHelper.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Utility/CallbackList.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/a6/feb7cb9e/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/InterfaceMarkup/MarkupReader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/181B3D09-D30B-4D83-9837-7B1820FDD680/28/dc43f22a/Label.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/66/OpCodes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/2B/GenericInstanceMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/85B2AFF0-A8DC-426A-9933-640E03BF917F/37/MethodSpecification.cs" root0="SKIP_HIGHLIGHTING" />
@@ -55,57 +147,57 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Source/Utility/CallbackList.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/Camera.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/SingletonAttribute.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/ILHelper.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/InjectionTask.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Injection/GodotInjector.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Class1.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/ParentNodeAttribute.cs" />
-      <option value="$PROJECT_DIR$/Source/Global/GlobalScript.cs" />
-      <option value="$PROJECT_DIR$/Source/InterfaceMarkup/MarkupReader.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/SL.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/SpartansLibAttribute.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/GlobalAttribute.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/Game.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/UI/Game/Segement/SpeedContainer.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Internal/VariableMemberInfo.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/UI/Base/BasePauseMenuPanel.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/UI/Settings/SettingsMenu.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/NodeAttribute.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/Source/Attributes/ConnectAttribute.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/UI/Game/PauseMenu.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/ILHelper.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/Control/Select/ISelectionList.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/Control/Group/IGroup.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/BaseUnitGroup.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/Control/Select/SelectionList.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/BaseUnit.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/UI/Game/SelectionMenu.cs" />
-      <option value="$PROJECT_DIR$/Source/Global/InputHandler.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/Agent/IScriptUnit.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/Agent/SelectableGroup.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/UI/Game/SelectionBox.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/IUnit.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitBaseModule.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitGroupModule.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Nation.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/GameNationController.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/GameWorld.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitMoveModule.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitAimModule.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitDebugModule.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/IUnitController.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitSelectModule.cs" />
-      <option value="$PROJECT_DIR$/Source/Script/Agent/Ship.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/Unit/UnitNationModule.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/UnitManager.cs" />
-      <option value="$PROJECT_DIR$/Source/Game/GameNation.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/InjectionTask.cs" />
-      <option value="$PROJECT_DIR$/Maimed_Stars.csproj" />
       <option value="$PROJECT_DIR$/src/Script/UI/MainMenu/MainMenu.cs" />
-      <option value="$PROJECT_DIR$/SpartansLib/SpartansLibTask/Injection/GodotInjector.cs" />
+      <option value="$PROJECT_DIR$/src/Script/World/GameDomain.cs" />
+      <option value="$PROJECT_DIR$/src/Script/UI/Popup/BasicPopup.cs" />
+      <option value="$PROJECT_DIR$/src/Script/UI/Game/GameInterface.cs" />
+      <option value="$PROJECT_DIR$/src/Script/UI/Base/StandardButton.cs" />
+      <option value="$PROJECT_DIR$/src/Script/UI/Base/ControlsMenuRow.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Unit/IComparableOverlap.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Game/Unit/Ship.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Game/Unit/SelectableGroup.cs" />
+      <option value="$PROJECT_DIR$/src/Engine/SettingsManager.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Rts/Unit/GameUnit.cs" />
+      <option value="$PROJECT_DIR$/src/Script/UI/Base/TopWindowDecoration.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Select/SelectionBox.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Console/Console.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Base/Arrow.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Console/BaseConsole.cs" />
+      <option value="$PROJECT_DIR$/src/Engine/Utility.cs" />
+      <option value="$PROJECT_DIR$/src/Engine/GameMath.cs" />
+      <option value="$PROJECT_DIR$/src/Engine/GameLogger.cs" />
+      <option value="$PROJECT_DIR$/src/Engine/ISimpleList.cs" />
+      <option value="$PROJECT_DIR$/src/Engine/Command/ArgList.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Game/RtsCamera.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Menu/Settings/RebindDialog.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Frontend/GameFrontend.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Frontend/MusicPlayer.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Frontend/SpeedController.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Frontend/InfoPane.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Select/ControlGroupList.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Select/SelectBox.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Game/Select/SelectionDisplay.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Game/World/NationController.cs" />
+      <option value="$PROJECT_DIR$/src/Gui/Menu/MenuParent.cs" />
+      <option value="$PROJECT_DIR$/src/Gui/Menu/ParentPanel.cs" />
+      <option value="$PROJECT_DIR$/src/Gui/Menu/ChildPanel.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/BindKey.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/ExecuteGdscript.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/Help.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/PrintCommand.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/Print.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/SimulateClick.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/Terminate.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Command/ToggleGui.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Rts/Event/DelayData.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Rts/Event/EventContext.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Rts/Unit/BaseUnit.cs" />
+      <option value="$PROJECT_DIR$/src/Game/Rts/Unit/MoveFunctions.cs" />
+      <option value="$PROJECT_DIR$/src/Global/GlobalScript.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Game/Unit/GroupUnit.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Game/Unit/SingleUnit.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Menu/Settings/ControlsTab.cs" />
+      <option value="$PROJECT_DIR$/src/Script/Gui/Menu/Settings/SettingsRow.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1k7DroRbqRufF6p3tRq6Vu2yc4W" />
@@ -115,6 +207,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -124,7 +217,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.C#" />
+    <property name="settings.editor.selected.configurable" value="CodeLensConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -153,6 +246,10 @@
       <workItem from="1613526951783" duration="575000" />
       <workItem from="1613580621816" duration="197000" />
       <workItem from="1614127005530" duration="7017000" />
+      <workItem from="1614147228663" duration="151000" />
+      <workItem from="1614212657433" duration="543000" />
+      <workItem from="1614233617347" duration="13000" />
+      <workItem from="1614287948351" duration="6763000" />
     </task>
     <servers />
   </component>

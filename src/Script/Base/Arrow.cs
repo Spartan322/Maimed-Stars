@@ -1,7 +1,7 @@
 using Godot;
 using SpartansLib.Structure;
 
-namespace MSG.Script.Unit.Weapon
+namespace MSG.Script.Base
 {
     [Tool]
     public class Arrow : Node2D
@@ -83,7 +83,7 @@ namespace MSG.Script.Unit.Weapon
         {
             //DrawLine(new Vector2(0, 0), new Vector2(Length * Mathf.Cos(Rotation), Length * Mathf.Sin(Rotation)), Color, Width, false);
             //DrawLine(new Vector2(0, 0), new Angle(0).ForwardVector()*Length, Colors.Blue, Width, false);
-            if (!EditorOnly || (EditorOnly && Engine.EditorHint))
+            if (!EditorOnly || (EditorOnly && Godot.Engine.EditorHint))
             {
                 var arrowEndLength = new Angle().ForwardVector() * Length;
                 DrawLine(new Vector2(), arrowEndLength, Color, Width, Antialiased);

@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Maimed_Stars"
-run/main_scene="res://asset/godot-scene/UI/MainMenu/MainMenu.tscn"
+run/main_scene="res://asset/godot-scene/Gui/Menu/MainMenu.tscn"
 
 [audio]
 

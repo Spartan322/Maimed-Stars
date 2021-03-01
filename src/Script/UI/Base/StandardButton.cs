@@ -1,5 +1,6 @@
 ﻿namespace MSG.Script.UI.Base
 {
+    //TODO:delete
     public enum StandardButton
     {
         None = -1,

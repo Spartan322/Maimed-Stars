@@ -6,6 +6,7 @@ using SpartansLib.Extensions;
 
 namespace MSG.Script.UI.Base
 {
+    // TODO: delete
     [Tool]
     public class TopWindowDecoration : HBoxContainer
     {
@@ -99,7 +100,7 @@ namespace MSG.Script.UI.Base
             foreach (var b in ButtonList.GetChildren<BaseButton>())
             {
                 b.Connect(Signal.VisibilityChanged, this, nameof(OnButtonVisibilityChanged), i);
-                if (!Engine.EditorHint)
+                if (!Godot.Engine.EditorHint)
                     b.Connect(Signal.Pressed, this, nameof(OnButtonPressedSignal), b, i);
                 i++;
             }
@@ -115,7 +116,7 @@ namespace MSG.Script.UI.Base
             ButtonList?.AddChild(button);
             if (index != null)
                 ButtonList?.MoveChild(button, index.Value);
-            if (!Engine.EditorHint)
+            if (!Godot.Engine.EditorHint)
                 button.Connect(Signal.Pressed, this, nameof(OnButtonPressedSignal), button, -1);
         }
 

@@ -1,10 +1,11 @@
 ﻿using Godot;
-using MSG.Game.Unit;
 using MSG.Global.Attribute;
-using MSG.Script.Unit;
-using MSG.Script.UI.Game;
 using SpartansLib;
 using System.Linq;
+using MSG.Game.Rts.Unit;
+using MSG.Script.Game.Unit;
+using MSG.Script.Game.World;
+using MSG.Script.Gui.Game.Select;
 
 namespace MSG.Global
 {
@@ -95,15 +96,15 @@ namespace MSG.Global
             }
 
             if (e.RightMouseIsPressed() || !addControlPressed && RightMousePressed)
-                _selectionMenu.SelectList.QueueMoveForSelection(MouseWatcher.MouseOriginGlobal, addControlPressed);
+                _selectionDisplay.SelectList.QueueMoveForSelection(MouseWatcher.MouseOriginGlobal, addControlPressed);
 
             if (!e.LeftMouseIsJustReleased()) return;
 
             global.GetFocusOwner()?.ReleaseFocus();
-            var ship = Ship.MouseOverShip;
-            if (!addControlPressed) _selectionMenu.Clear();
+            var ship = SingleUnit.MouseOver;
+            if (!addControlPressed) _selectionDisplay.Clear();
             if (ship != null)
-                _selectionMenu.Add(ship);
+                _selectionDisplay.Add(ship);
         }
 
         public const float CONTROL_GROUP_SET_WAIT_TIME = 0.3f;
@@ -114,14 +115,14 @@ namespace MSG.Global
 
         private static Timer speedChangeTimer = new Timer { Autostart = false, OneShot = true };
 
-        private static SelectionMenu _selectionMenu;
+        private static SelectionDisplay _selectionDisplay;
 
         [Ready]
         public static void OnReady(GlobalScript script)
         {
             script.AddChild(controlGroupTimer);
             script.AddChild(speedChangeTimer);
-            _selectionMenu = NodeRegistry.Get<SelectionMenu>();
+            _selectionDisplay = NodeRegistry.Get<SelectionDisplay>();
         }
 
         [Process]
@@ -143,15 +144,15 @@ namespace MSG.Global
             {
                 if (Mathf.IsZeroApprox(controlGroupTimer.TimeLeft))
                 {
-                    if (_selectionMenu.FocusUnit is SelectableGroup group
-                        && _selectionMenu.SelectList.All(u => group.Contains(u)))
+                    if (_selectionDisplay.FocusUnit is GroupUnit group
+                        && _selectionDisplay.SelectList.All(u => group.Contains(u)))
                     {
                         GameData.SetControlGroup(controlGroupNum,
                             new SelectList() { group });
                     }
                     else
                         GameData.SetControlGroup(controlGroupNum,
-                            new SelectList(_selectionMenu.SelectList));
+                            new SelectList(_selectionDisplay.SelectList));
                     StopTimer();
                 }
                 else if (!pressed)
@@ -194,7 +195,7 @@ namespace MSG.Global
 
         private static void ChangeSpeed(GameSpeedInteraction speed)
         {
-            var domain = NodeRegistry.Get<Script.World.GameDomain>();
+            var domain = NodeRegistry.Get<GameDomain>();
             // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
             switch (speed)
             {
