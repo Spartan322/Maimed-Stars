@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using MSG.Game;
+using MSG.Game.Rts.Event;
 using MSG.Game.Rts.Unit;
 using SpartansLib.Attributes;
 
@@ -23,6 +23,8 @@ namespace MSG.Script.Game.World
         public SettingsClass Settings { get; set; } = new SettingsClass();
 
         public UnitManager UnitManager { get; private set; }
+
+        public EventManager EventManager { get; private set; }
 
         public GameNation() { }
 

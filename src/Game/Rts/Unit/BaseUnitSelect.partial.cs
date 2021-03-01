@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using MSG.Engine;
+using SpartansLib.Structure;
 
 namespace MSG.Game.Rts.Unit
 {
@@ -59,13 +61,14 @@ namespace MSG.Game.Rts.Unit
 
             public void QueueMoveForSelection(Vector2 target, bool queue)
             {
-                // TODO: generate formation?
-                foreach (var unit in this)
-                {
-                    if (MaximumSpeedLimit > 0) unit.MaximumSpeedLimit = MaximumSpeedLimit;
-                    if (!queue) unit.ClearMovementTargets();
-                    unit.MoveTo(target);
-                }
+                if (Formation != null)
+                    Formation.QueueFormationMove(new Offset(target, this.FirstOrDefault()?.Position.AngleToPoint(target) ?? 0), this);
+                else foreach (var unit in this)
+                    {
+                        if (MaximumSpeedLimit > 0) unit.MaximumSpeedLimit = MaximumSpeedLimit;
+                        if (!queue) unit.ClearMovementTargets();
+                        unit.MoveTo(target);
+                    }
             }
 
             public IEnumerator<BaseUnit> GetEnumerator() => _listImplementation.GetEnumerator();
