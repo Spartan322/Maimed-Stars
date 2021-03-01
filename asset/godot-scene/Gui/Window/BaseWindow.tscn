@@ -42,22 +42,16 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 1017.0
 margin_bottom = 27.0
-size_flags_vertical = 0
-
-[node name="Seperator" type="Control" parent="WindowContainer/DecorationBar/DecorationContent"]
-margin_right = 5.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 5, 0 )
-mouse_filter = 1
 
 [node name="TitleLabel" type="Label" parent="WindowContainer/DecorationBar/DecorationContent"]
-margin_left = 458.0
-margin_top = 3.0
-margin_right = 493.0
-margin_bottom = 17.0
+margin_right = 942.0
+margin_bottom = 20.0
 mouse_filter = 1
-size_flags_horizontal = 6
+size_flags_horizontal = 11
+size_flags_vertical = 5
 text = "Blank"
+align = 1
+valign = 1
 
 [node name="ButtonList" type="HBoxContainer" parent="WindowContainer/DecorationBar/DecorationContent"]
 margin_left = 946.0

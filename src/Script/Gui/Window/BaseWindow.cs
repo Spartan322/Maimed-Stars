@@ -32,8 +32,7 @@ namespace MSG.Script.Gui.Window
             {
                 _shouldCenterTitle = value;
                 if (TitleLabel != null)
-                    TitleLabel.SizeFlagsHorizontal =
-                        (int)(value ? SizeFlags.Expand | SizeFlags.ShrinkCenter : SizeFlags.Expand);
+                    TitleLabel.Align = value ? Label.AlignEnum.Center : Label.AlignEnum.Left;
                 Update();
             }
         }
@@ -321,8 +320,8 @@ namespace MSG.Script.Gui.Window
                     if (HasStylebox("panel")) style = GetStylebox("panel");
                     else style = GetStylebox("panel", nameof(PanelContainer));
 
-                    var rect = new Rect2(0, Decoration.RectSize.y - 9, RectSize);
-                    rect = rect.GrowIndividual(DECORATION_MARGIN, 0, DECORATION_MARGIN, -Decoration.RectSize.y + 11);
+                    var rect = new Rect2(0, Decoration.RectSize.y - 5, RectSize);
+                    rect = rect.GrowIndividual(0, 0, DECORATION_MARGIN, -Decoration.RectSize.y + 7);
                     if (style != null)
                     {
                         rect.Size -= style.GetMinimumSize();
@@ -344,12 +343,16 @@ namespace MSG.Script.Gui.Window
             }
         }
 
+        public delegate void OnButtonPressedAction(BaseWindow window, BaseButton button);
+        public event OnButtonPressedAction OnButtonPressed;
+
         [Connect("pressed", "WindowContainer/DecorationBar/DecorationContent/ButtonList/MinimizeButton")]
         [Connect("pressed", "WindowContainer/DecorationBar/DecorationContent/ButtonList/MaximizeButton")]
         [Connect("pressed", "WindowContainer/DecorationBar/DecorationContent/ButtonList/CloseButton")]
         public void _OnButtonPressed(ulong _triggerId)
         {
             var button = (BaseButton)GD.InstanceFromId(_triggerId);
+            OnButtonPressed?.Invoke(this, button);
             switch ((WindowButton)button.GetIndex())
             {
                 case WindowButton.Minimize:

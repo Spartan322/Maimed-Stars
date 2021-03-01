@@ -76,10 +76,10 @@ namespace MSG.Script.Gui.Game.Select
         {
             if (Count == 0)
             {
-                Visible = false;
+                Parent.Visible = false;
                 return;
             }
-            Visible = true;
+            Parent.Visible = true;
             SelectedPanel.Visible = Count > 1;
         }
     }

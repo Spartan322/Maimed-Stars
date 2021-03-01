@@ -4,7 +4,6 @@ using MSG.Gui.Menu;
 using MSG.Script.Game;
 using MSG.Script.Gui.Game.Select;
 using MSG.Script.Gui.Menu.Settings;
-using MSG.Script.UI.Base;
 using SpartansLib;
 using SpartansLib.Attributes;
 using SpartansLib.Structure;
@@ -21,7 +20,7 @@ namespace MSG.Script.Gui.Menu
         [Node("PauseContainer/PausePanel")]
         protected override PanelContainer Panel { get; set; }
 
-        [Node("PauseContainer/SettingsMenu")]
+        [Node("SettingsWindow/SettingsMenu")]
         protected override SettingsMenu SettingsMenu { get; set; }
 
         public bool GamePaused
@@ -101,7 +100,7 @@ namespace MSG.Script.Gui.Menu
         {
             if (@event.PauseKeyIsJustPressed())
             {
-                if (!NodeRegistry.Get<SelectionDisplay>().Visible)
+                if (!NodeRegistry.Get<SelectionDisplay>().Parent.Visible)
                 {
                     AcceptEvent();
                     HandleCancelPress();

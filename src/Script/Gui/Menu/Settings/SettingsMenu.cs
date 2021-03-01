@@ -1,34 +1,37 @@
 using Godot;
 using MSG.Gui.Menu;
-using MSG.Script.UI.Base;
+using MSG.Script.Gui.Window;
 using SpartansLib.Attributes;
+using static MSG.Script.Gui.Window.BaseWindow;
 
 namespace MSG.Script.Gui.Menu.Settings
 {
     public class SettingsMenu : ChildPanel
     {
-        [Node("VBoxContainer/SettingsTabs/Game")]
+        [Node("SettingsTabs/Game")]
         public HBoxContainer GameTab;
 
-        [Node("VBoxContainer/SettingsTabs/Video")]
+        [Node("SettingsTabs/Video")]
         public HBoxContainer VideoTab;
 
-        [Node("VBoxContainer/SettingsTabs/Audio")]
+        [Node("SettingsTabs/Audio")]
         public HBoxContainer AudioTab;
 
-        [Node("VBoxContainer/SettingsTabs/Controls")]
+        [Node("SettingsTabs/Controls")]
         public ControlsTab ControlsTab;
 
-        [Node("VBoxContainer/TopWindowDecoration")]
-        public TopWindowDecoration TopWindowDecoration;
+        [Node("RebindCenter/RebindDialog")]
+        public RebindDialog RebindDialog;
 
-        [Node("RebindCenter/RebindDialog")] public RebindDialog RebindDialog;
+        private BaseWindow _panelControl;
+        public override Control PanelControl => _panelControl;
 
         public override void _Ready()
         {
-            TopWindowDecoration.OnButtonPressed += (sender, args) =>
+            _panelControl = GetParent<BaseWindow>();
+            _panelControl.OnButtonPressed += (window, button) =>
             {
-                if (args.ButtonType.IsExit()) OnExitButtonPressed();
+                if (button.GetIndex() == (int)WindowButton.Close) OnExitButtonPressed();
             };
             ControlsTab.RebindDialog = RebindDialog;
         }

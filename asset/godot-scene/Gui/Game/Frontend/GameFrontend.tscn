@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Script/Gui/Game/Frontend/GameFrontend.cs" type="Script" id=1]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/MusicPlayer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://asset/godot-scene/Gui/Window/BaseWindow.tscn" type="PackedScene" id=3]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/GameFrontendLeftBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/InfoPane.tscn" type="PackedScene" id=6]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/Outliner.tscn" type="PackedScene" id=7]
@@ -18,7 +19,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BottomVContainer" type="VBoxContainer" parent="."]
+[node name="MainInterface" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -26,43 +27,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TopVContainer" type="VBoxContainer" parent="BottomVContainer"]
+[node name="TopVContainer" type="VBoxContainer" parent="MainInterface"]
 margin_right = 1024.0
 margin_bottom = 562.0
 mouse_filter = 2
 size_flags_vertical = 3
 custom_constants/separation = -2
 
-[node name="InfoPane" parent="BottomVContainer/TopVContainer" instance=ExtResource( 6 )]
+[node name="InfoPane" parent="MainInterface/TopVContainer" instance=ExtResource( 6 )]
 
-[node name="LeftHContainer" type="HBoxContainer" parent="BottomVContainer/TopVContainer"]
+[node name="LeftHContainer" type="HBoxContainer" parent="MainInterface/TopVContainer"]
 margin_top = 32.0
 margin_right = 1024.0
 margin_bottom = 162.0
 mouse_filter = 2
 
-[node name="GameFrontendLeftBar" parent="BottomVContainer/TopVContainer/LeftHContainer" instance=ExtResource( 5 )]
+[node name="GameFrontendLeftBar" parent="MainInterface/TopVContainer/LeftHContainer" instance=ExtResource( 5 )]
 
-[node name="MusicPlayer" parent="BottomVContainer/TopVContainer/LeftHContainer" instance=ExtResource( 2 )]
+[node name="MusicPlayer" parent="MainInterface/TopVContainer/LeftHContainer" instance=ExtResource( 2 )]
 margin_left = 990.0
 margin_right = 1024.0
 size_flags_horizontal = 10
 size_flags_vertical = 0
 
-[node name="Outliner" parent="BottomVContainer/TopVContainer" instance=ExtResource( 7 )]
+[node name="Outliner" parent="MainInterface/TopVContainer" instance=ExtResource( 7 )]
 margin_left = 1004.0
 margin_top = 160.0
 margin_right = 1024.0
 margin_bottom = 562.0
 Toggle = false
 
-[node name="BottomHContainer" type="HBoxContainer" parent="BottomVContainer"]
+[node name="BottomHContainer" type="HBoxContainer" parent="MainInterface"]
 margin_top = 566.0
 margin_right = 1024.0
 margin_bottom = 600.0
 mouse_filter = 2
 
-[node name="BottomLeftMargin" type="MarginContainer" parent="BottomVContainer/BottomHContainer"]
+[node name="BottomLeftMargin" type="MarginContainer" parent="MainInterface/BottomHContainer"]
 margin_right = 945.0
 margin_bottom = 34.0
 mouse_filter = 2
@@ -71,7 +72,7 @@ custom_constants/margin_top = 7
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 7
 
-[node name="ControlGroupButtonList" type="HBoxContainer" parent="BottomVContainer/BottomHContainer/BottomLeftMargin"]
+[node name="ControlGroupButtonList" type="HBoxContainer" parent="MainInterface/BottomHContainer/BottomLeftMargin"]
 margin_left = 5.0
 margin_top = 7.0
 margin_right = 945.0
@@ -81,7 +82,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GameFrontendMenuBar" parent="BottomVContainer/BottomHContainer" instance=ExtResource( 9 )]
+[node name="GameFrontendMenuBar" parent="MainInterface/BottomHContainer" instance=ExtResource( 9 )]
 
 [node name="GameMenuList" type="Control" parent="."]
 anchor_right = 1.0
@@ -91,13 +92,138 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectionDisplay" parent="GameMenuList" instance=ExtResource( 8 )]
+[node name="TutorialWindow" parent="GameMenuList" instance=ExtResource( 3 )]
 visible = false
-margin_left = -320.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 57.9564
+margin_top = 55.4365
+margin_right = 441.956
+margin_bottom = 300.437
+Title = "Tutorial"
+HasMaximizeButton = false
 
-[node name="ShipTemplateMenu" parent="GameMenuList" instance=ExtResource( 10 )]
+[node name="TextEdit" type="RichTextLabel" parent="GameMenuList/TutorialWindow"]
+margin_left = 7.0
+margin_top = 36.0
+margin_right = 379.0
+margin_bottom = 240.0
+focus_mode = 2
+bbcode_enabled = true
+bbcode_text = "Camera Movement:
+	* Middle Mouse Click and Drag
+	
+	* Arrow Keys
+	
+	* Mouse nears the screen edge (if Edge Scrolling enabled, found in the settings menu under the control tab)
+	
+	* Zoom the camera by scrolling the middle mouse
+	
+Selecting Units:
+	* To select a single unit, you can either click on the unit or drag over it with the selection box
+	
+	* To use the selection box, just hold the left mouse button until you see a box following you mouse
+	
+	* To select multiple units, you can drag over them with the selection box
+	
+	* To add units to your current selection at any time, just hold shift and click on the unit or drag the selection box over the units
+	
+	* To deselect units, you can click the x button on the selection menu, click an empty space, or drag the selection box over nothing
+	
+Moving Units:
+	* To move units, right the location you wish to send them to
+	
+	* To chain move commands together, hold shift before you right click
+	
+Creating Unit Groups:
+	* To create a unit group, you just need to select multiple units at once, name them in the selection box name window where it says `Group Name` and then click the + button
+
+Deleting Units:
+	* To delete a unit, whether a group or ship, just click the X button when selecting the specific unit or group
+	
+Creating Control Groups:
+	* Control Groups are distinct from unit groups, as they don't require managing a unit group, but allow you to select a unit (being a ship or unit group) or collection of units with the keypad or by clicking on the number button at the bottom left of the screen
+	
+	* To create a control group, select the unit or units you wish to make a control group and hold down the number key you wish to assign the control group to, you may reselect the group either by pressing the respective number or by clicking the number at the bottom left
+	
+Activate Console:
+	* If in need, the console can be shown at any time by using the backtick or ` key, type help to see a list of all available commands, you can click the command you wish to run, you may also autocomplete commands by using tab, tap the backtick key again to hide the console
+	
+
+"
+text = "Camera Movement:
+	* Middle Mouse Click and Drag
+	
+	* Arrow Keys
+	
+	* Mouse nears the screen edge (if Edge Scrolling enabled, found in the settings menu under the control tab)
+	
+	* Zoom the camera by scrolling the middle mouse
+	
+Selecting Units:
+	* To select a single unit, you can either click on the unit or drag over it with the selection box
+	
+	* To use the selection box, just hold the left mouse button until you see a box following you mouse
+	
+	* To select multiple units, you can drag over them with the selection box
+	
+	* To add units to your current selection at any time, just hold shift and click on the unit or drag the selection box over the units
+	
+	* To deselect units, you can click the x button on the selection menu, click an empty space, or drag the selection box over nothing
+	
+Moving Units:
+	* To move units, right the location you wish to send them to
+	
+	* To chain move commands together, hold shift before you right click
+	
+Creating Unit Groups:
+	* To create a unit group, you just need to select multiple units at once, name them in the selection box name window where it says `Group Name` and then click the + button
+
+Deleting Units:
+	* To delete a unit, whether a group or ship, just click the X button when selecting the specific unit or group
+	
+Creating Control Groups:
+	* Control Groups are distinct from unit groups, as they don't require managing a unit group, but allow you to select a unit (being a ship or unit group) or collection of units with the keypad or by clicking on the number button at the bottom left of the screen
+	
+	* To create a control group, select the unit or units you wish to make a control group and hold down the number key you wish to assign the control group to, you may reselect the group either by pressing the respective number or by clicking the number at the bottom left
+	
+Activate Console:
+	* If in need, the console can be shown at any time by using the backtick or ` key, type help to see a list of all available commands, you can click the command you wish to run, you may also autocomplete commands by using tab, tap the backtick key again to hide the console
+	
+
+"
+selection_enabled = true
+
+[node name="SelectionDisplayWindow" parent="GameMenuList" instance=ExtResource( 3 )]
 visible = false
-margin_left = 172.0
-margin_top = 45.0
-margin_right = -172.0
-margin_bottom = -45.0
+anchor_top = 1.0
+anchor_right = 0.0
+margin_left = 20.0
+margin_top = -174.0
+margin_right = 420.0
+margin_bottom = -25.0
+Title = "Selection"
+HasMinimizeButton = false
+HasMaximizeButton = false
+
+[node name="SelectionDisplay" parent="GameMenuList/SelectionDisplayWindow" instance=ExtResource( 8 )]
+margin_left = 7.0
+margin_top = 36.0
+margin_right = 395.0
+margin_bottom = 144.0
+
+[node name="ShipDesignerWindow" parent="GameMenuList" instance=ExtResource( 3 )]
+visible = false
+margin_left = 107.0
+margin_top = 40.0
+margin_right = -107.0
+margin_bottom = -20.0
+Title = "Ship Designer"
+
+[node name="ShipTemplateMenu" parent="GameMenuList/ShipDesignerWindow" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 7.0
+margin_top = 36.0
+margin_right = 805.0
+margin_bottom = 535.0

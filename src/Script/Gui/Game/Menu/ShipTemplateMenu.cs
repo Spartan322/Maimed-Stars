@@ -1,5 +1,6 @@
 using Godot;
-using MSG.Script.UI.Base;
+using MSG.Script.Gui.Window;
+using static MSG.Script.Gui.Window.BaseWindow;
 
 namespace MSG.Script.Gui.Game.Menu
 {
@@ -17,8 +18,7 @@ namespace MSG.Script.Gui.Game.Menu
         [Export] public NodePath ClassListVBoxPath;
         public VBoxContainer ClassListVBox;
 
-        [Export] public NodePath TopWindowDecorationPath;
-        public TopWindowDecoration TopWindowDecoration;
+        private BaseWindow _parent;
 
         public override void _Ready()
         {
@@ -26,10 +26,10 @@ namespace MSG.Script.Gui.Game.Menu
             SpecificationVBox = GetNode<VBoxContainer>(SpecificationVBoxPath);
             ShipClassEdit = GetNode<LineEdit>(ShipClassEditPath);
             ClassListVBox = GetNode<VBoxContainer>(ClassListVBoxPath);
-            TopWindowDecoration = GetNode<TopWindowDecoration>(TopWindowDecorationPath);
-            TopWindowDecoration.OnButtonPressed += (decor, args) =>
+            _parent = GetParent<BaseWindow>();
+            _parent.OnButtonPressed += (window, button) =>
             {
-                if (args.ButtonType.IsExit()) OnQuitButtonPressed();
+                if (button.GetIndex() == (int)WindowButton.Close) OnQuitButtonPressed();
             };
         }
 

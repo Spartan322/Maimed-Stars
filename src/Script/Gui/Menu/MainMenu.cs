@@ -4,7 +4,6 @@ using MSG.Gui.Menu;
 using MSG.Script.Gui.Console;
 using MSG.Script.Gui.Menu.Settings;
 using MSG.Script.Gui.Window;
-using MSG.Script.UI.Base;
 using SpartansLib;
 using SpartansLib.Attributes;
 
@@ -15,7 +14,7 @@ namespace MSG.Script.Gui.Menu
         [Node("MenuContainer/MenuPanel")]
         protected override PanelContainer Panel { get; set; }
 
-        [Node("MenuContainer/SettingsMenu")]
+        [Node("SettingsWindow/SettingsMenu")]
         protected override SettingsMenu SettingsMenu { get; set; }
 
         public override void _EnterTree()

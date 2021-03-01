@@ -3,16 +3,18 @@ using Godot;
 
 namespace MSG.Gui.Menu
 {
-    public class ChildPanel : PanelContainer
+    public abstract class ChildPanel : Control
     {
         public ParentPanel MenuParent { get; internal set; }
 
+        public abstract Control PanelControl { get; }
+
         public bool Active
         {
-            get => Visible;
+            get => PanelControl.Visible;
             set
             {
-                Visible = value;
+                PanelControl.Visible = value;
                 if (!value) return;
                 MenuParent.IsPanelActive = false;
                 foreach (var panel in MenuParent.Where(panel => panel != this))

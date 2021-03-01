@@ -15,7 +15,7 @@ namespace MSG.Script.Gui.Game.Frontend
         public override void _Ready()
         {
             if (!GetTree().HasMeta("ActivateTutorial")) return;
-            var popup = GameMenuList.GetNode<BaseWindow>("TutorialPopup");
+            GameMenuList.GetNode<BaseWindow>("TutorialWindow").Visible = true;
             // popup.TextLabel.Text = "Tutorial";
             // popup.Popup_();
         }

@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using Godot;
 using MSG.Game.Rts.Unit;
 using MSG.Global;
-using MSG.Script.UI.Base;
+using MSG.Script.Gui.Window;
 using SpartansLib.Attributes;
+using static MSG.Script.Gui.Window.BaseWindow;
 
 namespace MSG.Script.Gui.Game.Select
 {
@@ -11,26 +12,23 @@ namespace MSG.Script.Gui.Game.Select
     public partial class SelectionDisplay : VBoxContainer, IReadOnlyList<BaseUnit>
     {
         #region Nodes
-        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/Name")]
+        [Node("TitleHList/Name")]
         public LineEdit NameLineEdit;
 
-        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/AcceptButton")]
+        [Node("TitleHList/AcceptButton")]
         public Button AcceptButton;
 
-        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/SubtitlePanel/Subtitle")]
+        [Node("SubtitlePanel/Subtitle")]
         public RichTextLabel SubtitleNode;
 
-        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList")]
+        [Node("SelectedPanel/SelectMargin/SelectedList")]
         public ItemList SelectedItemList;
 
-        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel")]
+        [Node("SelectedPanel")]
         public Control SelectedPanel;
 
-        [Node("SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/DeleteButton")]
+        [Node("TitleHList/DeleteButton")]
         public Button DeleteButton;
-
-        [Node("SelectionPanel/VBoxContainer/TopWindowDecoration")]
-        public TopWindowDecoration TopWindowDecoration;
         #endregion
 
         #region Exports
@@ -66,16 +64,18 @@ namespace MSG.Script.Gui.Game.Select
         public int SelectedCount => GetSelectedIndices().Count;
         #endregion
 
+        internal BaseWindow Parent;
         public override void _Ready()
         {
+            Parent = GetParent<BaseWindow>();
             SelectList.OnSelectListChanged += _OnSelectListChanged;
             SelectList.OnSelectListPostChanged += _OnSelectListPostChanged;
             SelectList.OnFocusUnitChanged += _OnFocusUnitChanged;
             _OnFocusUnitChanged(SelectList, FocusUnit);
             SelectList.OnFocusUnitNameChange += _OnFocusUnitNameChange;
-            TopWindowDecoration.OnButtonPressed += (sender, args) =>
+            Parent.OnButtonPressed += (Window, button) =>
             {
-                if (args.ButtonType.IsExit()) OnQuitButtonPressed();
+                if (button.GetIndex() == (int)WindowButton.Close) OnQuitButtonPressed();
             };
         }
 
@@ -84,7 +84,7 @@ namespace MSG.Script.Gui.Game.Select
             switch (what)
             {
                 case NotificationVisibilityChanged: // Optimize when not visible
-                    if (!Visible)
+                    if (!Parent.Visible)
                     {
                         ReleaseFocus();
                         if (FocusUnit == null && Count > 0)
@@ -97,10 +97,10 @@ namespace MSG.Script.Gui.Game.Select
 
         public override void _Input(InputEvent e)
         {
-            Visible &= !e.PauseKeyIsJustPressed();
+            Parent.Visible &= !e.PauseKeyIsJustPressed();
 
             if (e.UiNextFocusKeyIsJustPressed()
-                && Visible
+                && Parent.Visible
                 && !NameLineEdit.HasFocus())
                 NameLineEdit.GrabFocus();
 
@@ -108,7 +108,7 @@ namespace MSG.Script.Gui.Game.Select
                 OnDestroyButtonPressed();
         }
 
-        [Connect("item_activated", "SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList")]
+        [Connect("item_activated", "SelectedPanel/SelectMargin/SelectedList")]
         public void OnSelectedListItemActivated(int index)
         {
             (IList<BaseUnit> list, BaseUnit unit) temp = (null, null);
@@ -121,11 +121,11 @@ namespace MSG.Script.Gui.Game.Select
             ignoreMouseInput |= InputHandler.MouseActionPressed;
         }
 
-        [Connect("item_rmb_selected", "SelectionPanel/VBoxContainer/TopMargin/VList/SelectedPanel/SelectMargin/SelectedList")]
+        [Connect("item_rmb_selected", "SelectedPanel/SelectMargin/SelectedList")]
         public void OnSelectedListRmbSelected(int index, Vector2 click)
             => Remove(this[index]);
 
-        [Connect("button_up", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/AcceptButton")]
+        [Connect("button_up", "TitleHList/AcceptButton")]
         public void OnAcceptButtonUp()
         {
             switch (Count)
@@ -144,7 +144,7 @@ namespace MSG.Script.Gui.Game.Select
             NameLineEdit.ReleaseFocus();
         }
 
-        [Connect("pressed", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/DeleteButton")]
+        [Connect("pressed", "TitleHList/DeleteButton")]
         public void OnDestroyButtonPressed()
         {
             var delete = FocusUnit;
@@ -154,10 +154,10 @@ namespace MSG.Script.Gui.Game.Select
             delete.QueueFree();
         }
 
-        [Connect("text_entered", "SelectionPanel/VBoxContainer/TopMargin/VList/TitleHList/Name")]
+        [Connect("text_entered", "TitleHList/Name")]
         public void OnNameTextEntered(string newText) => OnAcceptButtonUp();
 
-        public void OnQuitButtonPressed() => Visible = false;
+        public void OnQuitButtonPressed() => Parent.Visible = false;
 
         private static bool ignoreMouseInput;
         public static void HandleTopLevelInput(GlobalScript global, InputEvent @event)

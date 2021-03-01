@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Godot;
 using MSG.Script.Gui.Menu.Settings;
+using MSG.Script.Gui.Window;
+using SpartansLib.Common;
 
 namespace MSG.Gui.Menu
 {
@@ -15,9 +17,11 @@ namespace MSG.Gui.Menu
         {
             //GD.Print(GetNode(PausePanelPath)?.ToString() ?? "Null"); // for some reason fails
             // PausePanel = GetNode<PanelContainer>("PausePanel"); // for some reason works fine
-            foreach (var child in GetChild(0).GetChildren())
+            foreach (var child in this.GetChildren<Node>())
             {
-                if (!(child is ChildPanel panel)) continue;
+                if (!(child is BaseWindow window)) continue;
+                var panel = window.Content as ChildPanel;
+                if (panel == null) continue;
                 Add(panel);
                 panel.MenuParent = this;
             }
