@@ -2,8 +2,6 @@ using System.Collections;
 using Godot;
 using Godot.Collections;
 using MSG.Engine;
-using MSG.Global;
-using MSG.Script.Gui.Menu;
 using SpartansLib.Extensions;
 
 namespace MSG.Script.Game
@@ -48,7 +46,7 @@ namespace MSG.Script.Game
             {InputPanDirection.Down, "game_cam_move_down"}
         };
 
-        public readonly BitArray PanDirection = new BitArray((int) InputPanDirection.Max);
+        public readonly BitArray PanDirection = new BitArray((int)InputPanDirection.Max);
 
         public enum InputZoomDirection
         {
@@ -63,7 +61,7 @@ namespace MSG.Script.Game
             {InputZoomDirection.Outward, "game_cam_zoom_out"}
         };
 
-        public readonly BitArray ZoomDirection = new BitArray((int) InputZoomDirection.Max);
+        public readonly BitArray ZoomDirection = new BitArray((int)InputZoomDirection.Max);
 
         public override void _PhysicsProcess(float delta)
         {
@@ -83,10 +81,11 @@ namespace MSG.Script.Game
                 PanDirection.GetFloat(InputPanDirection.Down) - PanDirection.GetFloat(InputPanDirection.Up)
             );
             var vpSize = GetViewportRect().Size;
+            var mouseOriginLocal = GetViewport().GetMousePosition();
             if (SettingsManager.EdgeScroll)
             {
-                var uscroll = MouseWatcher.MouseOriginLocal - EdgePanMargin;
-                var lscroll = MouseWatcher.MouseOriginLocal - (vpSize - EdgePanMargin);
+                var uscroll = mouseOriginLocal - EdgePanMargin;
+                var lscroll = mouseOriginLocal - (vpSize - EdgePanMargin);
                 input += ((uscroll - uscroll.Abs()) / 2 / EdgePanMargin)
                          + ((lscroll + lscroll.Abs()) / 2 / EdgePanMargin);
             }
@@ -96,7 +95,7 @@ namespace MSG.Script.Game
 
             var nzoom = Zoom.LinearInterpolate(Vector2.One * ZoomFactor, ZoomSpeed * delta);
             if (nzoom < Zoom)
-                Position = Position + (-0.5f * vpSize + MouseWatcher.MouseOriginLocal) * (Zoom - nzoom);
+                Position = Position + (-0.5f * vpSize + mouseOriginLocal) * (Zoom - nzoom);
             Zoom = nzoom;
         }
 
@@ -116,10 +115,13 @@ namespace MSG.Script.Game
                 ZoomFactor = Mathf.Clamp(ZoomFactor + zoomDelta / ZoomStep * ZoomSpeed, ZoomLimits.x, ZoomLimits.y);
         }
 
+        private Vector2 _prevMouseOriginLocal;
         private void HandleDragPanInput(InputEvent @event)
         {
-            if (InputHandler.MiddleMousePressed)
-                Position += (MouseWatcher.PrevMouseOriginLocal - MouseWatcher.MouseOriginLocal) * Zoom;
+            var mouseOriginLocal = GetViewport().GetMousePosition();
+            if (InputManager.MiddleMousePressed)
+                Position += (_prevMouseOriginLocal - mouseOriginLocal) * Zoom;
+            _prevMouseOriginLocal = mouseOriginLocal;
         }
 
         public override void _Input(InputEvent @event)
@@ -127,12 +129,11 @@ namespace MSG.Script.Game
             if (Input.IsActionJustPressed("game_option_scroll_edge"))
                 SettingsManager.EdgeScroll = !SettingsManager.EdgeScroll;
             // prevents edit focus from overriding camera panning
-            if (!PauseMenu.FocusOwnerExist)
-                HandlePanInput();
         }
 
         public override void _UnhandledInput(InputEvent @event)
         {
+            HandlePanInput();
             HandleZoomInput();
             HandleDragPanInput(@event);
         }

@@ -24,6 +24,12 @@ namespace MSG.Script.Game.World
             EmptyNation = new GameNation(this);
         }
 
+        public override void _ExitTree()
+        {
+            EmptyNation.QueueFree();
+            EmptyNation = null;
+        }
+
         private void _onNationSet(GameNation nation)
         {
             nation.World = this;

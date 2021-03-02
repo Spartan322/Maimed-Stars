@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using MSG.Engine;
 using MSG.Game.Rts.Unit;
 using MSG.Global;
 using MSG.Script.Gui.Window;
@@ -118,7 +119,7 @@ namespace MSG.Script.Gui.Game.Select
             SelectedItemList.Clear();
             if (temp.unit != null) Add(temp.unit);
             else AddRange(temp.list);
-            ignoreMouseInput |= InputHandler.MouseActionPressed;
+            ignoreMouseInput |= InputManager.MouseActionPressed;
         }
 
         [Connect("item_rmb_selected", "SelectedPanel/SelectMargin/SelectedList")]

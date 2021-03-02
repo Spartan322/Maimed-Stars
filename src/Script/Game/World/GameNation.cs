@@ -3,6 +3,8 @@ using System.Linq;
 using Godot;
 using MSG.Game.Rts.Event;
 using MSG.Game.Rts.Unit;
+using MSG.Game.Rts.World;
+using MSG.Script.Game.World.Location;
 using SpartansLib.Attributes;
 
 namespace MSG.Script.Game.World
@@ -21,6 +23,9 @@ namespace MSG.Script.Game.World
         public GameWorld World { get; internal set; }
 
         public SettingsClass Settings { get; set; } = new SettingsClass();
+
+        public PlanetLocation CapitalPlanet { get; private set; }
+        public PlanetLocation HomePlanet { get; private set; }
 
         public UnitManager UnitManager { get; private set; }
 

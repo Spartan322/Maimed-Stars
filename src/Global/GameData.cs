@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using SpartansLib;
-using Godot;
 using MSG.Game.Rts.Unit;
 using MSG.Script.Game.Unit;
 using MSG.Script.Gui.Game.Select;
+using MSG.Engine;
 
 namespace MSG.Global
 {
@@ -52,7 +52,7 @@ namespace MSG.Global
             var group = GetControlGroup(num);
             if (group != null)
             {
-                if (!InputHandler.AddControlKeyPressed)
+                if (!InputManager.AddControlKeyPressed)
                     _selectionDisplay.Clear();
                 if (group.Count == 1 && group[0] is GroupUnit selectedGroupUnit)
                 {

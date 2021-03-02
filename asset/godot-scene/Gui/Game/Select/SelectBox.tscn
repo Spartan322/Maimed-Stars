@@ -8,6 +8,7 @@ extents = Vector2( 1, 1 )
 [node name="SelectBox" type="Control"]
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

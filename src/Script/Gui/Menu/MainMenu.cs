@@ -1,10 +1,8 @@
 using Godot;
-using MSG.Global;
+using MSG.Engine;
 using MSG.Gui.Menu;
-using MSG.Script.Gui.Console;
 using MSG.Script.Gui.Menu.Settings;
 using MSG.Script.Gui.Window;
-using SpartansLib;
 using SpartansLib.Attributes;
 
 namespace MSG.Script.Gui.Menu

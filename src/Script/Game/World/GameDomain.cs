@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using MSG.Engine;
+using MSG.Game.Rts.World;
 using MSG.Global;
 using MSG.Script.Gui.Menu;
 using SpartansLib.Attributes;

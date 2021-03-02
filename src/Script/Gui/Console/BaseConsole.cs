@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using MSG.Engine;
 using MSG.Engine.Command;
 using MSG.Game.Gui;
-using MSG.Global;
-using SpartansLib;
 using SpartansLib.Attributes;
-using SpartansLib.Extensions;
 using SpartansLib.Structure;
 
 namespace MSG.Script.Gui.Console
@@ -69,8 +67,8 @@ namespace MSG.Script.Gui.Console
                 if (_parent.Visible) ConsoleLine.CallDeferred("grab_focus");
             }
 
-            if (focusOwner == ConsoleLine && InputHandler.LeftMouseJustPressed &&
-                !GetRect().Grow(4).HasPoint(MouseWatcher.MouseOriginLocal))
+            if (focusOwner == ConsoleLine && InputManager.LeftMouseJustPressed &&
+                !GetRect().Grow(4).HasPoint(GetViewport().GetMousePosition()))
                 ConsoleLine.ReleaseFocus();
         }
 

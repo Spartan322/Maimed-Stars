@@ -1,6 +1,7 @@
-namespace MSG.Script.Game.World
-{
+using MSG.Script.Game.World;
 
+namespace MSG.Game.Rts.World
+{
     public class NationController
     {
         public class SettingsClass

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using MSG.Engine;
 using MSG.Game.Rts.Unit;
-using MSG.Global;
 using MSG.Script.Game.World;
 using MSG.Script.Gui.Game.Select;
 using SpartansLib;
@@ -79,7 +79,7 @@ namespace MSG.Script.Game.Unit
             if (_selectionDisplay == null) _selectionDisplay = NodeRegistry.Get<SelectionDisplay>();
             if (@event.LeftMouseIsJustPressed())
             {
-                if (!InputHandler.AddControlKeyPressed) _selectionDisplay.Clear();
+                if (!InputManager.AddControlKeyPressed) _selectionDisplay.Clear();
                 _selectionDisplay.Add(this);
                 InfoPanel.AcceptEvent();
             }

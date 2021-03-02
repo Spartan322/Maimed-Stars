@@ -61,6 +61,7 @@ namespace MSG.Game.Rts.Unit
 
             public void QueueMoveForSelection(Vector2 target, bool queue)
             {
+                // TODO: properly queue formation movement, and handle formation max speed limit
                 if (Formation != null)
                     Formation.QueueFormationMove(new Offset(target, this.FirstOrDefault()?.Position.AngleToPoint(target) ?? 0), this);
                 else foreach (var unit in this)

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
+using MSG.Engine;
 using MSG.Game.Rts.Unit;
-using MSG.Global;
 using SpartansLib;
 using SpartansLib.Attributes;
 using SpartansLib.Extensions;
@@ -100,7 +100,7 @@ namespace MSG.Script.Gui.Game.Select
         public override void _PhysicsProcess(float delta)
         {
             if (Godot.Engine.EditorHint || GetTree().IsInputHandled() && !IsActivelySelecting) return;
-            selectGlobal.End = MouseWatcher.MouseOriginGlobal;
+            selectGlobal.End = GetGlobalMousePosition();
             Visible = HasValidSelectionArea;
             UpdateRect();
         }
@@ -109,7 +109,7 @@ namespace MSG.Script.Gui.Game.Select
         {
             if (@event.LeftMouseIsJustPressed())
             {
-                selectGlobal.Position = MouseWatcher.MouseOriginGlobal;
+                selectGlobal.Position = GetGlobalMousePosition();
                 IsActivelySelecting = true;
             }
             else if (IsActivelySelecting && @event.LeftMouseIsJustReleased())
@@ -122,7 +122,7 @@ namespace MSG.Script.Gui.Game.Select
                     return;
                 }
 
-                if (!InputHandler.AddControlKeyPressed)
+                if (!InputManager.AddControlKeyPressed)
                     _selectionDisplay.Clear();
                 if (_areaSelected.Count > 0)
                     _selectionDisplay.AddRange(_areaSelected);
