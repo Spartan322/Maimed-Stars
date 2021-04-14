@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Script/Gui/Game/Frontend/GameFrontend.cs" type="Script" id=1]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/MusicPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://asset/godot-scene/Gui/Window/BaseWindow.tscn" type="PackedScene" id=3]
+[ext_resource path="res://asset/godot-scene/Gui/Game/Select/ControlGroupButtonList.tscn" type="PackedScene" id=4]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/GameFrontendLeftBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/InfoPane.tscn" type="PackedScene" id=6]
 [ext_resource path="res://asset/godot-scene/Gui/Game/Frontend/Outliner.tscn" type="PackedScene" id=7]
@@ -72,15 +73,7 @@ custom_constants/margin_top = 7
 custom_constants/margin_left = 5
 custom_constants/margin_bottom = 7
 
-[node name="ControlGroupButtonList" type="HBoxContainer" parent="MainInterface/BottomHContainer/BottomLeftMargin"]
-margin_left = 5.0
-margin_top = 7.0
-margin_right = 945.0
-margin_bottom = 27.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="ControlGroupButtonList" parent="MainInterface/BottomHContainer/BottomLeftMargin" instance=ExtResource( 4 )]
 
 [node name="GameFrontendMenuBar" parent="MainInterface/BottomHContainer" instance=ExtResource( 9 )]
 
@@ -107,7 +100,7 @@ HasMaximizeButton = false
 margin_left = 7.0
 margin_top = 36.0
 margin_right = 379.0
-margin_bottom = 240.0
+margin_bottom = 240.001
 focus_mode = 2
 bbcode_enabled = true
 bbcode_text = "Camera Movement:

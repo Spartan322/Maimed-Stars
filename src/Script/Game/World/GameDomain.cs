@@ -1,10 +1,13 @@
+using System;
 using System.Collections.Generic;
 using Godot;
+using MSG.Engine.Command;
 using MSG.Engine;
 using MSG.Game.Rts.World;
 using MSG.Global;
 using MSG.Script.Gui.Menu;
 using SpartansLib.Attributes;
+using SpartansLib.Extensions;
 
 namespace MSG.Script.Game.World
 {
@@ -25,8 +28,8 @@ namespace MSG.Script.Game.World
         public NationController Client { get; private set; }
 
         public delegate void GameDomainChangeAction<in T>(GameDomain domain, T arg);
-
         public event GameDomainChangeAction<float> OnGameSpeedChange;
+        public event GameDomainChangeAction<bool> OnDebugModeChange;
 
         private List<NationController> _controllers = new List<NationController>();
 
@@ -44,6 +47,12 @@ namespace MSG.Script.Game.World
         }
 
         public bool IsActionPause => GameMath.IsZeroApprox(ActionSpeed);
+
+        public bool DebugMode
+        {
+            get => (bool)ProjectSettings.GetSetting("extra_settings/game_settings/debug_mode");
+            set => ProjectSettings.SetSetting("extra_settings/game_settings/debug_mode", value);
+        }
 
         public override void _EnterTree()
         {
@@ -67,6 +76,12 @@ namespace MSG.Script.Game.World
         {
             var consoleWindow = ((Node)GetTree().GetMeta("ConsoleWindow"));
             consoleWindow.GetParent().RemoveChild(consoleWindow);
+        }
+
+        public override void _UnhandledInput(InputEvent @event)
+        {
+            if (OS.IsDebugBuild() && Input.IsActionJustPressed("debug_enable_debug_mode"))
+                OnDebugModeChange?.Invoke(this, DebugMode = !DebugMode);
         }
 
         public void AddActionSpeed(int steps = 1)

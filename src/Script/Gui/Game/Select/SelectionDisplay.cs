@@ -109,6 +109,27 @@ namespace MSG.Script.Gui.Game.Select
                 OnDestroyButtonPressed();
         }
 
+        public override void _UnhandledInput(InputEvent e)
+        {
+            var addControlPressed = InputManager.AddControlKeyPressed;
+
+            if (e.SelectAllShipsKeyIsJustPressed())
+            {
+                // TODO: replace SelectionHandler with SelectionMenu's UnitSelectList
+            }
+
+            if (e.RightMouseIsPressed() || !addControlPressed && InputManager.RightMousePressed)
+                SelectList.QueueMoveForSelection(GetGlobalMousePosition(), addControlPressed);
+
+            if (!e.LeftMouseIsJustReleased()) return;
+
+            GetFocusOwner()?.ReleaseFocus();
+            var ship = Script.Game.Unit.SingleUnit.MouseOver;
+            if (!addControlPressed) Clear();
+            if (ship != null)
+                Add(ship);
+        }
+
         [Connect("item_activated", "SelectedPanel/SelectMargin/SelectedList")]
         public void OnSelectedListItemActivated(int index)
         {

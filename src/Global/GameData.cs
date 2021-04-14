@@ -13,7 +13,7 @@ namespace MSG.Global
     {
         static GameData()
         {
-            controlGroups = new BaseUnit.InternalSelectList[InputHandler.ControlGroupMaxCount];
+            controlGroups = new BaseUnit.InternalSelectList[NodeRegistry.Get<ControlGroupButtonList>().ControlGroupMaxCount];
         }
 
         #region Control Groups

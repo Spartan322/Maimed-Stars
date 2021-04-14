@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SpartansLib;
 using SpartansLib.Extensions;
+using MSG.Script.Game.World;
 
 namespace MSG.Engine.Command
 {
@@ -10,39 +11,57 @@ namespace MSG.Engine.Command
     {
     }
 
-    public static class CommandHandler
+    public interface ICommandManager
     {
-        static CommandHandler()
+        ICommandInterface Owner { get; }
+        void RegisterCommand(BaseCommand command);
+        BaseCommand GetCommand(string name);
+        IList<BaseCommand> GetAllCommands();
+        BaseCommand ExecuteCommand(ICommandInterface cmdInterface, ArgList argList);
+        IList<ArgList> GenerateCommandList(string input);
+    }
+
+    public class CommandManager : ICommandManager
+    {
+        public ICommandInterface Owner { get; }
+
+        public CommandManager(ICommandInterface cmdDomain)
         {
+            Owner = cmdDomain;
             foreach (var t in typeof(BaseCommand).Assembly.GetExportedTypes())
             {
-                if (t.IsSubclassOf(typeof(BaseCommand))
-                    && !t.HasAttribute<ManualCommandAttribute>())
-                {
-                    var ctors = t.GetConstructors();
-                    if (ctors.Length < 2 && ctors[0].GetParameters().Length < 1)
-                        RegisterCommand((BaseCommand)Activator.CreateInstance(t));
-                }
+                if (!t.IsSubclassOf(typeof(BaseCommand)) || t.HasAttribute<ManualCommandAttribute>())
+                    continue;
+                var ctors = t.GetConstructors();
+                if (ctors.Length != 1) continue;
+
+                var parameters = ctors[0].GetParameters();
+                if (parameters.Length != 1 || parameters[0].ParameterType != typeof(ICommandManager))
+                    continue;
+
+                RegisterCommand((BaseCommand)Activator.CreateInstance(t, this));
             }
         }
 
-        private static readonly Dictionary<string, BaseCommand> commands = new Dictionary<string, BaseCommand>();
+        private readonly Dictionary<string, BaseCommand> commands = new Dictionary<string, BaseCommand>();
 
-        public static void RegisterCommand(BaseCommand command)
+        public void RegisterCommand(BaseCommand command)
         {
             if (commands.ContainsKey(command.Name))
                 throw new ArgumentException($"Command name '{command.Name}' already registered.", nameof(command));
             commands[command.Name] = command;
         }
 
-        public static BaseCommand GetCommand(string name)
+        public BaseCommand GetCommand(string name)
         {
+            Godot.GD.Print(name);
+            Godot.GD.Print(commands.Count);
             if (commands.TryGetValue(name, out var cmd))
                 return cmd;
             return null;
         }
 
-        public static List<BaseCommand> GetAllCommands()
+        public IList<BaseCommand> GetAllCommands()
             => commands.Values.ToList();
 
         const string COMMAND_SEP = ";";
@@ -51,7 +70,7 @@ namespace MSG.Engine.Command
         const string QUOTE = "\"";
         const string BACKSLASH = "\\";
 
-        public static List<ArgList> GenerateCommandList(string input)
+        public IList<ArgList> GenerateCommandList(string input)
         {
             if (!input.ContainsAny(QUOTE + BACKSLASH + COMMAND_SEP))
             {
@@ -81,7 +100,7 @@ namespace MSG.Engine.Command
             return result;
         }
 
-        public static BaseCommand ExecuteCommand(ICommandInterface cmdInterface, ArgList argList)
+        public BaseCommand ExecuteCommand(ICommandInterface cmdInterface, ArgList argList)
         {
             var cmd = GetCommand(argList[0]);
             if (cmd == null)

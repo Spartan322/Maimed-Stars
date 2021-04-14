@@ -15,6 +15,8 @@ namespace MSG.Game.Command
                 (ArgType.String, "statement", "The line statement to execute in GDScript. Can delimit executions using \" but all executions need to be escaped by \\.")
             };
 
+        public ExecuteGdscript(ICommandManager commandManager) : base(commandManager) { }
+
         protected override void Execute(ICommandInterface console, ArgList arguments)
         {
             //HACK: resort to using Godot Modules instead, results in debug error breaking

@@ -73,35 +73,45 @@ custom_constants/separation = 8
 [node name="StartButton" type="Button" parent="MenuContainer/MenuPanel/HBoxContainer/VBoxContainer/ButtonList"]
 margin_right = 263.0
 margin_bottom = 35.0
+focus_mode = 0
 custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
 text = "Start"
 
 [node name="LoadButton" type="Button" parent="MenuContainer/MenuPanel/HBoxContainer/VBoxContainer/ButtonList"]
 margin_top = 43.0
 margin_right = 263.0
 margin_bottom = 78.0
+focus_mode = 0
 custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
 text = "Load"
 
 [node name="TutorialButton" type="Button" parent="MenuContainer/MenuPanel/HBoxContainer/VBoxContainer/ButtonList"]
 margin_top = 86.0
 margin_right = 263.0
 margin_bottom = 121.0
+focus_mode = 0
 custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
 text = "Tutorial"
 
 [node name="SettingsButton" type="Button" parent="MenuContainer/MenuPanel/HBoxContainer/VBoxContainer/ButtonList"]
 margin_top = 129.0
 margin_right = 263.0
 margin_bottom = 164.0
+focus_mode = 0
 custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="MenuContainer/MenuPanel/HBoxContainer/VBoxContainer/ButtonList"]
 margin_top = 172.0
 margin_right = 263.0
 margin_bottom = 207.0
+focus_mode = 0
 custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
 text = "Quit"
 
 [node name="Sep3" type="Control" parent="MenuContainer/MenuPanel/HBoxContainer/VBoxContainer"]

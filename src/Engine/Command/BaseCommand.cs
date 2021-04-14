@@ -2,10 +2,11 @@
 using Godot;
 using SpartansLib.Extensions;
 using SpartansLib.Structure;
+using MSG.Script.Game.World;
 
 namespace MSG.Engine.Command
 {
-    public abstract class BaseCommand
+    public abstract class BaseCommand : Reference
     {
         public event Action<CommandArguments> OnExecute;
 
@@ -17,6 +18,12 @@ namespace MSG.Engine.Command
 
         public virtual Color NameBaseColor { get; } = ColorExt.FromRGB8(0xff_ff_66);
         public virtual Color TypeBaseColor { get; } = ColorExt.FromRGB8(0x4e_bd_c9);
+
+        protected ICommandManager CommandManager;
+        protected BaseCommand(ICommandManager commandManager)
+        {
+            CommandManager = commandManager;
+        }
 
         public virtual CompiledCommand GetCompiledCommand(ArgList args)
         {
@@ -35,7 +42,7 @@ namespace MSG.Engine.Command
         {
             var typeStr = type.ToString();
             if (typeStr.Contains(","))
-                typeStr = typeStr.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                typeStr = typeStr.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                     .JoinString($"[/color] or[color=#{TypeBaseColor.ToHtml()}]");
             return typeStr;
         }

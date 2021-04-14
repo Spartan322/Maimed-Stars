@@ -5,14 +5,13 @@ using Object = Godot.Object;
 
 namespace MSG.Engine.Command
 {
-    public class GenericCommandInterface<T> : ICommandInterface
-        where T : Node
+    public class GenericCommandInterface : ICommandInterface
     {
-        public T Node;
+        public ICommandManager CommandManager;
 
-        public GenericCommandInterface(T node)
+        public GenericCommandInterface(ICommandManager commandManager)
         {
-            Node = node;
+            CommandManager = commandManager;
         }
 
         public event Action<CommandArguments> OnExecute;
@@ -29,12 +28,12 @@ namespace MSG.Engine.Command
 
         public Error Connect(string signal, Object target, string method, Array binds = null,
             uint flags = 0)
-            => Node.Connect(signal, target, method, binds, flags);
+            => CommandManager.Owner.GetParent().Connect(signal, target, method, binds, flags);
 
         public void Execute(string input)
         {
-            foreach (var argList in CommandHandler.GenerateCommandList(input))
-                if (CommandHandler.ExecuteCommand(this, argList) == null)
+            foreach (var argList in CommandManager.GenerateCommandList(input))
+                if (CommandManager.ExecuteCommand(this, argList) == null)
                     PrintLine("Command Unknown.");
         }
 
@@ -45,8 +44,8 @@ namespace MSG.Engine.Command
 
         public string GetHistory(int index) => null;
 
-        public Node GetParent() => Node.GetParent();
-        public SceneTree GetTree() => Node.GetTree();
+        public Node GetParent() => CommandManager.Owner.GetParent();
+        public SceneTree GetTree() => CommandManager.Owner.GetParent().GetTree();
 
         public void Print(string str)
             => GD.Print(str);

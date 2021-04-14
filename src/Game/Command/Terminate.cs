@@ -14,16 +14,18 @@ namespace MSG.Game.Command
                 (ArgType.Float, "WaitTime", "Optional wait time in seconds.")
             };
 
-        private TerminateTimer termTimer = new TerminateTimer();
+        private TerminateTimer _terminateTimer = new TerminateTimer();
+
+        public Terminate(ICommandManager commandManager) : base(commandManager) { }
 
         protected override void Execute(ICommandInterface console, ArgList arguments)
         {
-            if (termTimer.GetParent() == null)
-                console.CastTo<Node>().AddChild(termTimer);
+            if (_terminateTimer.GetParent() == null)
+                console.CastTo<Node>().AddChild(_terminateTimer);
             var arg1 = arguments.GetAs<float>(1);
             if (arg1 != null)
-                termTimer.Start(arg1.Value);
-            else termTimer.Start(Mathf.Epsilon);
+                _terminateTimer.Start(arg1.Value);
+            else _terminateTimer.Start(Mathf.Epsilon);
             console.PrintLine($"Shutting Down game{(arg1 != null ? $" in {arg1} seconds." : ".")}");
         }
 

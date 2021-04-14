@@ -5,6 +5,7 @@ using Godot;
 using MSG.Engine;
 using MSG.Engine.Command;
 using MSG.Game.Gui;
+using MSG.Script.Game.World;
 using SpartansLib.Attributes;
 using SpartansLib.Structure;
 
@@ -34,19 +35,30 @@ namespace MSG.Script.Gui.Console
         [Node("ConsoleContainer")]
         public VBoxContainer ConsoleContainer;
 
+        [Signal]
+        public delegate void UnhandledInput(InputEvent @event);
+
+        private ICommandManager _commandManager;
+
         private Control _parent;
-        private Rect2 defaultRect;
-        private readonly Queue<string> history = new Queue<string>();
+        private Rect2 _defaultRect;
+        private readonly Queue<string> _history = new Queue<string>();
 
         public override void _Ready()
         {
+            _commandManager = new CommandManager(this);
             _parent = GetParent<Control>();
-            defaultRect = _parent.GetGlobalRect();
+            _defaultRect = _parent.GetGlobalRect();
 
             var v = Godot.Engine.GetVersionInfo();
             PrintLine(ProjectSettings.GetSetting("application/config/name")
-                      + $" (Godot {v["major"]}.{v["minor"]}.{v["patch"]} {v["status"]})\n"
-                      + $"Type {CommandHandler.GetCommand("help").FormatName()} to get more information about usage");
+                    + $" (Godot {v["major"]}.{v["minor"]}.{v["patch"]} {v["status"]})\n"
+                    + $"Type {_commandManager.GetCommand("help").FormatName()} to get more information about usage");
+        }
+
+        public override void _UnhandledInput(InputEvent @event)
+        {
+            EmitSignal(nameof(UnhandledInput), @event);
         }
 
         #region Console Implementation
@@ -76,8 +88,8 @@ namespace MSG.Script.Gui.Console
         {
             if (what == NotificationVisibilityChanged)
             {
-                _parent.RectGlobalPosition = defaultRect.Position;
-                _parent.RectSize = defaultRect.Size;
+                _parent.RectGlobalPosition = _defaultRect.Position;
+                _parent.RectSize = _defaultRect.Size;
             }
         }
         #endregion
@@ -157,16 +169,16 @@ namespace MSG.Script.Gui.Console
 
         public void AddHistory(string input)
         {
-            if (history.Count == MaxHistorySize)
-                history.Dequeue();
-            history.Enqueue(input);
+            if (_history.Count == MaxHistorySize)
+                _history.Dequeue();
+            _history.Enqueue(input);
         }
 
         public string GetHistory(int index)
         {
-            if (index < 0 || index > history.Count) return "";
-            if (index == history.Count - 1) return history.Peek();
-            return history.ElementAt(history.Count - 1 - index);
+            if (index < 0 || index > _history.Count) return "";
+            if (index == _history.Count - 1) return _history.Peek();
+            return _history.ElementAt(_history.Count - 1 - index);
         }
 
         [Connect("text_entered", "ConsoleContainer/VBoxContainer/ConsoleLine")]
@@ -184,8 +196,8 @@ namespace MSG.Script.Gui.Console
         public void Execute(string input)
         {
             PrintLine($"[color=#{CommandColor.ToHtml()}]{ExecutionLineIndicator}[/color]{input}");
-            foreach (var argList in CommandHandler.GenerateCommandList(input))
-                if (CommandHandler.ExecuteCommand(this, argList) == null)
+            foreach (var argList in _commandManager.GenerateCommandList(input))
+                if (_commandManager.ExecuteCommand(this, argList) == null)
                     PrintLine("Command Unknown.");
         }
 
@@ -201,7 +213,7 @@ namespace MSG.Script.Gui.Console
         {
             var prevHistoryIndex = currentHistoryIndex;
             if (e.IsActionPressed("ui_up"))
-                currentHistoryIndex = Mathf.Min(++currentHistoryIndex, history.Count - 1);
+                currentHistoryIndex = Mathf.Min(++currentHistoryIndex, _history.Count - 1);
             if (e.IsActionPressed("ui_down"))
                 currentHistoryIndex = Mathf.Max(--currentHistoryIndex, -1);
 
@@ -220,7 +232,7 @@ namespace MSG.Script.Gui.Console
         public string TryFindNearestCommandNameFor(string input)
         {
             if (input == null) input = "";
-            var cmd = CommandHandler.GetAllCommands().FirstOrDefault(pair =>
+            var cmd = _commandManager.GetAllCommands().FirstOrDefault(pair =>
                 pair.Name.StartsWith(input, StringComparison.CurrentCultureIgnoreCase));
             if (cmd?.Name != null)
                 return cmd.Name;

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Script/Gui/Game/Select/ControlGroupButtonList.cs" type="Script" id=1]
+
+[node name="ControlGroupButtonList" type="HBoxContainer"]
+margin_left = 5.0
+margin_top = 7.0
+margin_right = 945.0
+margin_bottom = 27.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -12,9 +12,9 @@ namespace MSG.Script.Game.Unit
             Uppercase = true,
             Valign = Label.VAlign.Center,
             Align = Label.AlignEnum.Center,
-            RectPosition = -(_debugLabelRectSize/2),
+            RectPosition = -(_debugLabelRectSize / 2),
             RectSize = _debugLabelRectSize,
-            RectPivotOffset = _debugLabelRectSize/2
+            RectPivotOffset = _debugLabelRectSize / 2
         };
 
         private readonly Label _debugLabel = (Label)_debugLabelTemplate.Duplicate();
@@ -24,8 +24,8 @@ namespace MSG.Script.Game.Unit
 
         private void _HandeDebugReady()
         {
-            _debugLabel.Visible = Global.DebugHandler.DebugMode;
-            Global.DebugHandler.DebugModeModified += (global, debugMode)
+            _debugLabel.Visible = Nation.World.Domain.DebugMode;
+            Nation.World.Domain.OnDebugModeChange += (global, debugMode)
                 => _debugLabel.Visible = debugMode;
             AddChild(_debugLabel);
 

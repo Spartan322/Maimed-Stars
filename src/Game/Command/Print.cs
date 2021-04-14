@@ -14,6 +14,8 @@ namespace MSG.Game.Command
                 (ArgType.String, "statement", "The text to print to the console.")
             };
 
+        public Print(ICommandManager commandManager) : base(commandManager) { }
+
         protected override void Execute(ICommandInterface console, ArgList arguments)
         {
             string print = arguments.FullExecution.Remove(0, Name.Length + 1);

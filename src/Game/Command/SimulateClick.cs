@@ -15,6 +15,8 @@ namespace MSG.Game.Command
                 (ArgType.Long, "ID", "The control to click.")
             };
 
+        public SimulateClick(ICommandManager commandManager) : base(commandManager) { }
+
         public override CompiledCommand GetCompiledCommand(ArgList args)
         {
             var cc = new CompiledCommand<Control>();
@@ -22,18 +24,17 @@ namespace MSG.Game.Command
             if (id != null && GD.InstanceFromId(id.Value) is Control ctrl)
             {
                 cc.Args = ctrl;
-                cc.OnInvoke += (s, control) =>
+                cc.OnInvoke += (d, control) =>
                 {
                     var dummyInput = new InputEventMouseButton
                     {
-                        Position = ctrl.RectGlobalPosition,
+                        Position = control.RectGlobalPosition,
                         ButtonIndex = (int)ButtonList.Left,
                         Pressed = true
                     };
                     Input.ParseInputEvent(dummyInput);
                     dummyInput.Pressed = false;
                     Input.ParseInputEvent(dummyInput);
-                    s.GrabFocus();
                 };
                 return cc;
             }

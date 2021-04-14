@@ -1,5 +1,6 @@
 ﻿using System;
 using MSG.Global;
+using MSG.Script.Game.World;
 
 namespace MSG.Engine.Command
 {
@@ -7,32 +8,33 @@ namespace MSG.Engine.Command
     {
         public static readonly CompiledCommand Empty = new CompiledCommand();
         public readonly bool IsEmpty;
-        public virtual object Argument { get; set; }
+        public virtual object Arguments { get; set; }
 
         public CompiledCommand(bool empty = true)
         {
             IsEmpty = empty;
         }
 
-        public virtual void Invoke(GlobalScript script)
+        public virtual void Invoke(ICommandManager commandManager)
         {
         }
     }
 
     public sealed class CompiledCommandFilled : CompiledCommand
     {
-        public event Action<GlobalScript> OnInvoke;
+        public event Action<ICommandManager> OnInvoke;
 
         public CompiledCommandFilled() : base(false)
         {
         }
 
-        public override void Invoke(GlobalScript script) => OnInvoke?.Invoke(script);
+        public override void Invoke(ICommandManager commandManager)
+            => OnInvoke?.Invoke(commandManager);
     }
 
     public sealed class CompiledCommand<T> : CompiledCommand
     {
-        public event Action<GlobalScript, T> OnInvoke;
+        public event Action<ICommandManager, T> OnInvoke;
 
         public CompiledCommand() : base(false)
         {
@@ -40,15 +42,15 @@ namespace MSG.Engine.Command
 
         public T Args;
 
-        public override object Argument
+        public override object Arguments
         {
             get => Args;
-            set => Args = (T) value;
+            set => Args = (T)value;
         }
 
-        public override void Invoke(GlobalScript script)
+        public override void Invoke(ICommandManager commandManager)
         {
-            OnInvoke?.Invoke(script, Args);
+            OnInvoke?.Invoke(commandManager, Args);
         }
     }
 }
